@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 import { Recipient } from '../Recipient';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-addingpatient',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './addingpatient.component.html',
   styleUrl: './addingpatient.component.css',
 })

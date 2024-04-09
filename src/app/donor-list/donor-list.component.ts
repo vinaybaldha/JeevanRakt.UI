@@ -17,6 +17,17 @@ export class DonorListComponent implements OnInit {
   bloodGroup: any;
   title = '';
 
+  // Store the selected donor for editing
+  selectedDonor: Donor = {
+    donorId: '',
+    donorName: '',
+    donorBloodType: '',
+    donorGender: '',
+    donorContactNumber: '',
+    donorAge: 0,
+    donorAddress: '',
+  };
+
   constructor(private donorService: DonorService) {}
 
   ngOnInit(): void {
@@ -41,5 +52,30 @@ export class DonorListComponent implements OnInit {
     //     )
     //   );
     // }
+  }
+
+  editDonor(donor: Donor) {
+    this.selectedDonor = { ...donor };
+  }
+
+  saveEditedDonor() {
+    this.donorService.updateDonor(this.selectedDonor).subscribe(() => {
+      this.reloadData();
+      this.selectedDonor = {
+        donorId: '',
+        donorName: '',
+        donorBloodType: '',
+        donorGender: '',
+        donorContactNumber: '',
+        donorAge: 0,
+        donorAddress: '',
+      };
+    });
+  }
+
+  deleteDonor(donor: Donor) {
+    this.donorService.deleteDonor(donor.donorId).subscribe(() => {
+      this.reloadData();
+    });
   }
 }

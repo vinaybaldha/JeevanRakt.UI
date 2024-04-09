@@ -1,173 +1,74 @@
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Volkhov:ital,wght@1,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Mate+SC&display=swap");
-
-.sidebar-container {
-  position: fixed;
-  width: 240px;
-  height: 100%;
-  left: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background: #1a1a1a;
-  color: #fff;
-}
-.sidebar-text {
-  font-size: small;
-}
-.content-container {
-  padding-top: 20px;
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
 }
 
-.sidebar-logo {
-  padding: 10px 15px 10px 30px;
-  font-size: 20px;
-  text-align: right;
-  background-color: #13534e;
-  width: 100%;
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.sidebar-navigation {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-  position: relative;
+h2.textual {
+  display: flex;
+  align-items: center;
+  font-size: 24px;
+  color: #333;
 }
 
-.sidebar-navigation li {
-  background-color: transparent;
-  position: relative;
-  display: inline-block;
-  width: 100%;
-  font-size: larger;
-  line-height: 20px;
-  padding: 20px 15px 30px 20px;
-  display: block;
-  margin-top: 8%;
-  transition: transform 0.2s;
-  color: #fff;
-  -webkit-transition: background-color 1s ease-out;
-  -moz-transition: background-color 1s ease-out;
-  -o-transition: background-color 1s ease-out;
-  transition: background-color 1s ease-out;
-}
-.sidebar-navigation li:hover {
-  background-color: #13584f;
-  transform: scale(1.1);
-  cursor: pointer;
-}
-
-.sidebar-navigation li .fa {
+h2.textual i {
   margin-right: 10px;
+  color: red;
 }
 
-.sidebar-navigation li a:active,
-.sidebar-navigation li a:hover,
-.sidebar-navigation li a:focus {
-  text-decoration: none;
-  outline: none;
+.form-group {
+  margin-bottom: 20px;
 }
 
-.sidebar-navigation li::before {
-  background-color: #13584f;
-  content: "";
-  height: 100%;
-  left: 0;
-  top: 0;
-  -webkit-transition: width 0.2s ease-in;
-  transition: width 0.2s ease-in;
-  width: 3px;
-  z-index: -1;
+label {
+  font-weight: bold;
 }
 
-.sidebar-navigation li:hover::before {
+input[type="text"],
+input[type="number"],
+select {
   width: 100%;
-}
-
-.sidebar-navigation .header {
-  font-size: 12px;
-  text-transform: uppercase;
-  background-color: #151515;
-  padding: 10px 15px 10px 30px;
-}
-
-.sidebar-navigation .header::before {
-  background-color: transparent;
-}
-
-.content-container {
-  padding-left: 220px;
-  margin-left: 240px;
-  height: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   box-sizing: border-box;
 }
-.container {
-  max-width: 700px;
-  padding: 40px 40px 25px 40px;
-  border-radius: 10px;
-  box-shadow: 5px 5px 35px 8px rgb(147, 158, 147);
-  border-top: 8px solid rgb(23, 78, 78);
-  background-color: white;
-  margin-bottom: 20px;
-  margin: 0 auto;
-}
-input {
-  border-radius: 12px;
-  margin-top: 8px;
-}
-.textual {
-  color: rgb(64, 85, 15);
-  text-align: center;
-  margin-top: -20px;
-  font-family: "Mate SC", serif;
-  padding: 5px;
-  font-weight: bolder;
-  font-size: medium;
-  text-transform: uppercase;
-}
-label {
-  margin-top: 10px;
-  font-family: "Volkhov", serif;
-  letter-spacing: 0px;
-  font-size: medium;
-}
-.registerbtn {
-  background-color: transparent;
-  padding-left: 8%;
-  padding-right: 8%;
-  margin: auto;
-  padding-bottom: 7px;
-  border-radius: 15px;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: black;
-  border: 1px solid black;
-  margin: 20px auto;
-}
-.registerbtn:hover {
-  background-color: rgb(23, 78, 78);
-  padding-left: 7%;
-  padding-right: 7%;
+
+select {
   cursor: pointer;
-  color: white;
 }
-.logoutbtn {
+
+.text-danger {
+  color: red;
+}
+
+.text-gray {
+  color: gray;
+  font-size: 12px;
+}
+
+.btn.registerbtn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
   border: none;
-  background: transparent;
-  color: rgb(18, 85, 57);
-  border-radius: 15px;
-  margin-left: 90%;
-  margin-top: 2%;
-  border: 1px solid black;
-  padding: 7px 10px 7px 10px;
-  font-size: small;
-}
-.logoutbtn:hover {
+  border-radius: 4px;
   cursor: pointer;
-  background-color: #23ad9b;
-  color: white;
-  padding: 7px 8px 7px 8px;
-  border-radius: 15px;
+}
+
+.btn.registerbtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }

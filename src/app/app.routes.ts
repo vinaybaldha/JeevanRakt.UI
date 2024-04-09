@@ -2,9 +2,13 @@ import { Routes } from '@angular/router';
 import { AddingdonorComponent } from './addingdonor/addingdonor.component';
 import { DonorListComponent } from './donor-list/donor-list.component';
 import { AddingpatientComponent } from './addingpatient/addingpatient.component';
+import { HomeComponent } from './home/home.component';
+import { RecipientListComponent } from './recipient-list/recipient-list.component';
 
 export const routes: Routes = [
-  { path: 'addDonor', component: AddingdonorComponent },
+  { path: 'add-donor', component: AddingdonorComponent },
   { path: 'donor-list', component: DonorListComponent },
-  { path: 'addRecipient', component: AddingpatientComponent },
+  { path: 'add-recipient', component: AddingpatientComponent },
+  { path: '', component: HomeComponent },
+  { path: 'recipient-list', component: RecipientListComponent },
 ];

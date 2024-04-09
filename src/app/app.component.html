@@ -1,1 +1,27 @@
-<router-outlet></router-outlet>
+<div class="container">
+  <div class="sidebar">
+    <h2>Navigation</h2>
+    <ul>
+      <li>
+        <a [routerLink]="'./add-donor'" routerLinkActive="active">Add Donor</a>
+      </li>
+      <li>
+        <a [routerLink]="'./add-recipient'" routerLinkActive="active"
+          >Add Recipient</a
+        >
+      </li>
+      <li>
+        <a [routerLink]="'/donor-list'" routerLinkActive="active">Donor List</a>
+      </li>
+      <li>
+        <a [routerLink]="'/recipient-list'" routerLinkActive="active"
+          >Recipient List</a
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <!-- Content of each section will be rendered here based on selected route -->
+    <router-outlet></router-outlet>
+  </div>
+</div>

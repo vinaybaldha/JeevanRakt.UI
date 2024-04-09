@@ -55,9 +55,13 @@ export class DonorService {
   //   return this._http.get(`${NAV_URL}/profileDetails/` + loggedUser);
   // }
 
-  // public UpdateUserProfile(user: any): Observable<any> {
-  //   return this._http.put<any>(`${NAV_URL}/updateuser`, user);
-  // }
+  public updateDonor(donor: any): Observable<any> {
+    return this._http.put<any>(`${NAV_URL}/Donors/${donor.donorId}`, donor);
+  }
+
+  public deleteDonor(id: string): Observable<any> {
+    return this._http.delete<any>(`${NAV_URL}/Donors/${id}`);
+  }
 
   // public acceptRequestForBlood(loggedUser: string): Observable<any> {
   //   return this._http.get(`${NAV_URL}/acceptstatus/` + loggedUser);

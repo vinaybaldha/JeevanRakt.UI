@@ -1,0 +1,67 @@
+<div class="sidebar-logo">
+  <div class="welcometxt">
+    <b>{{ title }}</b>
+  </div>
+  <input
+    class="form-control"
+    id="searchtxt"
+    type="text"
+    name="bloodGroup"
+    [(ngModel)]="bloodGroup"
+    placeholder="Search via blood group..."
+    (ngModelChange)="search()"
+  />
+</div>
+
+<div class="row">
+  <div
+    *ngFor="let recipient of recipients | async"
+    class="col-4 card"
+    id="bloodCards"
+  >
+    <div class="image-container">
+      <img
+        *ngIf="recipient.recipientGender.toLowerCase() === 'male'"
+        class="bloodimg"
+        [src]="'assets/img/male.png'"
+        width="120"
+        height="120"
+      />
+      <img
+        *ngIf="recipient.recipientGender.toLowerCase() === 'female'"
+        class="bloodimg"
+        [src]="'assets/img/female.png'"
+        width="120"
+        height="120"
+      />
+    </div>
+    <div class="card-block">
+      <div class="text">
+        <b>Recipient Name:</b>
+        <span class="element">{{ recipient.recipientName }}</span>
+      </div>
+      <div class="text">
+        <b>Blood Group:</b>
+        <span class="element" style="color: red">{{
+          recipient.recipientBloodType
+        }}</span>
+      </div>
+      <div class="text">
+        <b>Gender:</b>
+        <span class="element">{{ recipient.recipientGender }}</span>
+      </div>
+      <div class="text">
+        <b>Contact:</b>
+        <span class="element">{{ recipient.recipientContactNumber }}</span>
+      </div>
+      <div class="text">
+        <b>Age:</b>
+        <span class="element">{{ recipient.recipientAge }} years</span>
+      </div>
+      <div class="text">
+        <b>Address:</b>
+        <span class="element">{{ recipient.recipientAddress }}</span>
+      </div>
+    </div>
+  </div>
+</div>
