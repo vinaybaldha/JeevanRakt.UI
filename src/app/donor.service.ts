@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Donor } from './donor';
 import { environment } from '../environments/environment';
+import { Recipient } from './Recipient';
 
 const NAV_URL = environment.apiURL;
 
@@ -32,6 +33,10 @@ export class DonorService {
 
   public addDonorFromRemote(donor: Donor): Observable<any> {
     return this._http.post<any>(`${NAV_URL}/Donors`, donor);
+  }
+
+  public addRecipientFromRemote(recipient: Recipient): Observable<any> {
+    return this._http.post<any>(`${NAV_URL}/Recipients`, recipient);
   }
 
   // public requestForBlood(request: Requesting): Observable<any> {
