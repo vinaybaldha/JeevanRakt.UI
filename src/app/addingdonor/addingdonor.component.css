@@ -3,9 +3,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Mate+SC&display=swap");
 
 .sidebar-container {
-  position: relative;
+  position: fixed;
   width: 240px;
-  height: 600px;
+  height: 100%;
   left: 0;
   overflow-x: hidden;
   overflow-y: auto;
@@ -97,6 +97,9 @@
 
 .content-container {
   padding-left: 220px;
+  margin-left: 240px;
+  height: 100%;
+  box-sizing: border-box;
 }
 .container {
   max-width: 700px;
@@ -106,6 +109,7 @@
   border-top: 8px solid rgb(23, 78, 78);
   background-color: white;
   margin-bottom: 20px;
+  margin: 0 auto;
 }
 input {
   border-radius: 12px;
@@ -118,7 +122,7 @@ input {
   font-family: "Mate SC", serif;
   padding: 5px;
   font-weight: bolder;
-  font-size: 28px;
+  font-size: medium;
   text-transform: uppercase;
 }
 label {
@@ -140,6 +144,7 @@ label {
   align-items: center;
   color: black;
   border: 1px solid black;
+  margin: 20px auto;
 }
 .registerbtn:hover {
   background-color: rgb(23, 78, 78);

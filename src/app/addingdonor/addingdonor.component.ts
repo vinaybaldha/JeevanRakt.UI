@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Donor } from '../donor';
 import { DonorService } from '../donor.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 
 @Component({
@@ -16,6 +16,7 @@ export class AddingdonorComponent implements OnInit {
   loggedUser = '';
   tempUser = '';
   donor = new Donor();
+  @ViewChild('addDonorform') addDonorForm!: NgForm;
 
   constructor(private _service: DonorService, private _router: Router) {}
 
@@ -47,12 +48,14 @@ export class AddingdonorComponent implements OnInit {
 
   addDonor() {
     var guid = uuidv4();
-    this.donor.DonorId = guid;
+    this.donor.donorId = guid;
     console.log('guid: ', guid);
     this._service.addDonorFromRemote(this.donor).subscribe(
       (data) => {
         console.log('Donor added Successfully');
-        this._router.navigate(['/loginsuccess']);
+        // this._router.navigate(['/loginsuccess']);
+        this.addDonorForm.reset();
+        console.log('donor added successfully');
       },
       (error) => {
         console.log('process Failed');

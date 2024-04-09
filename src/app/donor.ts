@@ -1,11 +1,11 @@
 export class Donor {
-  DonorId: string = '';
-  DonorName: string = '';
-  DonorBloodType: string = '';
-  DonorContactNumber: string = '';
-  DonorGender: string = '';
-  DonorAge: number = 0;
-  DonorAddress: string = '';
+  donorId: string = '';
+  donorName: string = '';
+  donorBloodType: string = '';
+  donorContactNumber: string = '';
+  donorGender: string = '';
+  donorAge: number = 0;
+  donorAddress: string = '';
 
   constructor() {}
 }

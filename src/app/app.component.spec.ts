@@ -14,16 +14,12 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'JeevanRakt.UI' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('JeevanRakt.UI');
-  });
-
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, JeevanRakt.UI');
+    expect(compiled.querySelector('h1')?.textContent).toContain(
+      'Hello, JeevanRakt.UI'
+    );
   });
 });

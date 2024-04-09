@@ -10,7 +10,7 @@
         class="form-control"
         placeholder="enter donor name"
         name="donorname"
-        [(ngModel)]="donor.DonorName"
+        [(ngModel)]="donor.donorName"
         required
         #donorname="ngModel"
         [class.is-invalid]="donorname.invalid && donorname.touched"
@@ -34,7 +34,7 @@
         class="form-control"
         placeholder="enter blood group"
         name="bloodgroup"
-        [(ngModel)]="donor.DonorBloodType"
+        [(ngModel)]="donor.donorBloodType"
         required
         #bloodgroup="ngModel"
         [class.is-invalid]="bloodgroup.invalid && bloodgroup.touched"
@@ -55,7 +55,7 @@
         class="form-control"
         placeholder="enter mobile number"
         name="mobile"
-        [(ngModel)]="donor.DonorContactNumber"
+        [(ngModel)]="donor.donorContactNumber"
         required
         #mobile="ngModel"
         [class.is-invalid]="mobile.invalid && mobile.touched"
@@ -76,7 +76,7 @@
         class="form-control"
         id="sel1"
         name="gender"
-        [(ngModel)]="donor.DonorGender"
+        [(ngModel)]="donor.donorGender"
         #gender="ngModel"
       >
         <option selected>Male</option>
@@ -98,7 +98,7 @@
         class="form-control"
         placeholder="enter donor age"
         name="age"
-        [(ngModel)]="donor.DonorAge"
+        [(ngModel)]="donor.donorAge"
         required
         #age="ngModel"
         [class.is-invalid]="age.invalid && age.touched"
@@ -118,7 +118,7 @@
         class="form-control"
         placeholder="enter donor address"
         name="address"
-        [(ngModel)]="donor.DonorAddress"
+        [(ngModel)]="donor.donorAddress"
         required
         #address="ngModel"
         [class.is-invalid]="address.invalid && address.touched"

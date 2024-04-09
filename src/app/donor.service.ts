@@ -12,9 +12,9 @@ const NAV_URL = environment.apiURL;
 export class DonorService {
   // user = new User();
 
-  // public getDonorList(): Observable<any> {
-  //   return this._http.get<any>(`${NAV_URL}/donorlist`);
-  // }
+  public getDonorList(): Observable<Donor[]> {
+    return this._http.get<Donor[]>(`${NAV_URL}/Donors`);
+  }
 
   // public getRequestHistory(): Observable<any> {
   //   return this._http.get<any>(`${NAV_URL}/requestHistory`);
