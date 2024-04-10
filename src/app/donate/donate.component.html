@@ -1,0 +1,83 @@
+<div>
+  <h2>Blood Stock</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Blood Group</th>
+          <th>Blood Stock</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stockItem of bloodStocks | async">
+          <td>{{ stockItem.bloodGroup }}</td>
+          <td>{{ stockItem.bloodStock }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Donor List</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Donor Name</th>
+          <th>Blood Group</th>
+          <th>Age</th>
+          <th>Contact Number</th>
+          <th>Gender</th>
+          <th>Address</th>
+          <th>Donate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let donor of donors | async">
+          <td>{{ donor.donorName }}</td>
+
+          <td>{{ donor.donorAge }}</td>
+          <td>{{ donor.donorBloodType }}</td>
+          <td>{{ donor.donorContactNumber }}</td>
+          <td>{{ donor.donorGender }}</td>
+          <td>{{ donor.donorAddress }}</td>
+          <td>
+            <button
+              type="button"
+              (click)="donateDonor(donor)"
+              class="btn btn-primary"
+            >
+              Donate
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Donate Form</h2>
+  <form #donorForm="ngForm" (ngSubmit)="onSubmit(donorForm)">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        [(ngModel)]="selectedDonor.donorName"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="bloodGroup">Blood Group:</label>
+      <input
+        type="text"
+        class="form-control"
+        id="bloodGroup"
+        name="bloodGroup"
+        [(ngModel)]="selectedDonor.donorBloodType"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
