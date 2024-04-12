@@ -1,35 +1,61 @@
-<div class="container">
-  <div class="sidebar">
-    <h2>Navigation</h2>
-    <ul>
-      <li>
-        <a [routerLink]="'./add-donor'" routerLinkActive="active">Add Donor</a>
-      </li>
-      <li>
-        <a [routerLink]="'./add-recipient'" routerLinkActive="active"
-          >Add Recipient</a
-        >
-      </li>
-      <li>
-        <a [routerLink]="'/donor-list'" routerLinkActive="active">Donor List</a>
-      </li>
-      <li>
-        <a [routerLink]="'/recipient-list'" routerLinkActive="active"
-          >Recipient List</a
-        >
-      </li>
-      <li>
-        <a [routerLink]="'/donate'" routerLinkActive="active">Donate Blood</a>
-      </li>
-      <li>
-        <a [routerLink]="'/bloodstock'" routerLinkActive="active"
-          >Blood Stock</a
-        >
-      </li>
-    </ul>
-  </div>
-  <div class="main-content">
-    <!-- Content of each section will be rendered here based on selected route -->
-    <router-outlet></router-outlet>
+<div *ngIf="appLoaded; else splash">
+  <div class="container">
+    <div class="sidebar">
+      <h2>Navigation</h2>
+      <ul>
+        <li>
+          <a [routerLink]="'./add-donor'" routerLinkActive="active"
+            >Add Donor</a
+          >
+        </li>
+        <li>
+          <a [routerLink]="'./add-recipient'" routerLinkActive="active"
+            >Add Recipient</a
+          >
+        </li>
+        <li>
+          <a [routerLink]="'/donor-list'" routerLinkActive="active"
+            >Donor List</a
+          >
+        </li>
+        <li>
+          <a [routerLink]="'/recipient-list'" routerLinkActive="active"
+            >Recipient List</a
+          >
+        </li>
+        <li>
+          <a [routerLink]="'/donate'" routerLinkActive="active">Donate Blood</a>
+        </li>
+        <li>
+          <a [routerLink]="'/bloodstock'" routerLinkActive="active"
+            >Blood Stock</a
+          >
+        </li>
+        <li>
+          <a [routerLink]="'/employee-list'" routerLinkActive="active"
+            >Employees</a
+          >
+        </li>
+        <li>
+          <a [routerLink]="'/login'" routerLinkActive="active">Login</a>
+        </li>
+        <li>
+          <a [routerLink]="'/dashboard'" routerLinkActive="active">Dashboard</a>
+        </li>
+        <li>
+          <a [routerLink]="'/blood-transfert'" routerLinkActive="active"
+            >Blood Transfert</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="main-content">
+      <!-- Content of each section will be rendered here based on selected route -->
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
+
+<ng-template #splash>
+  <app-splash></app-splash>
+</ng-template>

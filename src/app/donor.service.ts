@@ -71,17 +71,17 @@ export class DonorService {
   //   return this._http.get(`${NAV_URL}/rejectstatus/` + loggedUser);
   // }
 
-  // public getTotalDonors(): Observable<any> {
-  //   return this._http.get(`${NAV_URL}/getTotalDonors`);
-  // }
+  public getTotalDonors(): Observable<any> {
+    return this._http.get(`${NAV_URL}/donor/totaldonors`);
+  }
 
-  // public getTotalUsers(): Observable<any> {
-  //   return this._http.get(`${NAV_URL}/getTotalUsers`);
-  // }
+  public getTotalUsers(): Observable<any> {
+    return this._http.get(`${NAV_URL}/account/totalusers`);
+  }
 
-  // public getTotalBloodGroups(): Observable<any> {
-  //   return this._http.get(`${NAV_URL}/getTotalBloodGroups`);
-  // }
+  public getTotalBloodGroups(): Observable<any> {
+    return this._http.get(`${NAV_URL}/bloods/totalbloodgroup`);
+  }
 
   // public getTotalUnits(): Observable<any> {
   //   return this._http.get(`${NAV_URL}/getTotalUnits`);

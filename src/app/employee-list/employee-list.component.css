@@ -1,0 +1,70 @@
+/* Importing Mate SC font from Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Mate+SC&display=swap");
+
+/* General styles for sidebar text */
+.sidebar-text {
+  font-size: small;
+}
+
+/* Styles for sidebar logo */
+.sidebar-logo {
+  padding: 10px 15px;
+  font-size: 20px;
+  text-align: right;
+  background-color: #13534e;
+  width: 100%;
+  font-family: "Mate SC", serif;
+  color: white;
+}
+
+/* Styles for logout button */
+.logoutbtn {
+  border: none;
+  background: transparent;
+  color: white;
+  border-radius: 15px;
+  padding: 5px 10px;
+  font-size: small;
+  cursor: pointer;
+}
+
+.logoutbtn:hover {
+  background-color: #23ad9b;
+  padding: 5px 8px;
+  border-radius: 15px;
+}
+
+/* Container for employee cards */
+.row {
+  margin-left: 10%;
+  margin-top: 3%;
+  display: flex;
+  flex-wrap: wrap; /* Ensure cards wrap to the next line */
+  justify-content: space-between; /* Distribute cards evenly */
+}
+
+/* Styles for individual employee cards */
+.card {
+  width: 30%; /* Adjust card width for responsiveness */
+  margin-bottom: 20px; /* Add space between cards */
+  box-shadow: 5px 5px 25px rgba(147, 158, 147, 0.5);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+/* Text block within employee card */
+.card-block {
+  padding: 10px;
+}
+
+/* Styling for text inside employee card */
+.card-text {
+  font-family: "Mate SC", serif;
+  font-size: larger;
+  font-weight: bold;
+  color: navy;
+}

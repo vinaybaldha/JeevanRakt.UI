@@ -1,0 +1,25 @@
+<div class="sidebar-logo">
+  <div class="welcometxt">
+    <b style="color: white">Admin Dashboard</b>
+  </div>
+  <button class="logoutbtn" [routerLink]="['/loginsuccess']">
+    <i class="fa fa-home"></i> Home
+  </button>
+  <b class="sidebar-text">
+    <i class="fa fa-employee"></i> Welcome {{ loggedemployee }}
+  </b>
+  <button class="logoutbtn" (click)="logout()">
+    <i class="fa fa-sign-out"></i> Logout
+  </button>
+</div>
+
+<div class="row">
+  <div *ngFor="let employee of employees | async" class="col-4 card">
+    <div class="card-block">
+      <div class="text"><b>Employee Name:</b> {{ employee.employeeName }}</div>
+      <div class="text"><b>Mobile Number:</b> {{ employee.phoneNumber }}</div>
+      <div class="text"><b>Mail ID:</b> {{ employee.email }}</div>
+    </div>
+  </div>
+</div>
+<app-employee-register></app-employee-register>

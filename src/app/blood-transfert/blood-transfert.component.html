@@ -1,0 +1,40 @@
+<h2>Recipient List</h2>
+<div class="table-responsive">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Recipient Name</th>
+        <th>Blood Group</th>
+        <th>Age</th>
+        <th>Contact Number</th>
+        <th>Gender</th>
+        <th>Address</th>
+        <th>Transfer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let recipient of recipients | async">
+        <td>{{ recipient.recipientName }}</td>
+
+        <td>{{ recipient.recipientAge }}</td>
+        <td>{{ recipient.recipientBloodType }}</td>
+        <td>{{ recipient.recipientContactNumber }}</td>
+        <td>{{ recipient.recipientGender }}</td>
+        <td>{{ recipient.recipientAddress }}</td>
+        <td>
+          <button
+            type="button"
+            (click)="transferRecipient(recipient)"
+            class="btn btn-primary"
+          >
+            Transfer
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div>
+  Blood Stock for {{ blood?.bloodGroup }} : {{ blood?.bloodStock }}
+  <button class="btn btn-primary" (click)="confirmBlood()">Confirm</button>
+</div>
