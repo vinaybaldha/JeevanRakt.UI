@@ -3,12 +3,13 @@ import { Donor } from '../donor';
 import { DonorService } from '../donor.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-donor-list',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatCardModule],
   templateUrl: './donor-list.component.html',
   styleUrl: './donor-list.component.css',
 })

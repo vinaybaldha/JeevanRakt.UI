@@ -4,6 +4,11 @@ import { AddingdonorComponent } from './addingdonor/addingdonor.component';
 import { SplashComponent } from './splash/splash.component';
 import { CommonModule } from '@angular/common';
 import { AppInitializerService } from './app-initializer.service';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +21,11 @@ import { AppInitializerService } from './app-initializer.service';
     RouterModule,
     SplashComponent,
     CommonModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule,
   ],
 })
 export class AppComponent implements OnInit {
@@ -24,6 +34,7 @@ export class AppComponent implements OnInit {
     private appInitializerService: AppInitializerService
   ) {}
   appLoaded = false;
+  opened: boolean = false;
   title = 'JeevanRakt.UI';
   navigateToAddDonor() {
     this.router.navigateByUrl('/add-donor');

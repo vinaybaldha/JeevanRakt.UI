@@ -5,11 +5,12 @@ import { DonorService } from '../donor.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-addingdonor',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatButtonModule],
   templateUrl: './addingdonor.component.html',
   styleUrl: './addingdonor.component.css',
 })

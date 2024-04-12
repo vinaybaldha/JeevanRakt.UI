@@ -1,60 +1,100 @@
-<div *ngIf="appLoaded; else splash">
-  <div class="container">
-    <div class="sidebar">
-      <h2>Navigation</h2>
-      <ul>
-        <li>
-          <a [routerLink]="'./add-donor'" routerLinkActive="active"
-            >Add Donor</a
-          >
-        </li>
-        <li>
-          <a [routerLink]="'./add-recipient'" routerLinkActive="active"
-            >Add Recipient</a
-          >
-        </li>
-        <li>
-          <a [routerLink]="'/donor-list'" routerLinkActive="active"
-            >Donor List</a
-          >
-        </li>
-        <li>
-          <a [routerLink]="'/recipient-list'" routerLinkActive="active"
-            >Recipient List</a
-          >
-        </li>
-        <li>
-          <a [routerLink]="'/donate'" routerLinkActive="active">Donate Blood</a>
-        </li>
-        <li>
-          <a [routerLink]="'/bloodstock'" routerLinkActive="active"
-            >Blood Stock</a
-          >
-        </li>
-        <li>
-          <a [routerLink]="'/employee-list'" routerLinkActive="active"
-            >Employees</a
-          >
-        </li>
-        <li>
-          <a [routerLink]="'/login'" routerLinkActive="active">Login</a>
-        </li>
-        <li>
-          <a [routerLink]="'/dashboard'" routerLinkActive="active">Dashboard</a>
-        </li>
-        <li>
-          <a [routerLink]="'/blood-transfert'" routerLinkActive="active"
-            >Blood Transfert</a
-          >
-        </li>
-      </ul>
-    </div>
-    <div class="main-content">
-      <!-- Content of each section will be rendered here based on selected route -->
-      <router-outlet></router-outlet>
-    </div>
-  </div>
-</div>
+<mat-toolbar color="primary" *ngIf="appLoaded; else splash">
+  <mat-toolbar-row>
+    <h4>JeevanRakt</h4>
+    <button mat-button (click)="opened = !opened">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <button mat-button><mat-icon>home</mat-icon>Home</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav [(opened)]="opened" mode="side">
+    <mat-list>
+      <mat-list-item
+        ><a
+          [routerLink]="'./add-donor'"
+          routerLinkActive="active"
+          style="text-decoration: none"
+          >Add Donor</a
+        ></mat-list-item
+      >
+      <mat-list-item
+        ><a
+          [routerLink]="'./add-recipient'"
+          routerLinkActive="active"
+          style="text-decoration: none"
+          >Add Recipient</a
+        ></mat-list-item
+      >
+      <mat-list-item
+        ><a
+          [routerLink]="'/donor-list'"
+          routerLinkActive="active"
+          style="text-decoration: none"
+          >Donor List</a
+        ></mat-list-item
+      >
+      <mat-list-item
+        ><a
+          [routerLink]="'/recipient-list'"
+          routerLinkActive="active"
+          style="text-decoration: none"
+          >Recipient List</a
+        ></mat-list-item
+      >
+      <mat-list-item
+        ><a
+          [routerLink]="'/donate'"
+          routerLinkActive="active"
+          style="text-decoration: none"
+          >Donate Blood</a
+        ></mat-list-item
+      >
+      <mat-list-item
+        ><a
+          [routerLink]="'/bloodstock'"
+          routerLinkActive="active"
+          style="text-decoration: none"
+          >Blood Stock</a
+        ></mat-list-item
+      >
+      <mat-list-item
+        ><a
+          [routerLink]="'/employee-list'"
+          routerLinkActive="active"
+          style="text-decoration: none"
+          >Employees</a
+        ></mat-list-item
+      >
+      <mat-list-item>
+        <a
+          [routerLink]="'/login'"
+          routerLinkActive="active"
+          style="text-decoration: none"
+          >Login</a
+        ></mat-list-item
+      >
+      <mat-list-item
+        ><a
+          [routerLink]="'/dashboard'"
+          routerLinkActive="active"
+          style="text-decoration: none"
+          >Dashboard</a
+        ></mat-list-item
+      >
+      <mat-list-item
+        ><a
+          [routerLink]="'/blood-transfert'"
+          routerLinkActive="active"
+          style="text-decoration: none"
+          >Blood Transfert</a
+        ></mat-list-item
+      >
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-content><router-outlet></router-outlet></mat-sidenav-content>
+</mat-sidenav-container>
 
 <ng-template #splash>
   <app-splash></app-splash>
