@@ -14,54 +14,46 @@
 </div>
 
 <div class="row">
-  <div
-    *ngFor="let recipient of recipients | async"
-    class="col-4 card"
-    id="bloodCards"
-  >
-    <div class="image-container">
-      <img
-        *ngIf="recipient.recipientGender.toLowerCase() === 'male'"
-        class="bloodimg"
-        [src]="'assets/img/male.png'"
-        width="120"
-        height="120"
-      />
-      <img
-        *ngIf="recipient.recipientGender.toLowerCase() === 'female'"
-        class="bloodimg"
-        [src]="'assets/img/female.png'"
-        width="120"
-        height="120"
-      />
-    </div>
-    <div class="card-block">
-      <div class="text">
-        <b>Recipient Name:</b>
-        <span class="element">{{ recipient.recipientName }}</span>
-      </div>
-      <div class="text">
-        <b>Blood Group:</b>
-        <span class="element" style="color: red">{{
-          recipient.recipientBloodType
-        }}</span>
-      </div>
-      <div class="text">
-        <b>Gender:</b>
-        <span class="element">{{ recipient.recipientGender }}</span>
-      </div>
-      <div class="text">
-        <b>Contact:</b>
-        <span class="element">{{ recipient.recipientContactNumber }}</span>
-      </div>
-      <div class="text">
-        <b>Age:</b>
-        <span class="element">{{ recipient.recipientAge }} years</span>
-      </div>
-      <div class="text">
-        <b>Address:</b>
-        <span class="element">{{ recipient.recipientAddress }}</span>
-      </div>
-    </div>
+  <div *ngFor="let recipient of recipients | async" class="example-card">
+    <!-- matirial cards -->
+    <mat-card class="mat">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>Name: {{ recipient.recipientName }}</mat-card-title>
+          <mat-card-subtitle>
+            Blood Group:
+            <span class="element" style="color: red">{{
+              recipient.recipientBloodType
+            }}</span></mat-card-subtitle
+          >
+          <img
+            *ngIf="recipient.recipientGender.toLowerCase() === 'male'"
+            mat-card-sm-image
+            src="assets/img/male.png"
+          />
+          <img
+            *ngIf="recipient.recipientGender.toLowerCase() === 'female'"
+            mat-card-sm-image
+            src="assets/img/female.png"
+          />
+        </mat-card-title-group>
+      </mat-card-header>
+      <mat-card-content>
+        Gender: {{ recipient.recipientGender }}
+      </mat-card-content>
+      <mat-card-content>
+        Address: {{ recipient.recipientAddress }}
+      </mat-card-content>
+      <mat-card-content> Age: {{ recipient.recipientAge }} </mat-card-content>
+      <mat-card-content>
+        Contact: {{ recipient.recipientContactNumber }}
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button color="primary" style="margin-right: 25px">
+          Edit
+        </button>
+        <button mat-flat-button color="warn">Delete</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </div>

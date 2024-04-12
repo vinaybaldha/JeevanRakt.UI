@@ -4,11 +4,13 @@ import { Recipient } from '../Recipient';
 import { RecipientService } from '../services/recipient.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-recipient-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatButtonModule, MatCardModule],
   templateUrl: './recipient-list.component.html',
   styleUrl: './recipient-list.component.css',
 })

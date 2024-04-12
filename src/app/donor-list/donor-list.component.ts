@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-donor-list',
   standalone: true,
-  imports: [FormsModule, CommonModule, MatCardModule],
+  imports: [FormsModule, CommonModule, MatCardModule, MatButtonModule],
   templateUrl: './donor-list.component.html',
   styleUrl: './donor-list.component.css',
 })
