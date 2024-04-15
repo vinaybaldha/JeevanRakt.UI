@@ -1,6 +1,12 @@
-.active {
+.active,
+.btn:hover {
+  background-color: cornflowerblue;
+  color: white;
   font-weight: bold;
-  color: #000;
+}
+
+.active-text {
+  color: #eee;
 }
 
 mat-sidenav-container {
@@ -9,4 +15,8 @@ mat-sidenav-container {
 mat-sidenav {
   width: 200px;
   background-color: #eee;
+}
+
+mat-list-item {
+  cursor: pointer;
 }

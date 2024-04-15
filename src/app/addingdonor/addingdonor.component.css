@@ -7,11 +7,17 @@ body {
 
 .container {
   width: 80%;
-  margin: 0 auto;
+  margin-top: 25px;
   padding: 20px;
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 50px;
 }
 
 h2.textual {
@@ -19,6 +25,8 @@ h2.textual {
   align-items: center;
   font-size: 24px;
   color: #333;
+  align-items: center;
+  justify-content: center;
 }
 
 h2.textual i {
@@ -71,4 +79,45 @@ select {
 .btn.registerbtn:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+  align-items: flex-start;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+@media screen and (max-width: 600px) {
+  mat-form-field {
+    width: 100%; /* Expand form fields to full width on smaller screens */
+    margin-right: 0; /* Remove right margin on form fields */
+    margin-left: 0; /* Remove left margin on form fields */
+  }
+}
+
+label {
+  margin-left: 0;
+}
+
+button {
+  margin-left: 0;
+  border-radius: 25px;
+}
+
+.fix {
+  margin-left: 2px;
+}
+
+table {
+  width: 100%; /* Make table width 100% of its container */
+  border-collapse: collapse; /* Collapse table borders */
+}
+
+td {
+  padding: 30px;
 }

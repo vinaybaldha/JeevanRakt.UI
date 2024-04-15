@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { AccountService } from './services/account.service';
 
 @Component({
   selector: 'app-root',
@@ -31,10 +32,12 @@ import { MatListModule } from '@angular/material/list';
 export class AppComponent implements OnInit {
   constructor(
     private router: Router,
-    private appInitializerService: AppInitializerService
+    private appInitializerService: AppInitializerService,
+    private authService: AccountService
   ) {}
   appLoaded = false;
   opened: boolean = false;
+  isLogin: boolean = !!this.authService.getCurrentUser;
   title = 'JeevanRakt.UI';
   navigateToAddDonor() {
     this.router.navigateByUrl('/add-donor');
@@ -48,5 +51,13 @@ export class AppComponent implements OnInit {
       // Set appLoaded to true once initialization is complete
       this.appLoaded = true;
     });
+  }
+
+  onHome() {
+    this.router.navigate(['home']);
+  }
+
+  logout() {
+    this.authService.logOut();
   }
 }

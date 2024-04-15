@@ -21,35 +21,16 @@ export class LoginComponent {
 
   constructor(private _service: AccountService, private _router: Router) {}
 
-  ngOnInit(): void {
-    $('.admin-login-form').hide();
-
-    $('.userlogin').click(function () {
-      $('.user-login-form').hide();
-      $('.admin-login-form').show();
-    });
-
-    $('.adminlogin').click(function () {
-      $('.user-login-form').show();
-      $('.admin-login-form').hide();
-    });
-
-    let currentUrl = window.location.href;
-    if (currentUrl.includes('/userdashboard')) {
-      window.onpopstate = function () {
-        history.go(1);
-      };
-    }
-  }
+  ngOnInit(): void {}
 
   loginUser() {
     this._service.loginEmployee(this.user.email, this.user.password).subscribe(
-      (data: any) => {
+      (data: Employee) => {
         console.log(data);
         console.log('Response Received');
-        sessionStorage.setItem('loggedUser', this.user.email);
-        sessionStorage.setItem('USER', 'user');
-        sessionStorage.setItem('ROLE', 'user');
+        localStorage.setItem('currentUser', data.email);
+        this._service.setJwtToken(data.token);
+        this._service.currentUserSubject.next(data.email);
         this._router.navigate(['/donor-list']);
       },
       (error: { error: any }) => {

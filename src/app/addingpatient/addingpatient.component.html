@@ -2,144 +2,164 @@
   <h2 class="textual">
     <i style="color: red" class="fa fa-heart"></i> Add new Recipient
   </h2>
-  <form #addrecipientform="ngForm" (ngSubmit)="addRecipient()">
-    <div class="form-group">
-      <label for="recipientname"
-        >Patient Name: <b class="text-danger">*</b></label
-      >
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Enter recipient name"
-        name="recipientname"
-        [(ngModel)]="recipient.recipientName"
-        required
-        #recipientname="ngModel"
-        [class.is-invalid]="recipientname.invalid && recipientname.touched"
-      />
-      <small
-        class="text-danger"
-        *ngIf="recipientname.invalid && recipientname.touched"
-      >
-        <b>Required field</b>
-      </small>
-    </div>
+  <form #addrecipientform="ngForm" (ngSubmit)="addRecipient()" class="fix">
+    <table>
+      <tr>
+        <td>
+          <!-- <div class="form-group"> -->
+          <mat-form-field appearance="fill">
+            <mat-label>Recipient Name</mat-label>
+            <input
+              matInput
+              placeholder="Enter recipient name"
+              name="recipientname"
+              [(ngModel)]="recipient.recipientName"
+              required
+              #recipientname="ngModel"
+              [class.is-invalid]="
+                recipientname.invalid && recipientname.touched
+              "
+            />
+            <mat-error *ngIf="recipientname.invalid && recipientname.touched"
+              >Required field</mat-error
+            >
+          </mat-form-field>
+          <!-- </div> -->
+        </td>
+        <td>
+          <!-- Other Form Fields with Conditional Error Display -->
+          <!-- Blood Group -->
+          <div class="form-group">
+            <mat-form-field>
+              <mat-label>Blood Group</mat-label>
+              <mat-select
+                name="bloodgroup"
+                [(ngModel)]="recipient.recipientBloodType"
+                required
+                #bloodgroup="ngModel"
+                [class.is-invalid]="bloodgroup.invalid && bloodgroup.touched"
+              >
+                <mat-option
+                  *ngFor="let bloodGroup of bloodGroups"
+                  value="{{ bloodGroup }}"
+                  >{{ bloodGroup }}</mat-option
+                >
+              </mat-select>
+              <mat-error *ngIf="bloodgroup.invalid && bloodgroup.touched"
+                >Required field</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <!-- Mobile Number -->
+          <div class="form-group">
+            <mat-form-field>
+              <mat-label>Phone number</mat-label>
+              <input
+                matInput
+                class="form-control"
+                placeholder="Enter mobile number"
+                name="mobile"
+                [(ngModel)]="recipient.recipientContactNumber"
+                required
+                #mobile="ngModel"
+                [class.is-invalid]="mobile.invalid && mobile.touched"
+              />
+              <mat-icon matSuffix>phone</mat-icon>
+              <mat-error *ngIf="mobile.invalid && mobile.touched"
+                >Required field</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </td>
+        <td>
+          <!-- Gender -->
+          <div class="form-group">
+            <label>Your Gender</label>
+            <mat-radio-group
+              [(ngModel)]="recipient.recipientGender"
+              name="gender"
+              required
+              #gender="ngModel"
+            >
+              @for (gender of genders; track gender) {
+              <mat-radio-button class="example-radio-button" [value]="gender">{{
+                gender
+              }}</mat-radio-button>
+              }
+              <mat-error *ngIf="gender.invalid && gender.touched"
+                >Required field</mat-error
+              >
+            </mat-radio-group>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <!-- Age -->
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Age</mat-label>
+              <input
+                matInput
+                type="number"
+                min="0"
+                max="65"
+                placeholder="Enter recipient age"
+                name="age"
+                [(ngModel)]="recipient.recipientAge"
+                required
+                #age="ngModel"
+                [class.is-invalid]="age.invalid && age.touched"
+              />
+              <mat-error *ngIf="age.invalid && age.touched"
+                >Required field</mat-error
+              >
 
-    <!-- Other Form Fields with Conditional Error Display -->
-    <!-- Blood Group -->
-    <div class="form-group">
-      <label for="bloodgroup"
-        >Recipient Blood Group: <b class="text-danger">*</b></label
-      >
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Enter blood group"
-        name="bloodgroup"
-        [(ngModel)]="recipient.recipientBloodType"
-        required
-        #bloodgroup="ngModel"
-        [class.is-invalid]="bloodgroup.invalid && bloodgroup.touched"
-      />
-      <small
-        class="text-danger"
-        *ngIf="bloodgroup.invalid && bloodgroup.touched"
-      >
-        <b>Required field</b>
-      </small>
-    </div>
-
-    <!-- Mobile Number -->
-    <div class="form-group">
-      <label for="mobile"
-        >Recipient Mobile Number: <b class="text-danger">*</b></label
-      >
-      <input
-        type="tel"
-        class="form-control"
-        placeholder="Enter mobile number"
-        name="mobile"
-        [(ngModel)]="recipient.recipientContactNumber"
-        required
-        #mobile="ngModel"
-        [class.is-invalid]="mobile.invalid && mobile.touched"
-      />
-      <small class="text-danger" *ngIf="mobile.invalid && mobile.touched">
-        <b>Required field</b>
-      </small>
-    </div>
-
-    <!-- Gender -->
-    <div class="form-group">
-      <label for="gender">Recipient Gender: <b class="text-danger">*</b></label>
-      <select
-        class="form-control"
-        id="sel1"
-        name="gender"
-        [(ngModel)]="recipient.recipientGender"
-        required
-        #gender="ngModel"
-      >
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Others">Others</option>
-      </select>
-      <small class="text-danger" *ngIf="gender.invalid && gender.touched">
-        <b>Required field</b>
-      </small>
-    </div>
-
-    <!-- Age -->
-    <div class="form-group">
-      <label for="age">Recipient Age: <b class="text-danger">*</b></label>
-      <input
-        type="number"
-        min="0"
-        max="65"
-        class="form-control"
-        placeholder="Enter recipient age"
-        name="age"
-        [(ngModel)]="recipient.recipientAge"
-        required
-        #age="ngModel"
-        [class.is-invalid]="age.invalid && age.touched"
-      />
-      <small class="text-danger" *ngIf="age.invalid && age.touched">
-        <b>Required field</b>
-      </small>
-      <small class="text-danger" *ngIf="age.errors?.['max']">
-        <b>Maximum age limit of 65 years exceeded</b>
-      </small>
-    </div>
-
-    <!-- Address -->
-    <div class="form-group">
-      <label for="address"
-        >Recipient Address: <b class="text-danger">*</b></label
-      >
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Enter recipient address"
-        name="address"
-        [(ngModel)]="recipient.recipientAddress"
-        required
-        #address="ngModel"
-        [class.is-invalid]="address.invalid && address.touched"
-      />
-      <small class="text-danger" *ngIf="address.invalid && address.touched">
-        <b>Required field</b>
-      </small>
-    </div>
-
-    <!-- Submit Button -->
-    <button
-      style="margin-top: 15px"
-      [disabled]="addrecipientform.form.invalid"
-      type="submit"
-      class="btn registerbtn"
-    >
-      Add Recipient
-    </button>
+              <mat-error *ngIf="age.errors?.['max']">Required field</mat-error>
+            </mat-form-field>
+          </div>
+        </td>
+        <td>
+          <!-- Address -->
+          <div class="form-group">
+            <mat-form-field appearance="fill">
+              <mat-label>Address</mat-label>
+              <input
+                matInput
+                class="form-control"
+                placeholder="Enter recipient address"
+                name="address"
+                [(ngModel)]="recipient.recipientAddress"
+                required
+                #address="ngModel"
+                [class.is-invalid]="address.invalid && address.touched"
+              />
+              <mat-error *ngIf="address.invalid && address.touched"
+                >Required field</mat-error
+              >
+            </mat-form-field>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <!-- Submit Button -->
+          <button
+            mat-button
+            color="primary"
+            style="margin-top: 15px"
+            [disabled]="addrecipientform.form.invalid"
+            type="submit"
+            class="btn registerbtn"
+          >
+            Add recipient
+          </button>
+        </td>
+      </tr>
+    </table>
   </form>
 </div>

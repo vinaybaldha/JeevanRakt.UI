@@ -4,5 +4,6 @@ export class Employee {
   phoneNumber: string = '';
   password: string = '';
   confirmPassword: string = '';
+  token: string = '';
   constructor() {}
 }

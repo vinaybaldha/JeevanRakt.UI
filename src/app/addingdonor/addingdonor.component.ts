@@ -6,18 +6,34 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'app-addingdonor',
   standalone: true,
-  imports: [FormsModule, CommonModule, MatButtonModule],
+  imports: [
+    FormsModule,
+    CommonModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatIconModule,
+    MatRadioModule,
+  ],
   templateUrl: './addingdonor.component.html',
   styleUrl: './addingdonor.component.css',
 })
 export class AddingdonorComponent implements OnInit {
+  bloodGroups: string[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
   loggedUser = '';
   tempUser = '';
   donor = new Donor();
+  genders: string[] = ['male', 'female', 'other'];
   @ViewChild('addDonorform') addDonorForm!: NgForm;
 
   constructor(private _service: DonorService, private _router: Router) {}
