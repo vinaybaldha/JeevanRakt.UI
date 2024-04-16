@@ -1,0 +1,47 @@
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { RecipientService } from '../../../services/recipient.service';
+import { Recipient } from '../../../models/Recipient';
+
+@Component({
+  selector: 'app-recipient-list',
+  standalone: true,
+  imports: [CommonModule, FormsModule, MatButtonModule, MatCardModule],
+  templateUrl: './recipient-list.component.html',
+  styleUrl: './recipient-list.component.css',
+})
+export class RecipientListComponent {
+  recipients: Observable<Recipient[]> | undefined;
+  bloodGroup: any;
+  title = '';
+
+  constructor(private recipientService: RecipientService) {}
+
+  ngOnInit(): void {
+    this.reloadData();
+  }
+
+  reloadData() {
+    this.recipients = this.recipientService.getRecipientList();
+  }
+
+  search() {
+    // if (this.bloodGroup == '') {
+    //   this.reloadData();
+    // } else {
+    //   this.recipient = this.recipient?.pipe(
+    //     map((results) =>
+    //       results.filter((res) => {
+    //         return res.donorBloodType
+    //           .toLocaleLowerCase()
+    //           .match(this.bloodGroup.toLocaleLowerCase());
+    //       })
+    //     )
+    //   );
+    // }
+  }
+}

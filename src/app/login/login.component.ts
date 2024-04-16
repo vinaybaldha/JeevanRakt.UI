@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { AccountService } from '../services/account.service';
 import { Router, RouterModule } from '@angular/router';
 import { Employee } from '../models/Employee';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import $ from 'jquery';
+import { AccountService } from '../services/account.service';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -18,20 +19,32 @@ export class LoginComponent {
   msg = '';
   adminEmail = '';
   adminPassword = '';
+  roles: string[] = [];
 
   constructor(private _service: AccountService, private _router: Router) {}
 
   ngOnInit(): void {}
 
   loginUser() {
+    let roles: string | null = '';
     this._service.loginEmployee(this.user.email, this.user.password).subscribe(
-      (data: Employee) => {
-        console.log(data);
-        console.log('Response Received');
-        localStorage.setItem('currentUser', data.email);
-        this._service.setJwtToken(data.token);
+      async (data: Employee) => {
         this._service.currentUserSubject.next(data.email);
-        this._router.navigate(['/donor-list']);
+        roles = await this._service.getRoles(data.email);
+        console.log('roles: ', roles);
+        this._service.AuthenticatedSubject.next(true);
+        localStorage.setItem('jwtToken', data.token);
+
+        console.log(localStorage.getItem('roles'));
+        if (localStorage.getItem('roles') === 'Admin') {
+          console.log('object');
+          this._service.isAdminSubject.next(true);
+        } else {
+          console.log('object');
+          this._service.isAdminSubject.next(false);
+        }
+        this._service;
+        this._router.navigate(['home']);
       },
       (error: { error: any }) => {
         console.log(error.error);

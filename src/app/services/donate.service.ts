@@ -11,25 +11,30 @@ const NAV_URL = environment.apiURL;
   providedIn: 'root',
 })
 export class DonateService {
-  headers = new HttpHeaders({
-    Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
-  });
-
   public addBlood(blood: Blood): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+    });
     return this._http.put<any>(`${NAV_URL}/Bloods/${blood.bloodGroup}`, blood, {
-      headers: this.headers,
+      headers: headers,
     });
   }
 
   public getBloodList(): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+    });
     return this._http.get<any>(`${NAV_URL}/Bloods`, {
-      headers: this.headers,
+      headers: headers,
     });
   }
 
   public getBloodListById(id: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
+    });
     return this._http.get<any>(`${NAV_URL}/Bloods/${id}`, {
-      headers: this.headers,
+      headers: headers,
     });
   }
   constructor(

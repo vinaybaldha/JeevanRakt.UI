@@ -1,19 +1,21 @@
 import { Routes } from '@angular/router';
-import { AddingdonorComponent } from './addingdonor/addingdonor.component';
-import { DonorListComponent } from './donor-list/donor-list.component';
-import { AddingpatientComponent } from './addingpatient/addingpatient.component';
-import { HomeComponent } from './home/home.component';
-import { RecipientListComponent } from './recipient-list/recipient-list.component';
-import { DonateComponent } from './donate/donate.component';
-import { BloodStockComponent } from './blood-stock/blood-stock.component';
-import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { LoginComponent } from './login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { BloodTransfertComponent } from './blood-transfert/blood-transfert.component';
-import { AuthGuard } from './auth.guard';
+import { HomeComponent } from './components/user/home/home.component';
+import { AddingdonorComponent } from './components/user/addingdonor/addingdonor.component';
+import { DonorListComponent } from './components/user/donor-list/donor-list.component';
+import { AddingpatientComponent } from './components/user/addingpatient/addingpatient.component';
+import { RecipientListComponent } from './components/user/recipient-list/recipient-list.component';
+import { BloodStockComponent } from './components/user/blood-stock/blood-stock.component';
+import { DashboardComponent } from './components/user/dashboard/dashboard.component';
+import { BloodTransfertComponent } from './components/user/blood-transfert/blood-transfert.component';
+import { DonateComponent } from './components/user/donate/donate.component';
+import { AuthGuard } from './services/auth.guard';
+import { AppComponent } from './app.component';
+import { UserComponent } from './components/user/user.component';
+import { EmployeeListComponent } from './components/user/employee-list/employee-list.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', component: AppComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent },
   {
     path: 'add-donor',

@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <h4>JeevanRakt</h4>
+    <button mat-button (click)="opened = !opened">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <button mat-button (click)="onHome()"><mat-icon>home</mat-icon>Home</button>
+    <button mat-button (click)="logout()">
+      <mat-icon>logout</mat-icon>Logout
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="sidebar">
+  <!-- Display admin sidebar for admin users -->
+  <app-admin-sidebar *ngIf="isAdmin"></app-admin-sidebar>
+
+  <!-- Display user sidebar for regular users -->
+  <app-user-sidebar *ngIf="!isAdmin" [opened]="opened"></app-user-sidebar>
+</div>
