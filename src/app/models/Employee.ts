@@ -5,5 +5,6 @@ export class Employee {
   password: string = '';
   confirmPassword: string = '';
   token: string = '';
+  filePath: string = '';
   constructor() {}
 }

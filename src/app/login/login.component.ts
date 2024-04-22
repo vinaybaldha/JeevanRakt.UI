@@ -3,9 +3,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Employee } from '../models/Employee';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import $ from 'jquery';
 import { AccountService } from '../services/account.service';
-import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -31,11 +29,15 @@ export class LoginComponent {
       async (data: Employee) => {
         this._service.currentUserSubject.next(data.email);
         roles = await this._service.getRoles(data.email);
-        console.log('roles: ', roles);
+        // console.log('roles: ', roles);
         this._service.AuthenticatedSubject.next(true);
         localStorage.setItem('jwtToken', data.token);
+        localStorage.setItem('username', data.email);
 
-        console.log(localStorage.getItem('roles'));
+        // console.log(localStorage.getItem('roles'));
+        this._service.currentUserSubject.next(data.email);
+        this._service.userSubject.next(data);
+        this._service.isAdminSubject.next(true);
         if (localStorage.getItem('roles') === 'Admin') {
           console.log('object');
           this._service.isAdminSubject.next(true);

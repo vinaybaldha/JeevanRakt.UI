@@ -13,13 +13,17 @@ import { AccountService } from './account.service';
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AccountService, private router: Router) {}
-
+  constructor(private authService: AccountService, private router: Router) {
+    this.authService.currentUser.subscribe((res) => {
+      this.username = res;
+    });
+  }
+  username: string | null = null;
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): MaybeAsync<GuardResult> {
-    if (localStorage.getItem('jwtToken')) {
+    if (this.username) {
       return true;
     } else {
       this.router.navigate(['/login']);

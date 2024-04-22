@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { DonorService } from '../../../services/donor.service';
 import { Donor } from '../../../models/donor';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-addingdonor',
@@ -24,6 +25,7 @@ import { Donor } from '../../../models/donor';
     MatSelectModule,
     MatIconModule,
     MatRadioModule,
+    MatCardModule
   ],
   templateUrl: './addingdonor.component.html',
   styleUrl: './addingdonor.component.css',
@@ -74,6 +76,7 @@ export class AddingdonorComponent implements OnInit {
         // this._router.navigate(['/loginsuccess']);
         this.addDonorForm.reset();
         console.log('donor added successfully');
+        this._router.navigate(['/donor-list']);
       },
       (error) => {
         console.log('process Failed');

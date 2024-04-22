@@ -20,17 +20,10 @@ export class DashboardComponent {
   // requests: Observable<Requesting[]> | undefined;
   donor = new Donor();
   number: Observable<any> | undefined;
-  totalrequests: Observable<any> | undefined;
-  donationcount: Observable<any> | undefined;
   totalusers: Observable<any> | undefined;
   totalbloodgroups: Observable<any> | undefined;
-  totalunits: Observable<any> | undefined;
 
-  constructor(
-    private _router: Router,
-    private donorService: DonorService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+  constructor(private _router: Router, private donorService: DonorService) {}
 
   ngOnInit(): void {
     this.tempUser = JSON.stringify(

@@ -18,3 +18,17 @@
 .table th {
   background-color: #f2f2f2;
 }
+
+mat-card {
+  margin: 2%;
+}
+
+th{
+  background-color: black !important;
+  color: white;
+}
+
+.mat-mdc-form-field {
+  width: 30%;
+  margin: 1%;
+}

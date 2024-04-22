@@ -11,16 +11,15 @@ const NAV_URL = environment.apiURL;
   providedIn: 'root',
 })
 export class AccountService {
-  constructor(private _http: HttpClient, private router: Router) {
-    this.currentUserSubject = new BehaviorSubject<string | null>(
-      localStorage.getItem('currentUser')
-    );
-  }
+  constructor(private _http: HttpClient, private router: Router) {}
   private employeesSubject: BehaviorSubject<Employee[]> = new BehaviorSubject<
     Employee[]
   >([]);
 
-  public currentUserSubject: BehaviorSubject<string | null>;
+  public currentUserSubject: BehaviorSubject<string | null> =
+    new BehaviorSubject<string | null>('');
+  public currentUser: Observable<string | null> =
+    this.currentUserSubject.asObservable();
 
   public employees$: Observable<Employee[]> =
     this.employeesSubject.asObservable();
@@ -30,9 +29,17 @@ export class AccountService {
   public authenticated: Observable<boolean> =
     this.AuthenticatedSubject.asObservable();
 
+  public userSubject: BehaviorSubject<Employee | null> =
+    new BehaviorSubject<Employee | null>(null);
+  public user: Observable<Employee | null> = this.userSubject.asObservable();
+
   public isAdminSubject: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
   public isAdmin: Observable<boolean> = this.isAdminSubject.asObservable();
+
+  public isLoginSubject: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
+  public isLogin: Observable<boolean> = this.isAdminSubject.asObservable();
 
   setJwtToken(token: string): void {
     this.jwtToken = token;
@@ -45,10 +52,6 @@ export class AccountService {
       this.jwtToken = localStorage.getItem('jwtToken');
     }
     return this.jwtToken;
-  }
-
-  public get getCurrentUser(): string | null {
-    return this.currentUserSubject.value;
   }
 
   headers = new HttpHeaders({
@@ -91,6 +94,8 @@ export class AccountService {
     this.currentUserSubject.next(null);
     this.AuthenticatedSubject.next(false);
     this.isAdminSubject.next(false);
+    this.userSubject.next(null);
+    this.router.navigate(['/home']);
   }
 
   public async getRoles(email: string): Promise<string> {
@@ -113,5 +118,18 @@ export class AccountService {
 
   public isAuthenticated() {
     return this.authenticated;
+  }
+
+  public forgotPassword(email: string) {
+    return this._http.post<any>(`${NAV_URL}/Account/forgot-password`, {
+      email,
+    });
+  }
+
+  public resetPassword(resetPasswordDTO: {}) {
+    return this._http.post<any>(
+      `${NAV_URL}/Account/reset-password`,
+      resetPasswordDTO
+    );
   }
 }

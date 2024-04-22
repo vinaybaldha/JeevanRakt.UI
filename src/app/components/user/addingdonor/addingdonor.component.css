@@ -38,10 +38,6 @@ h2.textual i {
   margin-bottom: 20px;
 }
 
-label {
-  font-weight: bold;
-}
-
 input[type="text"],
 input[type="number"],
 select {
@@ -105,8 +101,7 @@ label {
 }
 
 button {
-  margin-left: 0;
-  border-radius: 25px;
+  margin: 2px;
 }
 
 .fix {
@@ -120,4 +115,19 @@ table {
 
 td {
   padding: 30px;
+}
+
+mat-card {
+  margin: 2%;
+  text-align: left;
+}
+
+.mat-mdc-form-field {
+  width: 98%;
+  margin: 1%;
+}
+
+.mat-50 {
+  margin: 1%;
+  width: 48%;
 }

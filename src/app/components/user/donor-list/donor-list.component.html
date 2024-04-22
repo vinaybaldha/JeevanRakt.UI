@@ -26,18 +26,19 @@
               donor.donorBloodType
             }}</span></mat-card-subtitle
           >
-          <img
+          
+        </mat-card-title-group>
+      </mat-card-header>
+      <img mat-card-avatar
             *ngIf="donor.donorGender.toLowerCase() === 'male'"
             mat-card-sm-image
             src="assets/img/male.png"
           />
-          <img
+          <img mat-card-avatar
             *ngIf="donor.donorGender.toLowerCase() === 'female'"
             mat-card-sm-image
             src="assets/img/female.png"
           />
-        </mat-card-title-group>
-      </mat-card-header>
       <mat-card-content> Gender: {{ donor.donorGender }} </mat-card-content>
       <mat-card-content> Address: {{ donor.donorAddress }} </mat-card-content>
       <mat-card-content> Age: {{ donor.donorAge }} </mat-card-content>

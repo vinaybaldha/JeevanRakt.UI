@@ -44,6 +44,7 @@ export class AddingpatientComponent {
         // this._router.navigate(['/loginsuccess']);
         this.addRecipientForm.reset();
         console.log('Recipient added successfully');
+        this._router.navigate(['/recipient-list']);
       },
       (error) => {
         console.log('process Failed');

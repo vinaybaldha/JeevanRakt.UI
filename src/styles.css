@@ -2,6 +2,12 @@
 /* styles.css */
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+/* src/styles.css or src/styles.scss */
+@import "tailwindcss/base.css";
+@import "tailwindcss/components.css";
+@import "tailwindcss/utilities.css";
+/* Add your custom styles below */
+
 html,
 body {
   height: 100%;

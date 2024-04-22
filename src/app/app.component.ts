@@ -10,11 +10,12 @@ import { MatListModule } from '@angular/material/list';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppInitializerService } from './services/app-initializer.service';
 import { AccountService } from './services/account.service';
-import { UserSidebarComponent } from './sidebar/user-sidebar/user-sidebar.component';
-import { AdminSidebarComponent } from './sidebar/admin-sidebar/admin-sidebar.component';
 import { JwtInterceptor } from './jwt.interceptor';
 import { LoginComponent } from './login/login.component';
-import { UserComponent } from './components/user/user.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { Employee } from './models/Employee';
+import { CarouselModule } from '@syncfusion/ej2-angular-navigations';
+import {MatBadgeModule} from '@angular/material/badge';
 
 @Component({
   selector: 'app-root',
@@ -34,10 +35,9 @@ import { UserComponent } from './components/user/user.component';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    UserSidebarComponent,
-    AdminSidebarComponent,
     LoginComponent,
-    UserComponent,
+    NavbarComponent,
+    MatBadgeModule
   ],
 })
 export class AppComponent implements OnInit {
@@ -53,18 +53,29 @@ export class AppComponent implements OnInit {
     authService.isAdmin.subscribe((res) => {
       this.isAdmin = res;
     });
-    console.log(this.isAdmin);
-    console.log(this.isLogin);
+
+    authService.user.subscribe((res) => {
+      this.profileUrl = res?.filePath;
+    });
+
+    this.authService.currentUser.subscribe((res) => {
+      this.username = res;
+    });
   }
   appLoaded = false;
   opened: boolean = false;
-  isLogin: boolean = !!this.authService.getCurrentUser;
+  badgevisible:boolean= false
+
   isAdmin: boolean = false;
   title = 'JeevanRakt.UI';
+  username: string | null = null;
+  profileUrl: string | undefined;
 
+  isLogin: boolean = false;
   navigateToAddDonor() {
     this.router.navigateByUrl('/add-donor');
   }
+
   ngOnInit(): void {
     this.initializeApp();
   }
@@ -82,5 +93,9 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.authService.logOut();
+  }
+
+  badgeVisibility(){
+    this.badgevisible = !this.badgevisible
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -6,18 +6,28 @@ import { DonateService } from '../../../services/donate.service';
 import { DonorService } from '../../../services/donor.service';
 import { Donor } from '../../../models/donor';
 import { Blood } from '../../../models/Blood';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialog } from '@angular/material/dialog';
+import { PopupComponent } from '../../popup/popup.component';
 
 @Component({
   selector: 'app-donate',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, MatTableModule, MatPaginatorModule, MatSortModule,MatCardModule, MatButtonModule, MatFormFieldModule, MatInputModule],
   templateUrl: './donate.component.html',
   styleUrl: './donate.component.css',
 })
 export class DonateComponent implements OnInit {
   constructor(
     private donateService: DonateService,
-    private donorService: DonorService
+    private donorService: DonorService,
+    private dialog: MatDialog
   ) {}
   ngOnInit(): void {
     this.reloadData();
@@ -33,12 +43,23 @@ export class DonateComponent implements OnInit {
     donorGender: '',
   };
 
-  donors: Observable<Donor[]> | undefined;
+  donors: Donor[] | undefined;
   bloodStocks: Observable<Blood[]> | undefined;
   bloodStock: Blood = {
     bloodGroup: '',
     bloodStock: 0,
   };
+  dataSourse:any
+  displayedColumns:string[]=[ "donorId",
+  "donorName",
+  "donorBloodType",
+  "donorContactNumber",
+  "donorGender",
+  "donorAge",
+  "donorAddress",
+"action"]
+@ViewChild(MatPaginator) paginator!:MatPaginator
+@ViewChild(MatSort) sort!:MatSort
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
@@ -77,11 +98,41 @@ export class DonateComponent implements OnInit {
   }
 
   reloadData() {
-    this.donors = this.donorService.getDonorList();
+     this.donorService.getDonorList().subscribe((res:Donor[])=>{
+      this.donors = res;
+      this.dataSourse = new MatTableDataSource<Donor>(res);
+      this.dataSourse.paginator = this.paginator
+      this.dataSourse.sort = this.sort
+    });
+    
     this.bloodStocks = this.donateService.getBloodList();
   }
 
   donateDonor(donor: Donor) {
     this.selectedDonor = { ...donor };
+    this.OpenPopup(donor, 'Comfirm Donation')
+    
+  }
+
+  filterChange(data:Event){
+    const value = (data.target as HTMLInputElement).value
+    this.dataSourse.filter = value
+  }
+
+  OpenPopup(selectedDonor:any, title:any){
+    var _popup=this.dialog.open(PopupComponent,{
+      width:'60%',
+      height: '400px',
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration:'1000ms',
+      data:{
+        title:title,
+        selectedDonor: selectedDonor
+      }
+    })
+    _popup.afterClosed().subscribe(item=>{
+      console.log(item);
+      this.reloadData()
+    })
   }
 }

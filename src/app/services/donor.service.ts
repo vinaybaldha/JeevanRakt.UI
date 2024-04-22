@@ -70,15 +70,29 @@ export class DonorService {
   //   return this._http.get<any>(`${NAV_URL}/bloodDetails`);
   // }
 
-  // public getProfileDetails(loggedUser: string): Observable<any> {
-  //   return this._http.get(`${NAV_URL}/profileDetails/` + loggedUser);
-  // }
+  public getProfileDetails(): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this._accountService.getJwtToken()}`,
+    });
+    return this._http.get(`${NAV_URL}/Account/user`, {
+      headers: headers,
+    });
+  }
 
   public updateDonor(donor: any): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this._accountService.getJwtToken()}`,
     });
     return this._http.put<any>(`${NAV_URL}/Donors/${donor.donorId}`, donor, {
+      headers: headers,
+    });
+  }
+
+  public UpdateUserProfile(employee: any): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${this._accountService.getJwtToken()}`,
+    });
+    return this._http.put<any>(`${NAV_URL}/Account/user`, employee, {
       headers: headers,
     });
   }
@@ -104,7 +118,7 @@ export class DonorService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this._accountService.getJwtToken()}`,
     });
-    return this._http.get(`${NAV_URL}/donor/totaldonors`, {
+    return this._http.get(`${NAV_URL}/donors/totaldonors`, {
       headers: headers,
     });
   }

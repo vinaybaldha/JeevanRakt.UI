@@ -22,8 +22,14 @@
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/tailwindcss/base.css",
+              "node_modules/tailwindcss/components.css",
+              "node_modules/tailwindcss/utilities.css"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": ["node_modules"]
+            },
             "scripts": ["node_modules/jquery/dist/jquery.min.js"]
           },
           "configurations": {
@@ -77,7 +83,10 @@
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/tailwindcss/base.css",
+              "node_modules/tailwindcss/components.css",
+              "node_modules/tailwindcss/utilities.css"
             ],
             "scripts": ["node_modules/jquery/dist/jquery.min.js"]
           }

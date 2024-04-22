@@ -10,13 +10,16 @@ import { DashboardComponent } from './components/user/dashboard/dashboard.compon
 import { BloodTransfertComponent } from './components/user/blood-transfert/blood-transfert.component';
 import { DonateComponent } from './components/user/donate/donate.component';
 import { AuthGuard } from './services/auth.guard';
-import { AppComponent } from './app.component';
-import { UserComponent } from './components/user/user.component';
 import { EmployeeListComponent } from './components/user/employee-list/employee-list.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { UserprofileComponent } from './components/user/userprofile/userprofile.component';
+import { BloodBanksComponent } from './components/blood-banks/blood-banks.component';
 
 export const routes: Routes = [
-  { path: '', component: AppComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'add-donor',
     component: AddingdonorComponent,
@@ -58,6 +61,19 @@ export const routes: Routes = [
   {
     path: 'blood-transfert',
     component: BloodTransfertComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password', component: ResetPasswordComponent },
+  { path: 'nav', component: NavbarComponent },
+  {
+    path: 'userprofile',
+    component: UserprofileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'blood-banks',
+    component: BloodBanksComponent,
     canActivate: [AuthGuard],
   },
 ];
