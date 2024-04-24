@@ -1,26 +1,23 @@
-<div class="container">
-  <app-carousel [slides]="slides"></app-carousel>
-</div>
-<!-- home.component.html -->
-
 <mat-card class="card">
   <mat-card-header>
+    <div style="text-align: center">
     <mat-card-title>Welcome to Blood Bank Management System</mat-card-title>
     <mat-card-subtitle>Helping Save Lives</mat-card-subtitle>
+  </div>
   </mat-card-header>
   <mat-card-content>
-    <p>
+    <h2 style="margin-top: 2%;">
       Our Blood Bank Management System ensures efficient management of blood
       inventory and donor information to facilitate life-saving transfusions.
-    </p>
-    <p>Features:</p>
+    </h2>
+    <h3 matListItemTitle>Features:</h3>
 
-    <ul>
-      <li>Track blood inventory levels in real-time</li>
-      <li>Manage donor database securely</li>
-      <li>Provide quick access to blood requests</li>
-      <li>Generate reports and statistics</li>
-    </ul>
+    <mat-list role="list" matListItemIcon>
+      <mat-list-item  role="listitem">Manage donor database securely</mat-list-item>
+      <mat-list-item role="listitem">Track blood inventory levels in real-time</mat-list-item>
+      <mat-list-item role="listitem">Provide quick access to blood requests</mat-list-item>
+      <mat-list-item role="listitem">Generate reports and statistics</mat-list-item>
+    </mat-list>
 
     <h2>Learn About Donation</h2>
     <p>

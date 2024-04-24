@@ -2,13 +2,24 @@ import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { tokenInterceptor } from './services/token.interceptor';
+import { provideStore } from '@ngrx/store';
+import { provideEffects } from '@ngrx/effects';
+import { DonorReducer } from './_store/donor/donor.reducer';
+import { DonorEffects } from './_store/donor/donor.effects';
+import { RecipientReducer } from './_store/recipient/recipient.reducer';
+import { RecipientEffects } from './_store/recipient/recipient.effects';
+import { BloodBankReducer } from './_store/blood-bank/bloodbank.reducer';
+import { BloodBankEffects } from './_store/blood-bank/bloodbank.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([tokenInterceptor])),
     provideAnimationsAsync(),
-  ],
+    provideStore({'donor':DonorReducer, 'recipient':RecipientReducer, 'bloodbank':BloodBankReducer}),
+    provideEffects([DonorEffects, RecipientEffects, BloodBankEffects])
+],
 };

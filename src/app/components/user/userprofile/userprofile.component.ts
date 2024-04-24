@@ -7,6 +7,7 @@ import { DonorService } from '../../../services/donor.service';
 import { Employee } from '../../../models/Employee';
 import { CommonModule } from '@angular/common';
 import $ from 'jquery';
+import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-userprofile',
@@ -24,7 +25,7 @@ export class UserprofileComponent implements OnInit {
   msg = ' ';
 
   constructor(
-    private donorService: DonorService,
+    private authService: AccountService,
     private activatedRoute: ActivatedRoute,
     private _router: Router
   ) {}
@@ -54,14 +55,14 @@ export class UserprofileComponent implements OnInit {
   }
 
   getProfileDetails() {
-    this.donorService.getProfileDetails().subscribe((res) => {
+    this.authService.getProfileDetails().subscribe((res) => {
       this.profileDetails = res;
     });
     console.log(this.profileDetails);
   }
 
   updateUserProfile() {
-    this.donorService.UpdateUserProfile(this.user).subscribe(
+    this.authService.UpdateUserProfile(this.user).subscribe(
       (data) => {
         console.log('UserProfile Updated succesfully');
         //localStorage.setItem("username",this.user.username);

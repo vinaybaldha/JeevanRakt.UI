@@ -1,16 +1,15 @@
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { DonateService } from '../../services/donate.service';
 import { Donor } from '../../models/donor';
 import { Blood } from '../../models/Blood';
-import { MatCardModule } from '@angular/material/card';
+import { MaterialModule } from '../../_module/Material.Module';
 
 @Component({
   selector: 'app-popup',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, FormsModule, MatCardModule],
+  imports: [ FormsModule, MaterialModule],
   templateUrl: './popup.component.html',
   styleUrl: './popup.component.css'
 })

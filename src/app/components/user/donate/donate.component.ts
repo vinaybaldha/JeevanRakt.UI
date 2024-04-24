@@ -6,20 +6,17 @@ import { DonateService } from '../../../services/donate.service';
 import { DonorService } from '../../../services/donor.service';
 import { Donor } from '../../../models/donor';
 import { Blood } from '../../../models/Blood';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../../popup/popup.component';
+import { MaterialModule } from '../../../_module/Material.Module';
 
 @Component({
   selector: 'app-donate',
   standalone: true,
-  imports: [FormsModule, CommonModule, MatTableModule, MatPaginatorModule, MatSortModule,MatCardModule, MatButtonModule, MatFormFieldModule, MatInputModule],
+  imports: [FormsModule, CommonModule, MaterialModule],
   templateUrl: './donate.component.html',
   styleUrl: './donate.component.css',
 })

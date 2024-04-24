@@ -9,3 +9,8 @@ export class Recipient {
 
   constructor() {}
 }
+
+export interface RecipientModel{
+  list:Recipient[]
+  errormessage:string
+}

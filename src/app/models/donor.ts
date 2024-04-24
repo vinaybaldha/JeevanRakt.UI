@@ -9,3 +9,8 @@ export class Donor {
 
   constructor() {}
 }
+
+export interface DonorModel{
+  list:Donor[]
+  errormessage:string
+}

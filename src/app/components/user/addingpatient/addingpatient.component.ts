@@ -3,14 +3,10 @@ import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { MatIconModule } from '@angular/material/icon';
-import { MatRadioModule } from '@angular/material/radio';
 import { Recipient } from '../../../models/Recipient';
 import { DonorService } from '../../../services/donor.service';
+import { MaterialModule } from '../../../_module/Material.Module';
+import { RecipientService } from '../../../services/recipient.service';
 
 @Component({
   selector: 'app-addingpatient',
@@ -18,12 +14,7 @@ import { DonorService } from '../../../services/donor.service';
   imports: [
     FormsModule,
     CommonModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatIconModule,
-    MatRadioModule,
+    MaterialModule
   ],
   templateUrl: './addingpatient.component.html',
   styleUrl: './addingpatient.component.css',
@@ -34,7 +25,7 @@ export class AddingpatientComponent {
   recipient = new Recipient();
   @ViewChild('addrecipientform') addRecipientForm!: NgForm;
 
-  constructor(private _service: DonorService, private _router: Router) {}
+  constructor(private _service: RecipientService, private _router: Router) {}
 
   addRecipient() {
     var guid = uuidv4();

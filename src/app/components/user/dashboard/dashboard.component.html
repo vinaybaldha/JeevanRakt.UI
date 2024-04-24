@@ -1,68 +1,38 @@
 <div class="row" style="padding: 15px">
-  <div
-    style="
-      color: maroon;
-      font-weight: bold;
-      font-size: 30px;
-      margin: 2% 0% 5% 20%;
-    "
-  >
+  <div style="color: maroon; font-weight: bold; font-size: 30px; margin: 2%;">
     <b>Welcome to User Dashboard</b>
   </div>
-  <div class="card bg-light" id="bloodCards">
-    <div class="card-body text-left">
+
+  <mat-card class="mat-card bg-light" id="bloodCards">
+    <mat-card-content class="text-left">
       <div style="font-weight: bolder; font-size: 28px">
-        Total Donors <i class="fa fa-heart" aria-hidden="true"></i>
+        Total Donors <mat-icon>favorite</mat-icon>
       </div>
-      <div
-        style="
-          color: maroon;
-          text-transform: capitalize;
-          font-size: larger;
-          font-size: 20px;
-          font-weight: bolder;
-        "
-      >
+      <div style="color: maroon; text-transform: capitalize; font-size: 20px; font-weight: bolder;">
         {{ number | async }} donors
       </div>
-    </div>
-  </div>
-  <div class="card bg-light" id="bloodCards">
-    <div class="card-body text-left">
-      <div class="card-text" style="font-weight: bolder; font-size: 28px">
-        Total Registered Users <i class="fa fa-user" aria-hidden="true"></i>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mat-card bg-light" id="bloodCards">
+    <mat-card-content class="text-left">
+      <div style="font-weight: bolder; font-size: 28px">
+        Total Registered Users <mat-icon>person</mat-icon>
       </div>
-      <div
-        style="
-          color: maroon;
-          text-transform: capitalize;
-          font-size: larger;
-          font-size: 20px;
-          font-weight: bolder;
-        "
-      >
+      <div style="color: maroon; text-transform: capitalize; font-size: 20px; font-weight: bolder;">
         {{ totalusers | async }} users
       </div>
-    </div>
-  </div>
-  <div class="card bg-light" id="bloodCards">
-    <div class="card-body text-left">
-      <div class="card-text" style="font-weight: bolder; font-size: 28px">
-        Total Blood Groups <i class="fa fa-list" aria-hidden="true"></i>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mat-card bg-light" id="bloodCards">
+    <mat-card-content class="text-left">
+      <div style="font-weight: bolder; font-size: 28px">
+        Total Blood Groups <mat-icon>format_list_bulleted</mat-icon>
       </div>
-      <div
-        style="
-          color: maroon;
-          text-transform: capitalize;
-          font-size: larger;
-          font-size: 20px;
-          font-weight: bolder;
-        "
-      >
+      <div style="color: maroon; text-transform: capitalize; font-size: 20px; font-weight: bolder;">
         {{ totalbloodgroups | async }} blood groups
       </div>
-    </div>
-  </div>
+    </mat-card-content>
+  </mat-card>
 </div>
-
-<br /><br />

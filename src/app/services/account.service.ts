@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -54,18 +54,9 @@ export class AccountService {
     return this.jwtToken;
   }
 
-  headers = new HttpHeaders({
-    Authorization: `Bearer ${this.jwtToken}`,
-  });
-
   public getEmployeeList(): void {
-    const headers = new HttpHeaders({
-      Authorization: `Bearer ${localStorage.getItem('jwtToken')}`,
-    });
     this._http
-      .get<any>(`${NAV_URL}/Account/users`, {
-        headers: headers,
-      })
+      .get<any>(`${NAV_URL}/Account/users`)
       .subscribe(
         (employees: Employee[]) => {
           this.employeesSubject.next(employees);
@@ -131,5 +122,21 @@ export class AccountService {
       `${NAV_URL}/Account/reset-password`,
       resetPasswordDTO
     );
+  }
+
+  public haveSuccess(){
+    return true
+  }
+
+  public getProfileDetails(): Observable<any> {
+    return this._http.get(`${NAV_URL}/Account/user`);
+  }
+
+  public UpdateUserProfile(employee: any): Observable<any> {
+    return this._http.put<any>(`${NAV_URL}/Account/user`, employee);
+  }
+
+  public getTotalUsers(): Observable<any> {
+    return this._http.get(`${NAV_URL}/account/totalusers`);
   }
 }

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CarouselComponent } from '../../carousel/carousel.component';
-import { MatCardModule } from '@angular/material/card';
-import { MatTableModule } from '@angular/material/table';
-import { MatListModule } from '@angular/material/list';
+import { MaterialModule } from '../../../_module/Material.Module';
 
 type Slide = {
   src: string;
@@ -13,7 +11,7 @@ type Slide = {
   standalone: true,
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  imports: [CarouselComponent, MatCardModule, MatTableModule, MatListModule],
+  imports: [CarouselComponent, MaterialModule]
 })
 export class HomeComponent implements OnInit {
   ngOnInit() {}

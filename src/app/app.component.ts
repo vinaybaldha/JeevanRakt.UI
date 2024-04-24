@@ -2,20 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { SplashComponent } from './splash/splash.component';
 import { CommonModule } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatListModule } from '@angular/material/list';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppInitializerService } from './services/app-initializer.service';
 import { AccountService } from './services/account.service';
 import { JwtInterceptor } from './jwt.interceptor';
 import { LoginComponent } from './login/login.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { Employee } from './models/Employee';
-import { CarouselModule } from '@syncfusion/ej2-angular-navigations';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MaterialModule } from './_module/Material.Module';
 
 @Component({
   selector: 'app-root',
@@ -30,14 +22,8 @@ import {MatBadgeModule} from '@angular/material/badge';
     RouterModule,
     SplashComponent,
     CommonModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSidenavModule,
-    MatListModule,
     LoginComponent,
-    NavbarComponent,
-    MatBadgeModule
+    MaterialModule
   ],
 })
 export class AppComponent implements OnInit {

@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Donor } from '../../../models/donor';
 import { DonorService } from '../../../services/donor.service';
+import { MaterialModule } from '../../../_module/Material.Module';
+import { AccountService } from '../../../services/account.service';
+import { DonateService } from '../../../services/donate.service';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterModule, CommonModule],
+  imports: [RouterModule, CommonModule, MaterialModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css',
 })
@@ -23,7 +26,7 @@ export class DashboardComponent {
   totalusers: Observable<any> | undefined;
   totalbloodgroups: Observable<any> | undefined;
 
-  constructor(private _router: Router, private donorService: DonorService) {}
+  constructor(private _router: Router, private donorService: DonorService, private authService:AccountService, private donateService:DonateService) {}
 
   ngOnInit(): void {
     this.tempUser = JSON.stringify(
@@ -38,8 +41,8 @@ export class DashboardComponent {
     this.loggedUser = this.tempUser;
     this.msg = '';
     this.number = this.donorService.getTotalDonors();
-    this.totalusers = this.donorService.getTotalUsers();
-    this.totalbloodgroups = this.donorService.getTotalBloodGroups();
+    this.totalusers = this.authService.getTotalUsers();
+    this.totalbloodgroups = this.donateService.getTotalBloodGroups();
     // this.totalunits = this.donorService.getTotalUnits();
     // this.donationcount = this.donorService.getTotalDonationCount(
     //   this.loggedUser

@@ -9,7 +9,7 @@ type Slide = {
 @Component({
   selector: 'app-carousel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,],
   templateUrl: './carousel.component.html',
   styleUrl: './carousel.component.css',
   animations: [

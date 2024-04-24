@@ -6,3 +6,8 @@ export class BloodBank {
   longitude: number = 0;
   constructor() {}
 }
+
+export interface BloodBankModel{
+  list:BloodBank[]
+  errormessage:string
+}

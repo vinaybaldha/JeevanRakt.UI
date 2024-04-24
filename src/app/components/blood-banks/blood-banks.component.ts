@@ -3,6 +3,9 @@ import { BloodBankService } from '../../services/blood-bank.service';
 import { BloodBank } from '../../models/BloodBank';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
+import { Store } from '@ngrx/store';
+import { loadBloodBank } from '../../_store/blood-bank/bloodbank.actions';
+import { getBloodBankList } from '../../_store/blood-bank/bloodbank.selector';
 
 @Component({
   selector: 'app-blood-banks',
@@ -14,20 +17,16 @@ import { MatCardModule } from '@angular/material/card';
 export class BloodBanksComponent {
   bloodBanks: BloodBank[] = [];
 
-  constructor(private bloodBankService: BloodBankService) {}
+  constructor(private store:Store) {}
 
   ngOnInit(): void {
     this.loadBloodBanks();
   }
 
   loadBloodBanks(): void {
-    this.bloodBankService.getBloodBanks().subscribe(
-      (bloodBanks: BloodBank[]) => {
-        this.bloodBanks = bloodBanks;
-      },
-      (error) => {
-        console.error('Error loading blood banks:', error);
-      }
-    );
+    this.store.dispatch(loadBloodBank())
+    this.store.select(getBloodBankList).subscribe(item=>{
+      this.bloodBanks = item
+    })
   }
 }

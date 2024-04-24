@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Observable } from 'rxjs';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { Donor } from '../../../models/donor';
+import { MaterialModule } from '../../../_module/Material.Module';
+import { Store } from '@ngrx/store';
+import { deleteDonor, loadDonor } from '../../../_store/donor/donor.actions';
+import { getDonorList } from '../../../_store/donor/donor.selector';
 import { DonorService } from '../../../services/donor.service';
 
 @Component({
   selector: 'app-donor-list',
   standalone: true,
-  imports: [FormsModule, CommonModule, MatCardModule, MatButtonModule],
+  imports: [FormsModule, CommonModule,MaterialModule],
   templateUrl: './donor-list.component.html',
   styleUrl: './donor-list.component.css',
 })
 export class DonorListComponent implements OnInit {
-  donors: Observable<Donor[]> | undefined;
+  donors: Donor[] | undefined;
   bloodGroup: any;
   title = '';
 
@@ -30,30 +31,22 @@ export class DonorListComponent implements OnInit {
     donorAddress: '',
   };
 
-  constructor(private donorService: DonorService) {}
+  constructor(private store:Store, private donorService:DonorService) {}
 
   ngOnInit(): void {
     this.reloadData();
   }
 
   reloadData() {
-    this.donors = this.donorService.getDonorList();
+    this.store.dispatch(loadDonor())
+    this.store.select(getDonorList).subscribe(item=>{
+      this.donors = item
+    })
+
   }
 
   search() {
-    // if (this.bloodGroup == '') {
-    //   this.reloadData();
-    // } else {
-    //   this.donors = this.donors?.pipe(
-    //     map((results) =>
-    //       results.filter((res) => {
-    //         return res.donorBloodType
-    //           .toLocaleLowerCase()
-    //           .match(this.bloodGroup.toLocaleLowerCase());
-    //       })
-    //     )
-    //   );
-    // }
+   
   }
 
   editDonor(donor: Donor) {
@@ -76,8 +69,6 @@ export class DonorListComponent implements OnInit {
   }
 
   deleteDonor(donor: Donor) {
-    this.donorService.deleteDonor(donor.donorId).subscribe(() => {
-      this.reloadData();
-    });
+    this.store.dispatch(deleteDonor({donorId:donor.donorId}))
   }
 }
