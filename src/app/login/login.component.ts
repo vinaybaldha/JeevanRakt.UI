@@ -4,6 +4,7 @@ import { Employee } from '../models/Employee';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../services/account.service';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-login',
@@ -19,9 +20,11 @@ export class LoginComponent {
   adminPassword = '';
   roles: string[] = [];
 
-  constructor(private _service: AccountService, private _router: Router) {}
+  constructor(private _service: AccountService, private _router: Router, private store:Store) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+ 
+  }
 
   loginUser() {
     let roles: string | null = '';

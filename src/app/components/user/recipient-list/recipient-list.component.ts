@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RecipientService } from '../../../services/recipient.service';
 import { Recipient } from '../../../models/Recipient';
 import { MaterialModule } from '../../../_module/Material.Module';
 import { Store } from '@ngrx/store';
-import { loadRecipient } from '../../../_store/recipient/reipient.actions';
+import { deleteRecipient, loadRecipient, updateRecipient } from '../../../_store/recipient/reipient.actions';
 import { getRecipientList } from '../../../_store/recipient/recipient.selector';
 
 @Component({
@@ -20,8 +18,19 @@ export class RecipientListComponent {
   recipients: Recipient[] | undefined;
   bloodGroup: any;
   title = '';
+  selectedRecipient: Recipient = {
+    recipientId: '',
+    recipientName: '',
+    recipientBloodType: '',
+    recipientContactNumber: '',
+    recipientGender: '',
+    recipientAge: 0,
+    recipientAddress: ''
+  };
+  edit:boolean = false
 
-  constructor(private recipientService: RecipientService, private store:Store) {}
+
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.reloadData();
@@ -35,18 +44,31 @@ export class RecipientListComponent {
   }
 
   search() {
-    // if (this.bloodGroup == '') {
-    //   this.reloadData();
-    // } else {
-    //   this.recipient = this.recipient?.pipe(
-    //     map((results) =>
-    //       results.filter((res) => {
-    //         return res.donorBloodType
-    //           .toLocaleLowerCase()
-    //           .match(this.bloodGroup.toLocaleLowerCase());
-    //       })
-    //     )
-    //   );
-    // }
+    
+  }
+
+  editRecipient(recipient: Recipient) {
+    this.selectedRecipient = { ...recipient };
+    this.edit = true
+  }
+
+  saveEditedRecipient() {
+    this.store.dispatch(updateRecipient({inputData:this.selectedRecipient}))
+    
+      this.selectedRecipient = {
+        recipientId: '',
+        recipientName: '',
+        recipientBloodType: '',
+        recipientContactNumber: '',
+        recipientGender: '',
+        recipientAge: 0,
+        recipientAddress: ''
+      };
+
+      this.edit= false
+  }
+
+  deleteRecipient(recipient: Recipient) {
+    this.store.dispatch(deleteRecipient({recipientId:recipient.recipientId}))
   }
 }

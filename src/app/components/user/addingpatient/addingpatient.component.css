@@ -38,10 +38,6 @@ h2.textual i {
   margin-bottom: 20px;
 }
 
-label {
-  font-weight: bold;
-}
-
 input[type="text"],
 input[type="number"],
 select {
@@ -92,13 +88,20 @@ select {
   margin: 5px;
 }
 
+@media screen and (max-width: 600px) {
+  mat-form-field {
+    width: 100%; /* Expand form fields to full width on smaller screens */
+    margin-right: 0; /* Remove right margin on form fields */
+    margin-left: 0; /* Remove left margin on form fields */
+  }
+}
+
 label {
   margin-left: 0;
 }
 
 button {
-  margin-left: 0;
-  border-radius: 25px;
+  margin: 2px;
 }
 
 .fix {
@@ -114,10 +117,17 @@ td {
   padding: 30px;
 }
 
-@media screen and (max-width: 600px) {
-  mat-form-field {
-    width: 100%; /* Expand form fields to full width on smaller screens */
-    margin-right: 0; /* Remove right margin on form fields */
-    margin-left: 0; /* Remove left margin on form fields */
-  }
+mat-card {
+  margin: 2%;
+  text-align: left;
+}
+
+.mat-mdc-form-field {
+  width: 98%;
+  margin: 1%;
+}
+
+.mat-50 {
+  margin: 1%;
+  width: 48%;
 }

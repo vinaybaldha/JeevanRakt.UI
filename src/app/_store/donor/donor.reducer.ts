@@ -1,22 +1,66 @@
 import { createReducer, on } from "@ngrx/store";
 import { donorState } from "./donor.state";
-import { loadDonorFail, loadDonorSuccess } from "./donor.actions";
+import { addDonorSuccess, deleteDonorSuccess, loadDonorFail, loadDonorSuccess, loadSpinner, updateDonorSuccess } from "./donor.actions";
 
 const _DonorReducer = createReducer(donorState,
     on(loadDonorSuccess, (state,action)=>{
         return {
             ...state,
             list: action.list,
-            errormessage:''
+            errormessage:'',
+            isLoaded: false
         }
     }),
     on(loadDonorFail,(state,action)=>{
         return {
             ...state,
             list:[],
-            errormessage:action.errormessage
+            errormessage:action.errormessage,
+            isLoaded: false
         }
+    }),
+    on(deleteDonorSuccess,(state,action)=>{
+        let _newdata = state.list.filter(o=>o.donorId!=action.donorId)
+        return {
+            ...state,
+            list: _newdata,
+            errormessage: '',
+            isLoaded: false
+        }
+    }),
+    on(addDonorSuccess,(state,action)=>{
+        
+        return {
+            ...state,
+            list: [...state.list, action.inputData],
+            errormessage: '',
+            isLoaded: false
+        }
+    }),
+    on(updateDonorSuccess, (state, action) => {
+        const updatedIndex = state.list.findIndex(donor => donor.donorId === action.inputData.donorId);
+        if (updatedIndex !== -1) {
+            const updatedList = [...state.list];
+            updatedList[updatedIndex] = action.inputData;
+            return {
+                ...state,
+                list: updatedList,
+                errorMessage: '',
+                isLoaded: false
+            };
+        }
+        return state;
+    }),
+    on(loadSpinner, (state, action) => {
+        
+       
+            return {
+                ...state,
+                isLoaded: action.isLoaded
+            };
+      
     })
+    
 )
 
 export function DonorReducer(state:any,action:any){

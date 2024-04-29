@@ -13,4 +13,5 @@ export class Donor {
 export interface DonorModel{
   list:Donor[]
   errormessage:string
+  isLoaded:boolean
 }

@@ -20,4 +20,12 @@ export class RecipientService {
   public addRecipientFromRemote(recipient: Recipient): Observable<any> {
     return this._http.post<any>(`${NAV_URL}/Recipients`, recipient);
   }
+
+  public updateRecipient(recipient: any): Observable<any> {
+    return this._http.put<any>(`${NAV_URL}/Recipients/${recipient.recipientId}`, recipient);
+  }
+
+  public deleteRecipient(id: string): Observable<any> {
+    return this._http.delete<any>(`${NAV_URL}/Recipients/${id}`);
+  }
 }

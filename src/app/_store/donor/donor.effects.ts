@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { DonorService } from "../../services/donor.service";
-import { addDonor, addDonorSuccess, deleteDonor, deleteDonorSuccess, emptyAction, loadDonor, loadDonorFail, loadDonorSuccess, showAlert, updateDonor, updateDonorSuccess } from "./donor.actions";
+import { addDonor, addDonorSuccess, deleteDonor, deleteDonorSuccess, emptyAction, loadDonor, loadDonorFail, loadDonorSuccess, loadSpinner, showAlert, updateDonor, updateDonorSuccess } from "./donor.actions";
 import { catchError, exhaustMap, map, of, switchMap } from "rxjs";
 import { MatSnackBar } from "@angular/material/snack-bar";
 
@@ -17,7 +17,7 @@ export class DonorEffects{
                     map((data)=>{
                         return loadDonorSuccess({list:data})
                     }),
-                    catchError((_err)=>of(loadDonorFail({errormessage:_err.message})))
+                    catchError((_err)=>of(loadDonorFail({errormessage:_err.message}),loadSpinner({isLoaded:false})))
                 )
             })
         )
@@ -29,9 +29,9 @@ export class DonorEffects{
             switchMap((action)=>{
                 return this.donorService.addDonorFromRemote(action.inputData).pipe(
                     switchMap((data)=>{
-                        return of(addDonorSuccess(), showAlert({message:'added successfully',resptype:'pass'}))
+                        return of(addDonorSuccess({inputData: action.inputData}), showAlert({message:'added successfully',resptype:'pass'}))
                     }),
-                    catchError((_err)=>of(showAlert({message:'add fail',resptype:'fail'})))
+                    catchError((_err)=>of(showAlert({message:'add fail',resptype:'fail'}),loadSpinner({isLoaded:false})))
                 )
             })
         )
@@ -43,9 +43,9 @@ export class DonorEffects{
             switchMap((action)=>{
                 return this.donorService.updateDonor(action.inputData).pipe(
                     switchMap((data)=>{
-                        return of(updateDonorSuccess(), showAlert({message:'updated successfully',resptype:'pass'}))
+                        return of(updateDonorSuccess({inputData: action.inputData}), showAlert({message:'updated successfully',resptype:'pass'}))
                     }),
-                    catchError((_err)=>of(showAlert({message:'updated fail',resptype:'fail'})))
+                    catchError((_err)=>of(showAlert({message:'updated fail',resptype:'fail'}),loadSpinner({isLoaded:false})))
                 )
             })
         )
@@ -57,9 +57,9 @@ export class DonorEffects{
             switchMap((action)=>{
                 return this.donorService.deleteDonor(action.donorId).pipe(
                     switchMap((data)=>{
-                        return of(deleteDonorSuccess(),showAlert({message:'removed successfully',resptype:'pass'}))
+                        return of(deleteDonorSuccess({donorId: action.donorId}),showAlert({message:'removed successfully',resptype:'pass'}))
                     }),
-                    catchError((_err)=>of(showAlert({message:'remove fail',resptype:'fail'})))
+                    catchError((_err)=>of(showAlert({message:`remove fail`,resptype:'fail'}),loadSpinner({isLoaded:false})))
                 )
             })
         )

@@ -62,7 +62,7 @@
   </div>
 
   <!-- Edit donor form -->
-  <div class="edit-form" *ngIf="selectedDonor.donorName">
+  <div class="edit-form" *ngIf="edit">
     <h3>Edit Donor</h3>
     <form (ngSubmit)="saveEditedDonor()">
       <div class="form-group">

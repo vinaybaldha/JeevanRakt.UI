@@ -49,11 +49,73 @@
         Contact: {{ recipient.recipientContactNumber }}
       </mat-card-content>
       <mat-card-actions>
-        <button mat-flat-button color="primary" style="margin-right: 25px">
+        <button mat-flat-button color="primary" style="margin-right: 25px" (click)="editRecipient(recipient)">
           Edit
         </button>
-        <button mat-flat-button color="warn">Delete</button>
+        <button mat-flat-button color="warn" (click)="deleteRecipient(recipient)">Delete</button>
       </mat-card-actions>
     </mat-card>
   </div>
+</div>
+
+
+<div class="edit-form" *ngIf="edit">
+  <h3>Edit Recipient</h3>
+  <form (ngSubmit)="saveEditedRecipient()">
+    <div class="form-group">
+      <label>Recipient Name:</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="selectedRecipient.recipientName"
+        name="donorName"
+      />
+    </div>
+    <div class="form-group">
+      <label>Blood Group:</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="selectedRecipient.recipientBloodType"
+        name="BloodGroup"
+      />
+    </div>
+    <div class="form-group">
+      <label>Gender:</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="selectedRecipient.recipientGender"
+        name="Gender"
+      />
+    </div>
+    <div class="form-group">
+      <label>Contact:</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="selectedRecipient.recipientContactNumber"
+        name="ContactNumber"
+      />
+    </div>
+    <div class="form-group">
+      <label>Age:</label>
+      <input
+        type="number"
+        class="form-control"
+        [(ngModel)]="selectedRecipient.recipientAge"
+        name="Age"
+      />
+    </div>
+    <div class="form-group">
+      <label>Address:</label>
+      <input
+        type="text"
+        class="form-control"
+        [(ngModel)]="selectedRecipient.recipientAddress"
+        name="Address"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
 </div>

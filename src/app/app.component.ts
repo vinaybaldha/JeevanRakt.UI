@@ -8,23 +8,25 @@ import { AccountService } from './services/account.service';
 import { JwtInterceptor } from './jwt.interceptor';
 import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './_module/Material.Module';
+import { LoadingspinnerComponent } from "./components/loadingspinner/loadingspinner.component";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-  ],
-  imports: [
-    RouterOutlet,
-    RouterModule,
-    SplashComponent,
-    CommonModule,
-    LoginComponent,
-    MaterialModule
-  ],
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css',
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    ],
+    imports: [
+        RouterOutlet,
+        RouterModule,
+        SplashComponent,
+        CommonModule,
+        LoginComponent,
+        MaterialModule,
+        LoadingspinnerComponent
+    ]
 })
 export class AppComponent implements OnInit {
   constructor(

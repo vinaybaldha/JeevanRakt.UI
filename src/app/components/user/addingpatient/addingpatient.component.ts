@@ -4,9 +4,9 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 import { CommonModule } from '@angular/common';
 import { Recipient } from '../../../models/Recipient';
-import { DonorService } from '../../../services/donor.service';
 import { MaterialModule } from '../../../_module/Material.Module';
-import { RecipientService } from '../../../services/recipient.service';
+import { Store } from '@ngrx/store';
+import { addRecipient } from '../../../_store/recipient/reipient.actions';
 
 @Component({
   selector: 'app-addingpatient',
@@ -25,22 +25,12 @@ export class AddingpatientComponent {
   recipient = new Recipient();
   @ViewChild('addrecipientform') addRecipientForm!: NgForm;
 
-  constructor(private _service: RecipientService, private _router: Router) {}
+  constructor(private store : Store, private _router: Router) {}
 
   addRecipient() {
     var guid = uuidv4();
     this.recipient.recipientId = guid;
-    this._service.addRecipientFromRemote(this.recipient).subscribe(
-      (data) => {
-        // this._router.navigate(['/loginsuccess']);
-        this.addRecipientForm.reset();
-        console.log('Recipient added successfully');
-        this._router.navigate(['/recipient-list']);
-      },
-      (error) => {
-        console.log('process Failed');
-        console.log(error.error);
-      }
-    );
+    this.store.dispatch(addRecipient({inputData:this.recipient}))
+    this.addRecipientForm.resetForm()
   }
 }

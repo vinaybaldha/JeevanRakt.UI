@@ -4,9 +4,8 @@ import { CommonModule } from '@angular/common';
 import { Donor } from '../../../models/donor';
 import { MaterialModule } from '../../../_module/Material.Module';
 import { Store } from '@ngrx/store';
-import { deleteDonor, loadDonor } from '../../../_store/donor/donor.actions';
+import { deleteDonor, loadDonor, loadSpinner, updateDonor } from '../../../_store/donor/donor.actions';
 import { getDonorList } from '../../../_store/donor/donor.selector';
-import { DonorService } from '../../../services/donor.service';
 
 @Component({
   selector: 'app-donor-list',
@@ -19,6 +18,7 @@ export class DonorListComponent implements OnInit {
   donors: Donor[] | undefined;
   bloodGroup: any;
   title = '';
+  edit:boolean = false
 
   // Store the selected donor for editing
   selectedDonor: Donor = {
@@ -31,13 +31,15 @@ export class DonorListComponent implements OnInit {
     donorAddress: '',
   };
 
-  constructor(private store:Store, private donorService:DonorService) {}
+  constructor(private store:Store) {}
 
   ngOnInit(): void {
+    this.store.dispatch(loadSpinner({isLoaded:true}))
     this.reloadData();
   }
 
   reloadData() {
+    this.store.dispatch(loadSpinner({isLoaded:true}))
     this.store.dispatch(loadDonor())
     this.store.select(getDonorList).subscribe(item=>{
       this.donors = item
@@ -51,11 +53,13 @@ export class DonorListComponent implements OnInit {
 
   editDonor(donor: Donor) {
     this.selectedDonor = { ...donor };
+    this.edit = true
   }
 
   saveEditedDonor() {
-    this.donorService.updateDonor(this.selectedDonor).subscribe(() => {
-      this.reloadData();
+    this.store.dispatch(loadSpinner({isLoaded:true}))
+    this.store.dispatch(updateDonor({inputData:this.selectedDonor}))
+
       this.selectedDonor = {
         donorId: '',
         donorName: '',
@@ -65,10 +69,12 @@ export class DonorListComponent implements OnInit {
         donorAge: 0,
         donorAddress: '',
       };
-    });
+
+      this.edit= false
   }
 
   deleteDonor(donor: Donor) {
+    this.store.dispatch(loadSpinner({isLoaded:true}))
     this.store.dispatch(deleteDonor({donorId:donor.donorId}))
   }
 }
