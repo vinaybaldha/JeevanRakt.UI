@@ -3,7 +3,9 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Employee } from '../../../../models/Employee';
-import { AccountService } from '../../../../services/account.service';
+import { Store } from '@ngrx/store';
+import { beginRegister, duplicateUser } from '../../../../_store/user/user.actions';
+import { isDuplicateUser } from '../../../../_store/user/user.selector';
 
 @Component({
   selector: 'app-employee-register',
@@ -16,24 +18,25 @@ export class EmployeeRegisterComponent {
   user = new Employee();
   msg = ' ';
 
-  constructor(private _service: AccountService, private _router: Router) {}
+  constructor(private store: Store, private _router: Router) {}
 
   ngOnInit(): void {}
 
   registerUser() {
-    console.log(this.user);
-    this._service.registerEmployee(this.user).subscribe(
-      (data) => {
-        console.log('Registration Success');
-        localStorage.setItem('username', this.user.email);
-        // this._router.navigate(['/registrationsuccess']);
-        this._service.getEmployeeList();
-      },
-      (error) => {
-        console.log('Registration Failed');
-        console.log(error.error);
-        this.msg = 'User with ' + this.user.email + ' already exists !!!';
-      }
-    );
+    // console.log(this.user);
+    this.store.dispatch(beginRegister({ userdata: this.user }));
+  }
+
+  FunctionDuplicateUser(){
+    const username = this.user.email
+    if(username!= ''){
+      this.store.dispatch(duplicateUser({username:username}))
+      this.store.select(isDuplicateUser).subscribe(item=>{
+        const isExist = item
+        if(isExist){
+          this.user.email = ''
+        }
+      })
+    }
   }
 }

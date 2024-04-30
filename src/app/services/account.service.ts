@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Employee } from '../models/Employee';
+import { Employee, userinfo } from '../models/Employee';
 import { Router } from '@angular/router';
 
 const NAV_URL = environment.apiURL;
@@ -139,4 +139,14 @@ export class AccountService {
   public getTotalUsers(): Observable<any> {
     return this._http.get(`${NAV_URL}/account/totalusers`);
   }
+
+  public duplicateUserName(username:string): Observable<any>{
+    return this._http.get(`${NAV_URL}/account/user/valid?username=${username}`);
+  }
+  
+  setUserToLocalStorage(userdata: userinfo){
+    localStorage.setItem('userdata',JSON.stringify(userdata))
+  }
+
+  
 }

@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../services/account.service';
 import { Store } from '@ngrx/store';
+import { beginLogin } from '../_store/user/user.actions';
 
 @Component({
   selector: 'app-login',
@@ -28,34 +29,36 @@ export class LoginComponent {
 
   loginUser() {
     let roles: string | null = '';
-    this._service.loginEmployee(this.user.email, this.user.password).subscribe(
-      async (data: Employee) => {
-        this._service.currentUserSubject.next(data.email);
-        roles = await this._service.getRoles(data.email);
-        // console.log('roles: ', roles);
-        this._service.AuthenticatedSubject.next(true);
-        localStorage.setItem('jwtToken', data.token);
-        localStorage.setItem('username', data.email);
+    // this._service.loginEmployee(this.user.email, this.user.password).subscribe(
+    //   async (data: Employee) => {
+    //     this._service.currentUserSubject.next(data.email);
+    //     roles = await this._service.getRoles(data.email);
+    //     // console.log('roles: ', roles);
+    //     this._service.AuthenticatedSubject.next(true);
+    //     localStorage.setItem('jwtToken', data.token);
+    //     localStorage.setItem('username', data.email);
 
-        // console.log(localStorage.getItem('roles'));
-        this._service.currentUserSubject.next(data.email);
-        this._service.userSubject.next(data);
-        this._service.isAdminSubject.next(true);
-        if (localStorage.getItem('roles') === 'Admin') {
-          console.log('object');
-          this._service.isAdminSubject.next(true);
-        } else {
-          console.log('object');
-          this._service.isAdminSubject.next(false);
-        }
-        this._service;
-        this._router.navigate(['home']);
-      },
-      (error: { error: any }) => {
-        console.log(error.error);
-        this.msg = 'Bad credentials, please enter valid credentials !!!';
-      }
-    );
+    //     // console.log(localStorage.getItem('roles'));
+    //     this._service.currentUserSubject.next(data.email);
+    //     this._service.userSubject.next(data);
+    //     this._service.isAdminSubject.next(true);
+    //     if (localStorage.getItem('roles') === 'Admin') {
+    //       console.log('object');
+    //       this._service.isAdminSubject.next(true);
+    //     } else {
+    //       console.log('object');
+    //       this._service.isAdminSubject.next(false);
+    //     }
+    //     this._service;
+    //     this._router.navigate(['home']);
+    //   },
+    //   (error: { error: any }) => {
+    //     console.log(error.error);
+    //     this.msg = 'Bad credentials, please enter valid credentials !!!';
+    //   }
+    // );
+
+    this.store.dispatch(beginLogin({userdata: {email:this.user.email, password:this.user.password}}))
   }
 
   adminLogin() {

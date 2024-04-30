@@ -1,4 +1,4 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, isDevMode } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -13,13 +13,19 @@ import { RecipientReducer } from './_store/recipient/recipient.reducer';
 import { RecipientEffects } from './_store/recipient/recipient.effects';
 import { BloodBankReducer } from './_store/blood-bank/bloodbank.reducer';
 import { BloodBankEffects } from './_store/blood-bank/bloodbank.effects';
+import { provideRouterStore } from '@ngrx/router-store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { UserReducer } from './_store/user/user.reducer';
+import { UserEffects } from './_store/user/user.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptors([tokenInterceptor])),
     provideAnimationsAsync(),
-    provideStore({'donor':DonorReducer, 'recipient':RecipientReducer, 'bloodbank':BloodBankReducer}),
-    provideEffects([DonorEffects, RecipientEffects, BloodBankEffects])
+    provideStore({ 'donor': DonorReducer, 'recipient': RecipientReducer, 'bloodbank': BloodBankReducer, 'user': UserReducer }),
+    provideEffects([DonorEffects, RecipientEffects, BloodBankEffects, UserEffects]),
+    provideRouterStore(),
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
 ],
 };

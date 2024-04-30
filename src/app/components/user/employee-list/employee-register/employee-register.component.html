@@ -6,7 +6,7 @@
     >
     <div class="form-group">
       <label for="email">Email Address: <b class="text-danger">*</b></label>
-      <input
+      <input (blur)="FunctionDuplicateUser()"
         type="email"
         class="form-control"
         placeholder="enter email"

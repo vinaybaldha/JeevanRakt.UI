@@ -1,109 +1,96 @@
-<mat-card class="card">
-  <mat-card-header>
-    <div style="text-align: center">
-    <mat-card-title>Welcome to Blood Bank Management System</mat-card-title>
-    <mat-card-subtitle>Helping Save Lives</mat-card-subtitle>
-  </div>
-  </mat-card-header>
-  <mat-card-content>
-    <h2 style="margin-top: 2%;">
-      Our Blood Bank Management System ensures efficient management of blood
-      inventory and donor information to facilitate life-saving transfusions.
-    </h2>
-    <h3 matListItemTitle>Features:</h3>
-
-    <mat-list role="list" matListItemIcon>
-      <mat-list-item  role="listitem">Manage donor database securely</mat-list-item>
-      <mat-list-item role="listitem">Track blood inventory levels in real-time</mat-list-item>
-      <mat-list-item role="listitem">Provide quick access to blood requests</mat-list-item>
-      <mat-list-item role="listitem">Generate reports and statistics</mat-list-item>
-    </mat-list>
-
-    <h2>Learn About Donation</h2>
-    <p>
-      Donating blood is a crucial act that can save lives. Here's what you need
-      to know:
-    </p>
-    <ul>
-      <li>Blood donation is safe and simple.</li>
-      <li>A single blood donation can save multiple lives.</li>
-      <li>
-        Donors must meet certain criteria, including age and health
-        requirements.
-      </li>
-      <li>Common blood types needed include A, B, AB, and O.</li>
-      <li>Donating blood does not pose any health risks to the donor.</li>
-      <li>
-        Regular blood donors are essential to maintaining adequate blood supply.
-      </li>
-    </ul>
-
-    <p>
-      Interested in donating blood? Contact us or visit your local blood
-      donation center today!
-    </p>
-
-    <h1>Compatible Blood Type Donors</h1>
-
-    <table mat-table [dataSource]="donors" class="mat-elevation-z8">
-      <ng-container matColumnDef="bloodType">
-        <th mat-header-cell *matHeaderCellDef>Blood Type</th>
-        <td mat-cell *matCellDef="let donor">{{ donor.bloodType }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="compatibleDonors">
-        <th mat-header-cell *matHeaderCellDef>Compatible Donors</th>
-        <td mat-cell *matCellDef="let donor">
-          {{ donor.compatibleDonors.join(", ") }}
-        </td>
-      </ng-container>
-
-      <tr
-        mat-header-row
-        *matHeaderRowDef="['bloodType', 'compatibleDonors']"
-      ></tr>
-      <tr
-        mat-row
-        *matRowDef="let row; columns: ['bloodType', 'compatibleDonors']"
-      ></tr>
-    </table>
-
-    <h2>Types of Donation</h2>
-    <p>
-      There are different types of blood donations, each serving specific
-      medical needs:
-    </p>
-    <mat-list dense>
-      <mat-list-item>
-        <div matLine>
-          <strong>Whole Blood Donation:</strong> The most common type where a
-          pint of blood is collected.
-        </div>
-      </mat-list-item>
-      <mat-list-item>
-        <div matLine>
-          <strong>Platelet Donation:</strong> Platelets are extracted from the
-          blood and other components are returned to the donor.
-        </div>
-      </mat-list-item>
-      <mat-list-item>
-        <div matLine>
-          <strong>Plasma Donation:</strong> Plasma is separated from the blood
-          and used in treatments for various conditions.
-        </div>
-      </mat-list-item>
-      <mat-list-item>
-        <div matLine>
-          <strong>Double Red Cell Donation:</strong> Double the amount of red
-          blood cells are collected and plasma is returned to the donor.
-        </div>
-      </mat-list-item>
-    </mat-list>
-
-    <p>
-      Each type of donation has its own benefits and impact on patients in need.
-      Find out which type of donation suits you best and make a difference
-      today!
-    </p>
-  </mat-card-content>
-</mat-card>
+<div class="container">
+  <mat-card class="card">
+    <mat-card-header>
+      <div class="center">
+        <mat-card-title>Welcome to Blood Bank Management System</mat-card-title>
+        <mat-card-subtitle>Helping Save Lives</mat-card-subtitle>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <h2 class="intro">
+        Our Blood Bank Management System ensures efficient management of blood
+        inventory and donor information to facilitate life-saving transfusions.
+      </h2>
+      <h3 class="feature-title">Features:</h3>
+      <mat-list role="list">
+        <mat-list-item role="listitem">Manage donor database securely</mat-list-item>
+        <mat-list-item role="listitem">Track blood inventory levels in real-time</mat-list-item>
+        <mat-list-item role="listitem">Provide quick access to blood requests</mat-list-item>
+        <mat-list-item role="listitem">Generate reports and statistics</mat-list-item>
+      </mat-list>
+      <h2 class="learn-title">Learn About Donation</h2>
+      <p class="learn-text">
+        Donating blood is a crucial act that can save lives. Here's what you need
+        to know:
+      </p>
+      <ul>
+        <li>Blood donation is safe and simple.</li>
+        <li>A single blood donation can save multiple lives.</li>
+        <li>
+          Donors must meet certain criteria, including age and health
+          requirements.
+        </li>
+        <li>Common blood types needed include A, B, AB, and O.</li>
+        <li>Donating blood does not pose any health risks to the donor.</li>
+        <li>
+          Regular blood donors are essential to maintaining adequate blood supply.
+        </li>
+      </ul>
+      <p class="donate-text">
+        Interested in donating blood? Contact us or visit your local blood
+        donation center today!
+      </p>
+      <h1 class="donor-title">Compatible Blood Type Donors</h1>
+      <table mat-table [dataSource]="donors" class="mat-elevation-z8">
+        <ng-container matColumnDef="bloodType">
+          <th mat-header-cell *matHeaderCellDef>Blood Type</th>
+          <td mat-cell *matCellDef="let donor">{{ donor.bloodType }}</td>
+        </ng-container>
+        <ng-container matColumnDef="compatibleDonors">
+          <th mat-header-cell *matHeaderCellDef>Compatible Donors</th>
+          <td mat-cell *matCellDef="let donor">
+            {{ donor.compatibleDonors.join(", ") }}
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="['bloodType', 'compatibleDonors']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['bloodType', 'compatibleDonors']"></tr>
+      </table>
+      <h2 class="types-title">Types of Donation</h2>
+      <p class="types-text">
+        There are different types of blood donations, each serving specific
+        medical needs:
+      </p>
+      <mat-list dense>
+        <mat-list-item>
+          <div matLine>
+            <strong>Whole Blood Donation:</strong> The most common type where a
+            pint of blood is collected.
+          </div>
+        </mat-list-item>
+        <mat-list-item>
+          <div matLine>
+            <strong>Platelet Donation:</strong> Platelets are extracted from the
+            blood and other components are returned to the donor.
+          </div>
+        </mat-list-item>
+        <mat-list-item>
+          <div matLine>
+            <strong>Plasma Donation:</strong> Plasma is separated from the blood
+            and used in treatments for various conditions.
+          </div>
+        </mat-list-item>
+        <mat-list-item>
+          <div matLine>
+            <strong>Double Red Cell Donation:</strong> Double the amount of red
+            blood cells are collected and plasma is returned to the donor.
+          </div>
+        </mat-list-item>
+      </mat-list>
+      <p class="types-text">
+        Each type of donation has its own benefits and impact on patients in need.
+        Find out which type of donation suits you best and make a difference
+        today!
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
