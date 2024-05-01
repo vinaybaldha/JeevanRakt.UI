@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, map, of, switchMap} from "rxjs";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AccountService } from "../../services/account.service";
-import { beginLogin, beginRegister, duplicateUser, duplicateUserSuccess, emptyAction, showAlert } from "./user.actions";
+import { beginLogin, beginRegister, duplicateUser, duplicateUserSuccess, emptyAction, fetchMenu, fetchMenuSuccess, showAlert } from "./user.actions";
 import { Router } from "@angular/router";
 
 @Injectable()
@@ -28,12 +28,12 @@ export class UserEffects{
     _userlogin = createEffect(()=>
         this.action$.pipe(
             ofType(beginLogin),
-            exhaustMap((action)=>{
+            switchMap((action)=>{
                 return this.userService.loginEmployee(action.userdata.email,action.userdata.password).pipe(
-                    map((data)=>{
+                    switchMap((data)=>{
                         this.userService.setUserToLocalStorage(data)
                         this.router.navigate([''])
-                        return showAlert({message:'Login Successfully', resptype:'pass'})
+                        return of(fetchMenu({userrole: data.role}),showAlert({message:'Login Successfully', resptype:'pass'}))
                     }),
                     catchError((_err)=>of(showAlert({message:'Login Fail due to: '+_err.message, resptype:'fail'})))
                 )
@@ -57,6 +57,20 @@ export class UserEffects{
                         }
                     }),
                     catchError((_err)=>of(showAlert({message:'Login Fail due to: '+_err.message, resptype:'fail'})))
+                )
+            })
+        )
+    )
+
+    _loadmenubyrole = createEffect(()=>
+        this.action$.pipe(
+            ofType(fetchMenu),
+            exhaustMap((action)=>{
+                return this.userService.getMenuByRole(action.userrole).pipe(
+                    map((data)=>{
+                        return fetchMenuSuccess({menulist:data})
+                    }),
+                    catchError((_err)=>of(showAlert({message:'Fail to fetch MenuList due to: '+_err.message, resptype:'fail'})))
                 )
             })
         )

@@ -9,6 +9,7 @@ import { JwtInterceptor } from './jwt.interceptor';
 import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './_module/Material.Module';
 import { LoadingspinnerComponent } from "./components/loadingspinner/loadingspinner.component";
+import { MenubarComponent } from "./components/menubar/menubar.component";
 
 @Component({
     selector: 'app-root',
@@ -25,65 +26,51 @@ import { LoadingspinnerComponent } from "./components/loadingspinner/loadingspin
         CommonModule,
         LoginComponent,
         MaterialModule,
-        LoadingspinnerComponent
+        LoadingspinnerComponent,
+        MenubarComponent
     ]
 })
-export class AppComponent implements OnInit {
-  constructor(
-    private router: Router,
-    private appInitializerService: AppInitializerService,
-    private authService: AccountService
-  ) {
-    if (!this.authService.isAuthenticated()) {
-      this.router.navigate(['/login']); // Redirect to login if not authenticated
-    }
+export class AppComponent {
+  // constructor(
+  //   private router: Router,
+  //   private appInitializerService: AppInitializerService,
+  //   private authService: AccountService
+  // ) {
+  //   if (!this.authService.isAuthenticated()) {
+  //     this.router.navigate(['/login']); // Redirect to login if not authenticated
+  //   }
 
-    authService.isAdmin.subscribe((res) => {
-      this.isAdmin = res;
-    });
+  //   authService.isAdmin.subscribe((res) => {
+  //     this.isAdmin = res;
+  //   });
 
-    authService.user.subscribe((res) => {
-      this.profileUrl = res?.filePath;
-    });
+  //   authService.user.subscribe((res) => {
+  //     this.profileUrl = res?.filePath;
+  //   });
 
-    this.authService.currentUser.subscribe((res) => {
-      this.username = res;
-    });
-  }
-  appLoaded = false;
-  opened: boolean = false;
-  badgevisible:boolean= false
+  //   this.authService.currentUser.subscribe((res) => {
+  //     this.username = res;
+  //   });
+  // }
+  // appLoaded = false;
+  // opened: boolean = false;
+  // badgevisible:boolean= false
 
-  isAdmin: boolean = false;
-  title = 'JeevanRakt.UI';
-  username: string | null = null;
-  profileUrl: string | undefined;
+  // isAdmin: boolean = false;
+  // title = 'JeevanRakt.UI';
+  // username: string | null = null;
+  // profileUrl: string | undefined;
 
-  isLogin: boolean = false;
-  navigateToAddDonor() {
-    this.router.navigateByUrl('/add-donor');
-  }
+  // isLogin: boolean = false;
+  // navigateToAddDonor() {
+  //   this.router.navigateByUrl('/add-donor');
+  // }
 
-  ngOnInit(): void {
-    this.initializeApp();
-  }
+  // ngOnInit(): void {
+  //   this.initializeApp();
+  // }
 
-  private initializeApp(): void {
-    this.appInitializerService.initializeApp().then(() => {
-      // Set appLoaded to true once initialization is complete
-      this.appLoaded = true;
-    });
-  }
+  
 
-  onHome() {
-    this.router.navigate(['home']);
-  }
-
-  logout() {
-    this.authService.logOut();
-  }
-
-  badgeVisibility(){
-    this.badgevisible = !this.badgevisible
-  }
+  
 }

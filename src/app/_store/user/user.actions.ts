@@ -1,11 +1,13 @@
 import { createAction, props } from "@ngrx/store"
-import { Employee, usercred } from "../../models/Employee"
+import { Employee, Menus, RoleAccess, usercred } from "../../models/Employee"
 
 
 export const BEGIN_REGISTER = '[auth] begin register'
 export const BEGIN_LOGIN = '[auth] begin login'
 export const DUPLICATE_USER = '[auth] duplicate user'
 export const DUPLICATE_USER_SUCC = '[auth] duplicate user success'
+export const FETCH_MENU = '[auth] fetch menu'
+export const FETCH_MENU_SUCC = '[auth] fetch menu success'
 
 export const LOAD_SPINNER = '[auth] load spinner'
 export const SHOW_ALERT = '[auth] show alert'
@@ -14,6 +16,8 @@ export const beginRegister = createAction(BEGIN_REGISTER, props<{userdata: Emplo
 export const beginLogin = createAction(BEGIN_LOGIN, props<{userdata: usercred}>())
 export const duplicateUser = createAction(DUPLICATE_USER, props<{username: string}>())
 export const duplicateUserSuccess = createAction(DUPLICATE_USER_SUCC, props<{isDuplicate: boolean}>())
+export const fetchMenu = createAction(FETCH_MENU, props<{userrole: string}>())
+export const fetchMenuSuccess = createAction(FETCH_MENU_SUCC, props<{menulist: RoleAccess[]}>())
 
 export const showAlert = createAction(SHOW_ALERT, props<{message:string, resptype:string}>())
 export const emptyAction = createAction('emptyAction')

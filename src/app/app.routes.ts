@@ -7,34 +7,34 @@ export const routes: Routes = [
   {path:'home', component: HomeComponent},
   { path: '', redirectTo:'home', pathMatch:'full' },
   {
-    path: 'add-donor',
+    path: 'adddonor',
     loadComponent:()=>import('./components/user/addingdonor/addingdonor.component').then(m=>m.AddingdonorComponent),
     canActivate: [authGuard],
   },
   {
-    path: 'donor-list',
+    path: 'donorlist',
     loadComponent:()=>import('./components/user/donor-list/donor-list.component').then(m=>m.DonorListComponent),
     canActivate: [authGuard],
   },
   {
-    path: 'add-recipient',
+    path: 'addrecipient',
     loadComponent:()=>import('./components/user/addingpatient/addingpatient.component').then(m=>m.AddingpatientComponent),
     canActivate: [authGuard],
   },
 
   {
-    path: 'recipient-list',
+    path: 'recipientlist',
     loadComponent:()=>import('./components/user/recipient-list/recipient-list.component').then(m=>m.RecipientListComponent),
     canActivate: [authGuard],
   },
-  { path: 'donate', loadComponent:()=>import('./components/user/donate/donate.component').then(m=>m.DonateComponent), canActivate: [authGuard] },
+  { path: 'donateblood', loadComponent:()=>import('./components/user/donate/donate.component').then(m=>m.DonateComponent), canActivate: [authGuard] },
   {
     path: 'bloodstock',
     loadComponent:()=>import('./components/user/blood-stock/blood-stock.component').then(m=>m.BloodStockComponent),
     canActivate: [authGuard],
   },
   {
-    path: 'employee-list',
+    path: 'employeelist',
     loadComponent:()=>import('./components/user/employee-list/employee-list.component').then(m=>m.EmployeeListComponent),
     canActivate: [authGuard],
   },
@@ -45,7 +45,7 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'blood-transfert',
+    path: 'bloodtransfert',
     loadComponent:()=>import('./components/user/blood-transfert/blood-transfert.component').then(m=>m.BloodTransfertComponent),
     canActivate: [authGuard],
   },
@@ -57,8 +57,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'blood-banks',
+    path: 'bloodbanks',
     loadComponent:()=>import('./components/blood-banks/blood-banks.component').then(m=>m.BloodBanksComponent),
     canActivate: [authGuard],
   },
+  {
+    path: 'register',
+    loadComponent:()=>import('./components/user/employee-list/employee-register/employee-register.component').then(m=>m.EmployeeRegisterComponent),
+  }
 ];

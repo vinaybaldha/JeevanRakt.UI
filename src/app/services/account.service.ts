@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { Employee, userinfo } from '../models/Employee';
+import { Employee, RoleAccess, userinfo } from '../models/Employee';
 import { Router } from '@angular/router';
 
 const NAV_URL = environment.apiURL;
@@ -55,16 +55,14 @@ export class AccountService {
   }
 
   public getEmployeeList(): void {
-    this._http
-      .get<any>(`${NAV_URL}/Account/users`)
-      .subscribe(
-        (employees: Employee[]) => {
-          this.employeesSubject.next(employees);
-        },
-        (error) => {
-          console.error('Failed to fetch employees', error);
-        }
-      );
+    this._http.get<any>(`${NAV_URL}/Account/users`).subscribe(
+      (employees: Employee[]) => {
+        this.employeesSubject.next(employees);
+      },
+      (error) => {
+        console.error('Failed to fetch employees', error);
+      }
+    );
   }
 
   public registerEmployee(employee: Employee): Observable<any> {
@@ -86,7 +84,9 @@ export class AccountService {
     this.AuthenticatedSubject.next(false);
     this.isAdminSubject.next(false);
     this.userSubject.next(null);
-    this.router.navigate(['/home']);
+
+    localStorage.clear();
+    this.router.navigate(['login']);
   }
 
   public async getRoles(email: string): Promise<string> {
@@ -124,10 +124,6 @@ export class AccountService {
     );
   }
 
-  public haveSuccess(){
-    return true
-  }
-
   public getProfileDetails(): Observable<any> {
     return this._http.get(`${NAV_URL}/Account/user`);
   }
@@ -140,13 +136,38 @@ export class AccountService {
     return this._http.get(`${NAV_URL}/account/totalusers`);
   }
 
-  public duplicateUserName(username:string): Observable<any>{
+  public duplicateUserName(username: string): Observable<any> {
     return this._http.get(`${NAV_URL}/account/user/valid?username=${username}`);
   }
-  
-  setUserToLocalStorage(userdata: userinfo){
-    localStorage.setItem('userdata',JSON.stringify(userdata))
+
+  setUserToLocalStorage(userdata: userinfo) {
+    localStorage.setItem('userdata', JSON.stringify(userdata));
   }
 
-  
+  getUserDataFromStorage() {
+    let _obj: userinfo = {
+      employeeName: '',
+      email: '',
+      phoneNumber: '',
+      token: '',
+      filePath: '',
+      role: ''
+    };
+
+    if (localStorage.getItem('userdata') != null) {
+      let jsonString = localStorage.getItem('userdata') as string;
+      _obj = JSON.parse(jsonString);
+      return _obj;
+    } else {
+      return _obj;
+    }
+  }
+
+  getMenuByRole(userrole:string): Observable<RoleAccess[]>{
+    return this._http.get<RoleAccess[]>(`${NAV_URL}/account/user/roleaccess?userrole=${userrole}`);
+  }
+
+  haveMenuAccess(userrole:string, menu:string): Observable<RoleAccess[]>{
+    return this._http.get<RoleAccess[]>(`${NAV_URL}/account/user/roleaccess?userrole=${userrole}&menu=${menu}`);
+  }
 }

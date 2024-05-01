@@ -1,0 +1,58 @@
+<div *ngIf="isMenuVisible">
+  <mat-toolbar color="primary" class="mat-elevation-z6">
+
+    <button mat-icon-button (click)="drawer.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>JeevanRakt</span>
+    <span class="spacer"></span>
+    <button mat-button (click)="onHome()"><mat-icon>home</mat-icon>Home</button>
+    <button mat-button>About</button>
+    <button mat-button (click)="logout()" *ngIf="userInfo">
+      <mat-icon>logout</mat-icon>Logout
+    </button>
+    <button mat-raised-button color="accent" [routerLink]="'/login'" style="margin: 1%;">
+      <mat-icon>login</mat-icon>
+      Login
+    </button>
+    <button mat-raised-button color="accent" [routerLink]="'/register'">Sign Up</button>
+    <a mat-icon-button routerLink="userprofile">
+      <mat-icon *ngIf="!profileUrl">account_circle</mat-icon>
+      <img *ngIf="profileUrl" [src]="profileUrl" />
+    </a>
+    <p>{{ username }}</p>
+    <button (click)="badgeVisibility()" mat-icon-button><mat-icon matBadge="15" matBadgeColor="accent"
+        [matBadgeHidden]="badgevisible" matBadgeSize="small"
+        aria-hidden="badgevisible">notifications</mat-icon></button>
+  </mat-toolbar>
+
+  <mat-drawer-container autosize>
+    <mat-drawer #drawer opened="false" mode="side" position="start">
+      <mat-nav-list>
+        <mat-list-item *ngFor="let item of menulist" routerLinkActive="active"><button mat-button
+            routerLink="{{item.menu}}"><mat-icon>menu</mat-icon>{{item.menu}}</button></mat-list-item>
+        <!-- <mat-list-item routerLinkActive="active" [routerLink]="'/home'"><button mat-button><mat-icon>home</mat-icon>Home</button></mat-list-item>
+            <mat-list-item routerLinkActive="active" [routerLink]="'./add-donor'"><button mat-button><mat-icon>add</mat-icon>Add Donor</button></mat-list-item>
+            <mat-list-item routerLinkActive="active" [routerLink]="'./add-recipient'"><button mat-button><mat-icon>add</mat-icon>Add Recipient</button></mat-list-item>
+            <mat-list-item routerLinkActive="active" [routerLink]="'/donor-list'"><button mat-button><mat-icon>list</mat-icon>Donor List</button></mat-list-item>
+            <mat-list-item routerLinkActive="active" [routerLink]="'/recipient-list'"><button mat-button><mat-icon>list</mat-icon>Recipient List</button></mat-list-item>
+            <mat-list-item routerLinkActive="active" [routerLink]="'/donate'"><button mat-button><mat-icon>bloodtype</mat-icon>Donate Blood</button></mat-list-item>
+            <mat-list-item routerLinkActive="active" [routerLink]="'/bloodstock'"><button mat-button><mat-icon>inventory</mat-icon>Blood Stock</button></mat-list-item>
+            <mat-list-item routerLinkActive="active" [routerLink]="'/employee-list'" *ngIf="isAdmin"><button mat-button><mat-icon>list</mat-icon>Employees</button></mat-list-item>
+            <mat-list-item routerLinkActive="active" [routerLink]="'/blood-transfert'"><button mat-button><mat-icon>timeline</mat-icon>Blood Transfert</button></mat-list-item>
+            <mat-list-item routerLinkActive="active" [routerLink]="'/userprofile'"><button mat-button><mat-icon>person</mat-icon>User Profile</button></mat-list-item>
+            <mat-list-item routerLinkActive="active" [routerLink]="'/blood-banks'"><button mat-button><mat-icon>list</mat-icon>Blood Banks</button></mat-list-item> -->
+      </mat-nav-list>
+    </mat-drawer>
+    <mat-drawer-content>
+      <div style="text-align: center; min-height: 600px;">
+        <router-outlet></router-outlet>
+
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>
+<div style="text-align: center; min-height: 600px;" *ngIf="!isMenuVisible">
+  <router-outlet></router-outlet>
+
+</div>

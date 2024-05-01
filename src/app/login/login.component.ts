@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { Employee } from '../models/Employee';
 import { CommonModule } from '@angular/common';
@@ -14,7 +14,7 @@ import { beginLogin } from '../_store/user/user.actions';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   user = new Employee();
   msg = '';
   adminEmail = '';
@@ -24,7 +24,7 @@ export class LoginComponent {
   constructor(private _service: AccountService, private _router: Router, private store:Store) {}
 
   ngOnInit(): void {
- 
+    localStorage.clear()
   }
 
   loginUser() {
