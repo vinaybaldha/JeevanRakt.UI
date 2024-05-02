@@ -1,23 +1,6 @@
 /* Importing Mate SC font from Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Mate+SC&display=swap");
 
-/* General styles for sidebar text */
-.sidebar-text {
-  font-size: small;
-}
-
-/* Styles for sidebar logo */
-.sidebar-logo {
-  padding: 10px 15px;
-  font-size: 20px;
-  text-align: right;
-  background-color: #13534e;
-  width: 100%;
-  font-family: "Mate SC", serif;
-  color: white;
-}
-
-/* Styles for logout button */
 .logoutbtn {
   border: none;
   background: transparent;
@@ -36,8 +19,7 @@
 
 /* Container for employee cards */
 .row {
-  margin-left: 10%;
-  margin-top: 3%;
+  margin: 2%;
   display: flex;
   flex-wrap: wrap; /* Ensure cards wrap to the next line */
   justify-content: space-between; /* Distribute cards evenly */

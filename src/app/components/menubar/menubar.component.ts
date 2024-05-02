@@ -73,6 +73,10 @@ export class MenubarComponent implements DoCheck, OnInit{
     this.router.navigate(['home']);
   }
 
+  onAbout() {
+    this.router.navigate(['about']);
+  }
+
   logout() {
     this.authService.logOut();
   }

@@ -1,0 +1,58 @@
+.active,
+.btn:hover {
+  background-color: cornflowerblue;
+  color: white;
+  font-weight: bold;
+}
+
+.active-text {
+  color: #eee;
+}
+
+mat-sidenav-container {
+  height: calc(205vh - 115vh);
+}
+mat-sidenav {
+  width: 200px;
+  background-color: #eee;
+}
+
+mat-list-item {
+  cursor: pointer;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.user {
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.one {
+  background-image: url("https://via.placeholder.com/400x200");
+}
+
+.two {
+  background-image: url("https://via.placeholder.com/200x200");
+}
+
+.three {
+  background-image: url("https://via.placeholder.com/200x400");
+}
+
+p {
+  font-family: Lato;
+}
+
+mat-sidenav-content {
+  background-image: url("/assets/img/bg2.jpg"); /* Set your desired background color */
+  padding: 20px; /* Optional: Adjust padding as needed */
+}

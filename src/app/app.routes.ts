@@ -4,7 +4,7 @@ import { authGuard } from './services/auth.guard';
 
 
 export const routes: Routes = [
-  {path:'home', component: HomeComponent},
+  {path:'home', component: HomeComponent, canActivate: [authGuard],},
   { path: '', redirectTo:'home', pathMatch:'full' },
   {
     path: 'adddonor',
@@ -64,5 +64,9 @@ export const routes: Routes = [
   {
     path: 'register',
     loadComponent:()=>import('./components/user/employee-list/employee-register/employee-register.component').then(m=>m.EmployeeRegisterComponent),
+  },
+  {
+    path: 'about',
+    loadComponent:()=>import('./components/about/about.component').then(m=>m.AboutComponent),
   }
 ];

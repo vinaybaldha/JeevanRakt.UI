@@ -6,11 +6,12 @@ import { MatCardModule } from '@angular/material/card';
 import { Store } from '@ngrx/store';
 import { loadBloodBank } from '../../_store/blood-bank/bloodbank.actions';
 import { getBloodBankList } from '../../_store/blood-bank/bloodbank.selector';
+import { MaterialModule } from '../../_module/Material.Module';
 
 @Component({
   selector: 'app-blood-banks',
   standalone: true,
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule, MatCardModule, MaterialModule],
   templateUrl: './blood-banks.component.html',
   styleUrl: './blood-banks.component.css',
 })

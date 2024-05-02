@@ -54,15 +54,8 @@ export class AccountService {
     return this.jwtToken;
   }
 
-  public getEmployeeList(): void {
-    this._http.get<any>(`${NAV_URL}/Account/users`).subscribe(
-      (employees: Employee[]) => {
-        this.employeesSubject.next(employees);
-      },
-      (error) => {
-        console.error('Failed to fetch employees', error);
-      }
-    );
+  public getEmployeeList(): Observable<Employee[]> {
+    return this._http.get<Employee[]>(`${NAV_URL}/Account/users`);
   }
 
   public registerEmployee(employee: Employee): Observable<any> {

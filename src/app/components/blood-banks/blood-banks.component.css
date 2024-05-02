@@ -1,7 +1,12 @@
 .blood-banks {
-  padding: 20px;
+  padding: 1%;
 }
 
 .blood-bank-card {
-  margin-bottom: 20px;
+  transition: transform 0.2s ease;
+}
+
+.blood-bank-card:hover {
+  transform: scale(1.05); /* Scale up by 5% on hover */
+  cursor: pointer; /* Change cursor to pointer on hover */
 }

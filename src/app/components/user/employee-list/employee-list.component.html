@@ -1,25 +1,29 @@
-<div class="sidebar-logo">
-  <div class="welcometxt">
-    <b style="color: white">Admin Dashboard</b>
-  </div>
-  <button class="logoutbtn" [routerLink]="['/loginsuccess']">
-    <i class="fa fa-home"></i> Home
-  </button>
-  <b class="sidebar-text">
-    <i class="fa fa-employee"></i> Welcome {{ loggedemployee }}
-  </b>
-  <button class="logoutbtn" (click)="logout()">
-    <i class="fa fa-sign-out"></i> Logout
-  </button>
-</div>
-
 <div class="row">
-  <div *ngFor="let employee of employees | async" class="col-4 card">
-    <div class="card-block">
-      <div class="text"><b>Employee Name:</b> {{ employee.employeeName }}</div>
-      <div class="text"><b>Mobile Number:</b> {{ employee.phoneNumber }}</div>
-      <div class="text"><b>Mail ID:</b> {{ employee.email }}</div>
-    </div>
-  </div>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Employee Name Column -->
+    <ng-container matColumnDef="employeeName">
+      <th mat-header-cell *matHeaderCellDef> Employee Name </th>
+      <td mat-cell *matCellDef="let employee"> {{ employee.employeeName }} </td>
+    </ng-container>
+
+    <!-- Mobile Number Column -->
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef> Mobile Number </th>
+      <td mat-cell *matCellDef="let employee"> {{ employee.phoneNumber }} </td>
+    </ng-container>
+
+    <!-- Mail ID Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Mail ID </th>
+      <td mat-cell *matCellDef="let employee"> {{ employee.email }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef> Role </th>
+      <td mat-cell *matCellDef="let employee"> {{ employee.role }} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </div>
-<app-employee-register></app-employee-register>

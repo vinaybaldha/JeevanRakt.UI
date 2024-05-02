@@ -4,17 +4,18 @@
     Loading blood banks...
   </div>
   <ng-template #bloodBankList>
-    <mat-card *ngFor="let bloodBank of bloodBanks" class="blood-bank-card">
-      <mat-card-header>
-        <mat-card-title>{{ bloodBank.bloodBankName }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <p>{{ bloodBank.address }}</p>
-        <p>
-          Latitude: {{ bloodBank.latitude }}, Longitude:
-          {{ bloodBank.longitude }}
-        </p>
-      </mat-card-content>
-    </mat-card>
+    <mat-grid-list cols="3">
+      <mat-grid-tile *ngFor="let bloodBank of bloodBanks" class="blood-bank-card">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>{{ bloodBank.bloodBankName }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ bloodBank.address }}</p>
+            <p>Latitude: {{ bloodBank.latitude }}, Longitude: {{ bloodBank.longitude }}</p>
+          </mat-card-content>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
   </ng-template>
 </div>

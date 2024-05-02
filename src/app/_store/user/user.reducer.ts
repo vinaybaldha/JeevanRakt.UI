@@ -1,6 +1,6 @@
 import { createReducer, on} from "@ngrx/store";
-import { userState } from "./user.state";
-import { duplicateUserSuccess, fetchMenuSuccess } from "./user.actions";
+import { UserAdaptor, userState } from "./user.state";
+import { duplicateUserSuccess, fetchMenuSuccess, getUserSuccess } from "./user.actions";
 
 const _UserReducer = createReducer(userState,
     on(duplicateUserSuccess, (state,action)=>{
@@ -14,6 +14,9 @@ const _UserReducer = createReducer(userState,
             ...state,
             menuList: action.menulist
         }
+    }),
+    on(getUserSuccess, (state,action)=>{
+        return UserAdaptor.setAll(action.userlist,state)
     }),
 )
 

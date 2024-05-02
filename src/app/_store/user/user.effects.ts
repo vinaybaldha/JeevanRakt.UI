@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, exhaustMap, map, of, switchMap} from "rxjs";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { AccountService } from "../../services/account.service";
-import { beginLogin, beginRegister, duplicateUser, duplicateUserSuccess, emptyAction, fetchMenu, fetchMenuSuccess, showAlert } from "./user.actions";
+import { beginLogin, beginRegister, duplicateUser, duplicateUserSuccess, emptyAction, fetchMenu, fetchMenuSuccess, getUser, getUserSuccess, showAlert } from "./user.actions";
 import { Router } from "@angular/router";
 
 @Injectable()
@@ -71,6 +71,20 @@ export class UserEffects{
                         return fetchMenuSuccess({menulist:data})
                     }),
                     catchError((_err)=>of(showAlert({message:'Fail to fetch MenuList due to: '+_err.message, resptype:'fail'})))
+                )
+            })
+        )
+    )
+
+    _getallusers = createEffect(()=>
+        this.action$.pipe(
+            ofType(getUser),
+            exhaustMap((action)=>{
+                return this.userService.getEmployeeList().pipe(
+                    map((data)=>{
+                        return getUserSuccess({userlist:data})
+                    }),
+                    catchError((_err)=>of(showAlert({message:'Fail to get userlist due to: '+_err.message, resptype:'fail'})))
                 )
             })
         )
