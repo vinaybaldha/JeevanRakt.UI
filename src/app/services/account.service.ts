@@ -144,7 +144,8 @@ export class AccountService {
       phoneNumber: '',
       token: '',
       filePath: '',
-      role: ''
+      role: '',
+      bloodBankId: '',
     };
 
     if (localStorage.getItem('userdata') != null) {
@@ -156,11 +157,19 @@ export class AccountService {
     }
   }
 
-  getMenuByRole(userrole:string): Observable<RoleAccess[]>{
-    return this._http.get<RoleAccess[]>(`${NAV_URL}/account/user/roleaccess?userrole=${userrole}`);
+  getMenuByRole(userrole: string): Observable<RoleAccess[]> {
+    return this._http.get<RoleAccess[]>(
+      `${NAV_URL}/account/user/roleaccess?userrole=${userrole}`
+    );
   }
 
-  haveMenuAccess(userrole:string, menu:string): Observable<RoleAccess[]>{
-    return this._http.get<RoleAccess[]>(`${NAV_URL}/account/user/roleaccess?userrole=${userrole}&menu=${menu}`);
+  haveMenuAccess(userrole: string, menu: string): Observable<RoleAccess[]> {
+    return this._http.get<RoleAccess[]>(
+      `${NAV_URL}/account/user/roleaccess?userrole=${userrole}&menu=${menu}`
+    );
+  }
+
+  addNotification() {
+    return this._http.get(`https://localhost:7016/api/Message`);
   }
 }

@@ -8,15 +8,13 @@ import { Donor } from '../../../models/donor';
 import { MaterialModule } from '../../../_module/Material.Module';
 import { Store } from '@ngrx/store';
 import { addDonor } from '../../../_store/donor/donor.actions';
+import { BloodBankService } from '../../../services/blood-bank.service';
+import { BloodBank } from '../../../models/BloodBank';
 
 @Component({
   selector: 'app-addingdonor',
   standalone: true,
-  imports: [
-    FormsModule,
-    CommonModule,
-    MaterialModule
-  ],
+  imports: [FormsModule, CommonModule, MaterialModule],
   templateUrl: './addingdonor.component.html',
   styleUrl: './addingdonor.component.css',
 })
@@ -25,20 +23,26 @@ export class AddingdonorComponent implements OnInit {
   loggedUser = '';
   tempUser = '';
   donor = new Donor();
+  bloodbank!: BloodBank;
   genders: string[] = ['male', 'female', 'other'];
   @ViewChild('addDonorform') addDonorForm!: NgForm;
 
-  constructor(private store:Store, private _router: Router) {}
+  constructor(
+    private store: Store,
+    private _router: Router,
+    private bloodbankService: BloodBankService
+  ) {}
 
   ngOnInit(): void {
-   
+    this.bloodbankService.bloodbank.subscribe((item) => {
+      this.bloodbank = item;
+    });
   }
 
-  
   addDonor() {
     var guid = uuidv4();
     this.donor.donorId = guid;
-    this.store.dispatch(addDonor({inputData: this.donor}))
-    
+    this.donor.bloodBankId = this.bloodbank.bloodBankId;
+    this.store.dispatch(addDonor({ inputData: this.donor }));
   }
 }

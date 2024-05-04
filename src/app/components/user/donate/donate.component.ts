@@ -38,6 +38,7 @@ export class DonateComponent implements OnInit {
     donorAge: 0,
     donorContactNumber: '',
     donorGender: '',
+    bloodBankId: '',
   };
 
   donors: Donor[] | undefined;
@@ -46,17 +47,19 @@ export class DonateComponent implements OnInit {
     bloodGroup: '',
     bloodStock: 0,
   };
-  dataSourse:any
-  displayedColumns:string[]=[ "donorId",
-  "donorName",
-  "donorBloodType",
-  "donorContactNumber",
-  "donorGender",
-  "donorAge",
-  "donorAddress",
-"action"]
-@ViewChild(MatPaginator) paginator!:MatPaginator
-@ViewChild(MatSort) sort!:MatSort
+  dataSourse: any;
+  displayedColumns: string[] = [
+    'donorId',
+    'donorName',
+    'donorBloodType',
+    'donorContactNumber',
+    'donorGender',
+    'donorAge',
+    'donorAddress',
+    'action',
+  ];
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
@@ -76,6 +79,7 @@ export class DonateComponent implements OnInit {
               donorContactNumber: '',
               donorAge: 0,
               donorAddress: '',
+              bloodBankId: '',
             };
             this.bloodStock = {
               bloodGroup: '',
@@ -95,41 +99,40 @@ export class DonateComponent implements OnInit {
   }
 
   reloadData() {
-     this.donorService.getDonorList().subscribe((res:Donor[])=>{
+    this.donorService.getDonorList().subscribe((res: Donor[]) => {
       this.donors = res;
       this.dataSourse = new MatTableDataSource<Donor>(res);
-      this.dataSourse.paginator = this.paginator
-      this.dataSourse.sort = this.sort
+      this.dataSourse.paginator = this.paginator;
+      this.dataSourse.sort = this.sort;
     });
-    
+
     this.bloodStocks = this.donateService.getBloodList();
   }
 
   donateDonor(donor: Donor) {
     this.selectedDonor = { ...donor };
-    this.OpenPopup(donor, 'Comfirm Donation')
-    
+    this.OpenPopup(donor, 'Comfirm Donation');
   }
 
-  filterChange(data:Event){
-    const value = (data.target as HTMLInputElement).value
-    this.dataSourse.filter = value
+  filterChange(data: Event) {
+    const value = (data.target as HTMLInputElement).value;
+    this.dataSourse.filter = value;
   }
 
-  OpenPopup(selectedDonor:any, title:any){
-    var _popup=this.dialog.open(PopupComponent,{
-      width:'60%',
+  OpenPopup(selectedDonor: any, title: any) {
+    var _popup = this.dialog.open(PopupComponent, {
+      width: '60%',
       height: '400px',
       enterAnimationDuration: '1000ms',
-      exitAnimationDuration:'1000ms',
-      data:{
-        title:title,
-        selectedDonor: selectedDonor
-      }
-    })
-    _popup.afterClosed().subscribe(item=>{
+      exitAnimationDuration: '1000ms',
+      data: {
+        title: title,
+        selectedDonor: selectedDonor,
+      },
+    });
+    _popup.afterClosed().subscribe((item) => {
       console.log(item);
-      this.reloadData()
-    })
+      this.reloadData();
+    });
   }
 }

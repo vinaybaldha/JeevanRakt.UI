@@ -4,6 +4,11 @@
     <mat-card-header>Add new Donor</mat-card-header>
     <mat-card-content>
       <mat-form-field appearance="fill" class="mat-50">
+        <mat-label>{{bloodbank.bloodBankName}}</mat-label>
+        <input disabled matInput placeholder="{{bloodbank.bloodBankName}}" name="donorname" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="mat-50">
         <mat-label>Donor Name</mat-label>
         <input matInput placeholder="Enter donor name" name="donorname" [(ngModel)]="donor.donorName" required
           #donorname="ngModel" [class.is-invalid]="donorname.invalid && donorname.touched" />

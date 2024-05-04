@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DonateService } from '../../services/donate.service';
 import { Donor } from '../../models/donor';
 import { Blood } from '../../models/Blood';
@@ -9,20 +9,24 @@ import { MaterialModule } from '../../_module/Material.Module';
 @Component({
   selector: 'app-popup',
   standalone: true,
-  imports: [ FormsModule, MaterialModule],
+  imports: [FormsModule, MaterialModule],
   templateUrl: './popup.component.html',
-  styleUrl: './popup.component.css'
+  styleUrl: './popup.component.css',
 })
 export class PopupComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data:any,private ref: MatDialogRef<PopupComponent>, private donateService: DonateService){}
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private ref: MatDialogRef<PopupComponent>,
+    private donateService: DonateService
+  ) {}
 
   ngOnInit(): void {
-    this.inputData = this.data
-    this.selectedDonor = this.data.selectedDonor
+    this.inputData = this.data;
+    this.selectedDonor = this.data.selectedDonor;
   }
 
-  inputData:any
-  closeMessage='close using directive'
+  inputData: any;
+  closeMessage = 'close using directive';
   selectedDonor: Donor = {
     donorId: '',
     donorName: '',
@@ -31,12 +35,12 @@ export class PopupComponent implements OnInit {
     donorAge: 0,
     donorContactNumber: '',
     donorGender: '',
+    bloodBankId: '',
   };
 
-  closePopup(form: NgForm){
-    this,this.onSubmit(form)
-    this.ref.close('close using function')
-
+  closePopup(form: NgForm) {
+    this, this.onSubmit(form);
+    this.ref.close('close using function');
   }
 
   onSubmit(form: NgForm): void {

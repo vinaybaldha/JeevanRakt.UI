@@ -1,4 +1,4 @@
-import { EntityState } from "@ngrx/entity";
+import { EntityState } from '@ngrx/entity';
 
 export class Employee {
   employeeName: string = '';
@@ -8,39 +8,40 @@ export class Employee {
   confirmPassword: string = '';
   token: string = '';
   filePath: string = '';
-  role:string = ''
+  role: string = '';
   constructor() {}
 }
 
-export interface UserModel extends EntityState<Employee>{
-  isDuplicate:boolean
-  menuList: RoleAccess[]
+export interface UserModel extends EntityState<Employee> {
+  isDuplicate: boolean;
+  menuList: RoleAccess[];
 }
 
-export interface usercred{
-  email: string 
-  password: string 
+export interface usercred {
+  email: string;
+  password: string;
 }
-export interface userinfo{
-  employeeName: string
-  email: string 
-  phoneNumber: string
-  token: string 
-  filePath: string 
-  role: string
-}
-
-export interface Roles{
-  code:string
-  name:string
+export interface userinfo {
+  employeeName: string;
+  email: string;
+  phoneNumber: string;
+  token: string;
+  filePath: string;
+  role: string;
+  bloodBankId: string;
 }
 
-export interface Menus{
-  code:string
-  name:string
+export interface Roles {
+  code: string;
+  name: string;
 }
 
-export interface RoleAccess{
-  role:string
-  menu:string
+export interface Menus {
+  code: string;
+  name: string;
+}
+
+export interface RoleAccess {
+  role: string;
+  menu: string;
 }

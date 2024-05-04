@@ -1,0 +1,12 @@
+.mat-mdc-card {
+  margin: 2%;
+}
+
+.mat-mdc-card-header {
+  text-align: center;
+  justify-content: center;
+}
+
+button {
+  margin: 1%;
+}

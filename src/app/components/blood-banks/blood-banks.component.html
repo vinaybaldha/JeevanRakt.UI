@@ -4,18 +4,38 @@
     Loading blood banks...
   </div>
   <ng-template #bloodBankList>
-    <mat-grid-list cols="3">
-      <mat-grid-tile *ngFor="let bloodBank of bloodBanks" class="blood-bank-card">
-        <mat-card>
-          <mat-card-header>
-            <mat-card-title>{{ bloodBank.bloodBankName }}</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p>{{ bloodBank.address }}</p>
-            <p>Latitude: {{ bloodBank.latitude }}, Longitude: {{ bloodBank.longitude }}</p>
-          </mat-card-content>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
+    <button mat-raised-button color="accent" (click)="getLocation()">Get Nearest BloodBank</button>
+    <div *ngIf="visible">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ bloodbank.bloodBankName }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ bloodbank.address }}</p>
+          <p>Latitude: {{ bloodbank.latitude }}, Longitude: {{ bloodbank.longitude }}</p>
+        </mat-card-content>
+        <mat-card-footer>
+          <button mat-raised-button color="accent" (click)="onBank(bloodbank)">Goto Bank</button>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+    <div class="container">
+
+      <mat-card *ngFor="let bloodBank of bloodBanks" class="blood-bank-card">
+        <mat-card-header>
+          <mat-card-title>{{ bloodBank.bloodBankName }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p>{{ bloodBank.address }}</p>
+          <p>Latitude: {{ bloodBank.latitude }}, Longitude: {{ bloodBank.longitude }}</p>
+        </mat-card-content>
+        <mat-card-footer>
+          <button mat-raised-button color="accent" (click)="onBank(bloodBank)">Goto Bank</button>
+        </mat-card-footer>
+      </mat-card>
+    </div>
+
   </ng-template>
+
+
 </div>

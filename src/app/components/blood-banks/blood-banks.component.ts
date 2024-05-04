@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { loadBloodBank } from '../../_store/blood-bank/bloodbank.actions';
 import { getBloodBankList } from '../../_store/blood-bank/bloodbank.selector';
 import { MaterialModule } from '../../_module/Material.Module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-blood-banks',
@@ -17,8 +18,10 @@ import { MaterialModule } from '../../_module/Material.Module';
 })
 export class BloodBanksComponent {
   bloodBanks: BloodBank[] = [];
+  bloodbank!: BloodBank
+  visible:boolean = false
 
-  constructor(private store:Store) {}
+  constructor(private store:Store, private bankService: BloodBankService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadBloodBanks();
@@ -29,5 +32,29 @@ export class BloodBanksComponent {
     this.store.select(getBloodBankList).subscribe(item=>{
       this.bloodBanks = item
     })
+  }
+
+  getLocationService():Promise<any>{
+    return new Promise((resolve,reject)=>{
+      navigator.geolocation.getCurrentPosition(resp=>{
+        resolve({lng:resp.coords.longitude,lat:resp.coords.latitude})
+      })
+    })
+   
+  }
+
+  getLocation(){
+    this.getLocationService().then((resp)=>{
+      console.log(resp);
+      this.bankService.getNearestBloodBank(resp.lat,resp.lng).subscribe((resp)=>{
+        this.bloodbank = resp
+        this.visible = true
+      })
+    })
+  }
+
+  onBank(bank:BloodBank){
+    this.bankService.bloodbankasSubject.next(bank)
+    this.router.navigate(['ubloodbank'])
   }
 }

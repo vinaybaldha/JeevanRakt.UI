@@ -1,6 +1,7 @@
-import { BloodBankModel } from "../../models/BloodBank";
+import { BloodBank, BloodBankModel } from '../../models/BloodBank';
 
 export const bloodbankState: BloodBankModel = {
-    list: [],
-    errormessage: ''
-}
+  list: [],
+  errormessage: '',
+  bloodbank: new BloodBank(),
+};

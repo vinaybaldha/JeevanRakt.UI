@@ -17,11 +17,28 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.text-green{
+.text-green {
   color: green !important;
 }
 
-
-.text-red{
+.text-red {
   color: red !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: black !important;
+}
+.img-style {
+  margin-left: auto;
+  margin-right: auto;
+  height: 250px;
+  width: 250px;
+}
+
+@media (max-width: 992) {
+  .img-style {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+  }
 }

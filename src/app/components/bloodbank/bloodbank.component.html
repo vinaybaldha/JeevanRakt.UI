@@ -1,0 +1,15 @@
+<mat-card>
+    <mat-card-header>
+        <h1>name: {{bloodbank.bloodBankName}}</h1>
+    </mat-card-header>
+    <mat-card-content>
+        <div>Address: {{bloodbank.address}}</div>
+        <div>Total Donors: {{ totalDonors }}</div>
+        <div>Total Recipients: {{ totalRecipients }}</div>
+    </mat-card-content>
+    <mat-card-footer>
+        <button mat-raised-button color="primary" (click)="donate()">Donate</button>
+        <button mat-raised-button color="primary" (click)="addRequest()">Add Blood Request</button>
+    </mat-card-footer>
+
+</mat-card>

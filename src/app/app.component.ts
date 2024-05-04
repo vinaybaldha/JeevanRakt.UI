@@ -74,5 +74,4 @@ export class AppComponent {
     this.singlarService.addProductListener();  
   }
 
-  
 }

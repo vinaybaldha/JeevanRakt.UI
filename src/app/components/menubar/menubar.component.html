@@ -20,10 +20,11 @@
       <mat-icon *ngIf="!profileUrl">account_circle</mat-icon>
       <img *ngIf="profileUrl" [src]="profileUrl" />
     </a>
-    <p>{{ username }}</p>
-    <button (click)="badgeVisibility()" mat-icon-button><mat-icon matBadge="15" matBadgeColor="accent"
-        [matBadgeHidden]="badgevisible" matBadgeSize="small"
-        aria-hidden="badgevisible">notifications</mat-icon></button>
+    <div>{{ username }}</div>
+    <button (click)="fetchNotifications()" mat-icon-button>
+      <mat-icon matBadge="15" matBadgeColor="accent" [matBadgeHidden]="!showNotifications">{{ showNotifications ?
+        'notifications_active' : 'notifications' }}</mat-icon>
+    </button>
   </mat-toolbar>
 
   <mat-drawer-container autosize>
@@ -46,6 +47,12 @@
     </mat-drawer>
     <mat-drawer-content>
       <div style="text-align: center; min-height: 600px;">
+        <div *ngIf="showNotifications">
+          <h2>Notifications</h2>
+          <ul>
+            <li *ngFor="let notification of notifications">{{ notification }}</li>
+          </ul>
+        </div>
         <router-outlet></router-outlet>
 
       </div>

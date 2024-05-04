@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import * as signalR from "@microsoft/signalr"
 import { Notification } from './models/Notification';
+import { Store } from '@ngrx/store';
+import { showAlert } from './_store/donor/donor.actions';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +12,7 @@ import { Notification } from './models/Notification';
 export class SignalrService {
   private hubConnection!: signalR.HubConnection;
 
-  constructor() {
+  constructor(private store : Store, private _http: HttpClient) {
 
   }
     public startConnection = () => {
@@ -31,5 +35,10 @@ export class SignalrService {
     showNotification(notification: Notification) {
       // this.toastr.warning( notification.message,notification.productID+" "+notification.productName);
       console.log(notification);
+      this.store.dispatch(showAlert({message:notification.message,resptype:"pass"}))
     }
+
+    // addNotification(message:string){
+    //   return this._http.get(`https://localhost:7016/api/Message?message=${message}`)
+    // }
   }

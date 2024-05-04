@@ -1,5 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
-import { loadBloodBankFail, loadBloodBankSuccess } from './bloodbank.actions';
+import {
+  loadBloodBankById,
+  loadBloodBankByIdSuccess,
+  loadBloodBankFail,
+  loadBloodBankSuccess,
+} from './bloodbank.actions';
 import { bloodbankState } from './bloodbank.state';
 
 const _BloodBankReducer = createReducer(
@@ -9,6 +14,13 @@ const _BloodBankReducer = createReducer(
       ...state,
       list: action.list,
       errormessage: '',
+    };
+  }),
+  on(loadBloodBankByIdSuccess, (state, action) => {
+    return {
+      ...state,
+      errormessage: '',
+      bloodbank: action.bloodbank,
     };
   }),
   on(loadBloodBankFail, (state, action) => {

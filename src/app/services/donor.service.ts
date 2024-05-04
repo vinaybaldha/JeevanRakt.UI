@@ -17,19 +17,15 @@ export class DonorService {
     return this._http.get<Donor[]>(`${NAV_URL}/Donors`);
   }
 
-  constructor(
-    private _http: HttpClient,
-  ) {}
+  constructor(private _http: HttpClient) {}
 
   public addDonorFromRemote(donor: Donor): Observable<any> {
     return this._http.post<any>(`${NAV_URL}/Donors`, donor);
   }
 
-
   public updateDonor(donor: any): Observable<any> {
     return this._http.put<any>(`${NAV_URL}/Donors/${donor.donorId}`, donor);
   }
-
 
   public deleteDonor(id: string): Observable<any> {
     return this._http.delete<any>(`${NAV_URL}/Donors/${id}`);
@@ -39,8 +35,7 @@ export class DonorService {
     return this._http.get(`${NAV_URL}/donors/totaldonors`);
   }
 
-  public getDonorById(id:string):Observable<any> {
-    return this._http.get(`${NAV_URL}/donors/${id}`)
+  public getDonorById(id: string): Observable<any> {
+    return this._http.get(`${NAV_URL}/donors/${id}`);
   }
-
 }
