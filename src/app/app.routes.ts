@@ -134,4 +134,11 @@ export const routes: Routes = [
         (m) => m.BloodbankComponent
       ),
   },
+  {
+    path: 'yourbloodbank',
+    loadComponent: () =>
+      import('./components/manager/yourbloodbank/yourbloodbank.component').then(
+        (m) => m.YourbloodbankComponent
+      ),
+  },
 ];

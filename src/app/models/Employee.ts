@@ -16,6 +16,7 @@ export class Employee {
 export interface UserModel extends EntityState<Employee> {
   isDuplicate: boolean;
   menuList: RoleAccess[];
+  isLoaded: boolean;
 }
 
 export interface usercred {

@@ -29,4 +29,20 @@ export class BloodBankService {
       `${NAV_URL}/BloodBanks/nearest?userLatitude=${lat}&userLongitude=${long}`
     );
   }
+
+  public addBloodBank(bloodbank: BloodBank): Observable<any> {
+    return this._http.post<any>(`${NAV_URL}/BloodBanks`, bloodbank);
+  }
+
+  public updateBloodBank(bloodbank: any): Observable<any> {
+    const bloodbankId: string = bloodbank.bloodBankId;
+    return this._http.put<any>(
+      `${NAV_URL}/BloodBanks/${bloodbankId}`,
+      bloodbank
+    );
+  }
+
+  public deleteBloodBank(id: string): Observable<any> {
+    return this._http.delete<any>(`${NAV_URL}/BloodBanks/${id}`);
+  }
 }

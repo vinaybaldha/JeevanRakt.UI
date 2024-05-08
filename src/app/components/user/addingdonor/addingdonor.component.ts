@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 import { CommonModule } from '@angular/common';
-import { DonorService } from '../../../services/donor.service';
 import { Donor } from '../../../models/donor';
 import { MaterialModule } from '../../../_module/Material.Module';
 import { Store } from '@ngrx/store';
@@ -29,7 +27,6 @@ export class AddingdonorComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private _router: Router,
     private bloodbankService: BloodBankService
   ) {}
 

@@ -1,0 +1,23 @@
+<!-- src/app/homepage/homepage.component.html -->
+<div class="container">
+    <div *ngIf="isAvailable">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Welcome to {{ bloodBank.bloodBankName }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p><strong>Blood Bank ID:</strong> {{ bloodBank.bloodBankId }}</p>
+                <p><strong>Address:</strong> {{ bloodBank.address }}</p>
+                <p><strong>Location:</strong> {{ bloodBank.latitude }}, {{ bloodBank.longitude }}</p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button color="primary" (click)="editbloodbank()">Edit</button>
+                <button mat-button color="warn" (click)="deletebloodbank()">Delete</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    <div *ngIf="!isAvailable">
+        <button mat-button color="primary" (click)="addbloodbank()">Create BloodBank</button>
+    </div>
+
+</div>

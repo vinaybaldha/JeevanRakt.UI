@@ -14,6 +14,9 @@ import { MaterialModule } from '../../../_module/Material.Module';
 import { Store } from '@ngrx/store';
 import { getDonorList } from '../../../_store/donor/donor.selector';
 import { getBloodInventory } from '../../../_store/bloodInventory/bloodInventory.selector';
+import { userinfo } from '../../../models/Employee';
+import { loadDonor } from '../../../_store/donor/donor.actions';
+import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-donate',
@@ -26,7 +29,8 @@ export class DonateComponent implements OnInit {
   constructor(
     private donateService: DonateService,
     private dialog: MatDialog,
-    private store: Store
+    private store: Store,
+    private authService: AccountService
   ) {}
   ngOnInit(): void {
     this.reloadData();
@@ -111,6 +115,8 @@ export class DonateComponent implements OnInit {
   }
 
   reloadData() {
+    let userInfo: userinfo = this.authService.getUserDataFromStorage();
+    this.store.dispatch(loadDonor({ bloodbankId: userInfo.bloodBankId }));
     this.store.select(getDonorList).subscribe((data) => {
       this.donors = data;
       this.dataSourse = new MatTableDataSource<Donor>(data);

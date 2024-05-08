@@ -5,5 +5,6 @@ export const UserAdaptor = createEntityAdapter<Employee>();
 
 export const userState: UserModel = UserAdaptor.getInitialState({
     isDuplicate:false,
-    menuList:[]
+    menuList:[],
+    isLoaded: false
 })

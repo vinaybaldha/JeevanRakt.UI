@@ -1,9 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { DonateService } from '../../services/donate.service';
 import { Donor } from '../../models/donor';
-import { Blood, BloodInventory } from '../../models/Blood';
+import { BloodInventory } from '../../models/Blood';
 import { MaterialModule } from '../../_module/Material.Module';
 import { Store } from '@ngrx/store';
 import { getBloodInventory } from '../../_store/bloodInventory/bloodInventory.selector';

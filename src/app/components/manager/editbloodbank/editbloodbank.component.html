@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>{{ inputData.title }}</h1>
+<div mat-dialog-content>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Donate Form</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form #bloodbankForm="ngForm">
+                <mat-form-field>
+                    <mat-label>Name:</mat-label>
+                    <input matInput type="text" id="bloodBankName" name="bloodBankName"
+                        [(ngModel)]="selectedBloodBank.bloodBankName" required />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Address:</mat-label>
+                    <input matInput type="text" id="address" name="address" [(ngModel)]="selectedBloodBank.address"
+                        required />
+                </mat-form-field>
+                <mat-form-field class="mat-50">
+                    <mat-label>Latitude:</mat-label>
+                    <input matInput type="text" id="latitude" name="latitude" [(ngModel)]="selectedBloodBank.latitude"
+                        required />
+                </mat-form-field>
+                <mat-form-field class="mat-50">
+                    <mat-label>Longitude:</mat-label>
+                    <input matInput type="text" id="longitude" name="longitude"
+                        [(ngModel)]="selectedBloodBank.longitude" required />
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+    </mat-card>
+
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="closePopup(bloodbankForm)">Confirm</button>
+    <button mat-raised-button color="accent" [mat-dialog-close]="closeMessage">Cancel</button>
+</div>

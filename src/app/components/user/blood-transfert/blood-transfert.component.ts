@@ -8,6 +8,9 @@ import { Store } from '@ngrx/store';
 import { updateInventory } from '../../../_store/bloodInventory/bloodInventory.actions';
 import { getBloodInventory } from '../../../_store/bloodInventory/bloodInventory.selector';
 import { getRecipientList } from '../../../_store/recipient/recipient.selector';
+import { userinfo } from '../../../models/Employee';
+import { loadRecipient } from '../../../_store/recipient/reipient.actions';
+import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-blood-transfert',
@@ -17,7 +20,7 @@ import { getRecipientList } from '../../../_store/recipient/recipient.selector';
   styleUrl: './blood-transfert.component.css',
 })
 export class BloodTransfertComponent implements OnInit {
-  constructor(private store: Store) {}
+  constructor(private store: Store, private authService: AccountService) {}
 
   recipients: Recipient[] | undefined;
   blood: Blood = new Blood();
@@ -75,6 +78,8 @@ export class BloodTransfertComponent implements OnInit {
   }
 
   reloadData() {
+    let userInfo: userinfo = this.authService.getUserDataFromStorage();
+    this.store.dispatch(loadRecipient({ bloodbankId: userInfo.bloodBankId }));
     this.store.select(getRecipientList).subscribe((item) => {
       this.recipients = item;
     });
