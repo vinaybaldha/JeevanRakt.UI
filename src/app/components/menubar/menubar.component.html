@@ -22,7 +22,8 @@
     </a>
     <div>{{ username }}</div>
     <button (click)="fetchNotifications()" mat-icon-button>
-      <mat-icon matBadge="15" matBadgeColor="accent" [matBadgeHidden]="!showNotifications">{{ showNotifications ?
+      <mat-icon matBadge="15" matBadgeColor="accent" [matBadgeHidden]="!showNotifications" aria-hidden="false">{{
+        showNotifications ?
         'notifications_active' : 'notifications' }}</mat-icon>
     </button>
   </mat-toolbar>

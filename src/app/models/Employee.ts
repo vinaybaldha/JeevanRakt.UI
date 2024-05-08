@@ -1,6 +1,7 @@
 import { EntityState } from '@ngrx/entity';
 
 export class Employee {
+  id: string = '';
   employeeName: string = '';
   email: string = '';
   phoneNumber: string = '';

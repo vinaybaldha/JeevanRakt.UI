@@ -1,3 +1,4 @@
+import { BloodInventory } from './Blood';
 import { Donor } from './donor';
 import { Recipient } from './Recipient';
 
@@ -9,6 +10,7 @@ export class BloodBank {
   recipients: Recipient[] = [];
   latitude: number = 0;
   longitude: number = 0;
+  bloodInventory: BloodInventory = new BloodInventory();
   constructor() {}
 }
 

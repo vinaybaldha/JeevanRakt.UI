@@ -10,12 +10,9 @@ import {
   loadSpinner,
   updateDonor,
 } from '../../../_store/donor/donor.actions';
-import { getDonorList } from '../../../_store/donor/donor.selector';
-import { AccountService } from '../../../services/account.service';
 import { userinfo } from '../../../models/Employee';
-import { loadBloodBankById } from '../../../_store/blood-bank/bloodbank.actions';
-import { getBloodBank } from '../../../_store/blood-bank/bloodbank.selector';
-import { BloodBank } from '../../../models/BloodBank';
+import { AccountService } from '../../../services/account.service';
+import { getDonorList } from '../../../_store/donor/donor.selector';
 
 @Component({
   selector: 'app-donor-list',
@@ -51,15 +48,10 @@ export class DonorListComponent implements OnInit {
 
   reloadData() {
     let userInfo: userinfo = this.authService.getUserDataFromStorage();
-    this.store.dispatch(loadBloodBankById({ id: userInfo.bloodBankId }));
-    this.store.select(getBloodBank).subscribe((item: BloodBank) => {
-      this.donors = item.donors;
+    this.store.dispatch(loadDonor({ bloodbankId: userInfo.bloodBankId }));
+    this.store.select(getDonorList).subscribe((item) => {
+      this.donors = item;
     });
-    // this.store.dispatch(loadSpinner({ isLoaded: true }));
-    // this.store.dispatch(loadDonor());
-    // this.store.select(getDonorList).subscribe((item) => {
-    //   this.donors = item;
-    // });
   }
 
   search() {}

@@ -3,8 +3,11 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DonateService } from '../../services/donate.service';
 import { Donor } from '../../models/donor';
-import { Blood } from '../../models/Blood';
+import { Blood, BloodInventory } from '../../models/Blood';
 import { MaterialModule } from '../../_module/Material.Module';
+import { Store } from '@ngrx/store';
+import { getBloodInventory } from '../../_store/bloodInventory/bloodInventory.selector';
+import { updateInventory } from '../../_store/bloodInventory/bloodInventory.actions';
 
 @Component({
   selector: 'app-popup',
@@ -17,7 +20,7 @@ export class PopupComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private ref: MatDialogRef<PopupComponent>,
-    private donateService: DonateService
+    private store: Store
   ) {}
 
   ngOnInit(): void {
@@ -37,6 +40,7 @@ export class PopupComponent implements OnInit {
     donorGender: '',
     bloodBankId: '',
   };
+  bloodInventory: BloodInventory = new BloodInventory();
 
   closePopup(form: NgForm) {
     this, this.onSubmit(form);
@@ -45,37 +49,48 @@ export class PopupComponent implements OnInit {
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
-      this.donateService
-        .getBloodListById(this.selectedDonor.donorBloodType)
-        .subscribe((res: Blood) => {
-          console.log(res);
-          res.bloodStock = res.bloodStock + 1;
+      this.store.select(getBloodInventory).subscribe((item) => {
+        this.bloodInventory = item;
+      });
 
-          this.donateService.addBlood(res).subscribe(() => {
-            // this.reloadData();
-            // this.selectedDonor = {
-            //   donorId: '',
-            //   donorName: '',
-            //   donorBloodType: '',
-            //   donorGender: '',
-            //   donorContactNumber: '',
-            //   donorAge: 0,
-            //   donorAddress: '',
-            // };
-            // this.bloodStock = {
-            //   bloodGroup: '',
-            //   bloodStock: 0,
-            // };
-          });
-        });
+      const updatedInventory = { ...this.bloodInventory };
+      switch (this.selectedDonor.donorBloodType) {
+        case 'A+': {
+          updatedInventory.a1 = this.bloodInventory.a1 + 1;
+          break;
+        }
+        case 'A-': {
+          updatedInventory.a2 = this.bloodInventory.a2 + 1;
+          break;
+        }
+        case 'B+': {
+          updatedInventory.b1 = this.bloodInventory.b1 + 1;
+          break;
+        }
+        case 'B-': {
+          updatedInventory.b2 = this.bloodInventory.b2 + 1;
+          break;
+        }
+        case 'O+': {
+          updatedInventory.o1 = this.bloodInventory.o1 + 1;
+          break;
+        }
+        case 'O-': {
+          updatedInventory.o2 = this.bloodInventory.o2 + 1;
+          break;
+        }
+        case 'AB+': {
+          updatedInventory.aB1 = this.bloodInventory.aB1 + 1;
+          break;
+        }
+        case 'AB-': {
+          updatedInventory.aB2 = this.bloodInventory.aB2 + 1;
+          break;
+        }
+      }
+      this.store.dispatch(updateInventory({ inputData: updatedInventory }));
 
-      // this.bloodStock.bloodStock = this.bloodStock.bloodStock + 1;
-      // Process form data (e.g., save donor information)
-
-      // console.log('Form submitted!', this.selectedDonor);
-      // Clear form fields after submission
       form.reset();
-      // this.bloodStocks = this.donateService.getBloodList();
     }
   }
 }

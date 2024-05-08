@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Blood } from '../../../models/Blood';
-import { DonateService } from '../../../services/donate.service';
+import { Blood, BloodInventory } from '../../../models/Blood';
+import { Store } from '@ngrx/store';
+import { getBloodInventory } from '../../../_store/bloodInventory/bloodInventory.selector';
+import { loadInventory } from '../../../_store/bloodInventory/bloodInventory.actions';
+import { AccountService } from '../../../services/account.service';
 
 @Component({
   selector: 'app-blood-stock',
@@ -17,33 +20,24 @@ export class BloodStockComponent implements OnInit {
   tempUser = '';
   title = '';
   bloodDetails: Observable<Blood[]> | undefined;
+  bloodInventory: BloodInventory = new BloodInventory();
 
   constructor(
-    private donateService: DonateService,
-    private activatedRoute: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private store: Store,
+    private authService: AccountService
   ) {}
 
   ngOnInit(): void {
-    // this.tempUser = JSON.stringify(sessionStorage.getItem('loggedUser')|| '{}');
-    // if (this.tempUser.charAt(0) === '"' && this.tempUser.charAt(this.tempUser.length -1) === '"')
-    // {
-    //   this.tempUser = this.tempUser.substr(1, this.tempUser.length-2);
-    // }
-    // this.loggedUser = this.tempUser;
-
     this.getBloodDetails();
-
-    // if(this.loggedUser === "admin@gmail.com"){
-    //   this.title = "Admin Dashboard";
-    // }
-    // else{
-    //   this.title = "User Dashboard";
-    // }
   }
 
   getBloodDetails() {
-    this.bloodDetails = this.donateService.getBloodList();
+    const inventoryId = this.authService.getInventoryIdFromStorage();
+    this.store.dispatch(loadInventory({ inventoryId: inventoryId }));
+    this.store.select(getBloodInventory).subscribe((data) => {
+      this.bloodInventory = data;
+    });
   }
 
   navigateHome() {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of } from 'rxjs';
+import { catchError, exhaustMap, map, of, switchMap } from 'rxjs';
 import { BloodBankService } from '../../services/blood-bank.service';
 import {
   loadBloodBank,
@@ -9,6 +9,7 @@ import {
   loadBloodBankFail,
   loadBloodBankSuccess,
 } from './bloodbank.actions';
+import { loadInventory } from '../bloodInventory/bloodInventory.actions';
 
 @Injectable()
 export class BloodBankEffects {
@@ -20,10 +21,10 @@ export class BloodBankEffects {
   _loadBloodBank = createEffect(() =>
     this.action$.pipe(
       ofType(loadBloodBank),
-      exhaustMap((action) => {
+      switchMap((action) => {
         return this.bloodbankService.getBloodBanks().pipe(
-          map((data) => {
-            return loadBloodBankSuccess({ list: data });
+          switchMap((data) => {
+            return of(loadBloodBankSuccess({ list: data }));
           }),
           catchError((_err) =>
             of(loadBloodBankFail({ errormessage: _err.message }))
@@ -36,10 +37,15 @@ export class BloodBankEffects {
   _loadBloodBankById = createEffect(() =>
     this.action$.pipe(
       ofType(loadBloodBankById),
-      exhaustMap((action) => {
+      switchMap((action) => {
         return this.bloodbankService.getBloodBankById(action.id).pipe(
-          map((data) => {
-            return loadBloodBankByIdSuccess({ bloodbank: data });
+          switchMap((data) => {
+            return of(
+              loadBloodBankByIdSuccess({ bloodbank: data }),
+              loadInventory({
+                inventoryId: data.bloodInventory.bloodInventoryId,
+              })
+            );
           })
         );
       })

@@ -9,12 +9,12 @@ const NAV_URL = environment.apiURL;
   providedIn: 'root',
 })
 export class RecipientService {
-  constructor(
-    private _http: HttpClient,
-  ) {}
+  constructor(private _http: HttpClient) {}
 
-  public getRecipientList(): Observable<Recipient[]> {
-    return this._http.get<Recipient[]>(`${NAV_URL}/Recipients`);
+  public getRecipientList(bloodbankId: string): Observable<Recipient[]> {
+    return this._http.get<Recipient[]>(
+      `${NAV_URL}/Recipients/bloodbank?bloodbankId=${bloodbankId}`
+    );
   }
 
   public addRecipientFromRemote(recipient: Recipient): Observable<any> {
@@ -22,7 +22,10 @@ export class RecipientService {
   }
 
   public updateRecipient(recipient: any): Observable<any> {
-    return this._http.put<any>(`${NAV_URL}/Recipients/${recipient.recipientId}`, recipient);
+    return this._http.put<any>(
+      `${NAV_URL}/Recipients/${recipient.recipientId}`,
+      recipient
+    );
   }
 
   public deleteRecipient(id: string): Observable<any> {

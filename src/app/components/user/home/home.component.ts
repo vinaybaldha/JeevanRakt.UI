@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CarouselComponent } from '../../carousel/carousel.component';
 import { MaterialModule } from '../../../_module/Material.Module';
+import { Store } from '@ngrx/store';
+import { AccountService } from '../../../services/account.service';
 
 type Slide = {
   src: string;
@@ -11,7 +13,7 @@ type Slide = {
   standalone: true,
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  imports: [CarouselComponent, MaterialModule]
+  imports: [CarouselComponent, MaterialModule],
 })
 export class HomeComponent implements OnInit {
   ngOnInit() {}
@@ -36,4 +38,6 @@ export class HomeComponent implements OnInit {
       compatibleDonors: ['AB-', 'B-', 'A-', 'O-', 'AB+', 'B+', 'A+', 'O+'],
     },
   ];
+
+  constructor() {}
 }

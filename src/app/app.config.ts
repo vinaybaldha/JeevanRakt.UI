@@ -17,15 +17,29 @@ import { provideRouterStore } from '@ngrx/router-store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { UserReducer } from './_store/user/user.reducer';
 import { UserEffects } from './_store/user/user.effects';
+import { BloodInventoryEffects } from './_store/bloodInventory/bloodInventory.effects';
+import { BloodInventoryReducer } from './_store/bloodInventory/bloodInventory.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(withInterceptors([tokenInterceptor])),
     provideAnimationsAsync(),
-    provideStore({ 'donor': DonorReducer, 'recipient': RecipientReducer, 'bloodbank': BloodBankReducer, 'user': UserReducer }),
-    provideEffects([DonorEffects, RecipientEffects, BloodBankEffects, UserEffects]),
+    provideStore({
+      donor: DonorReducer,
+      recipient: RecipientReducer,
+      bloodbank: BloodBankReducer,
+      user: UserReducer,
+      inventory: BloodInventoryReducer,
+    }),
+    provideEffects([
+      DonorEffects,
+      RecipientEffects,
+      BloodBankEffects,
+      UserEffects,
+      BloodInventoryEffects,
+    ]),
     provideRouterStore(),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
-],
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+  ],
 };

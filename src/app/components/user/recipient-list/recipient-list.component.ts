@@ -9,9 +9,11 @@ import {
   loadRecipient,
   updateRecipient,
 } from '../../../_store/recipient/reipient.actions';
-import { getRecipientList } from '../../../_store/recipient/recipient.selector';
 import { getBloodBank } from '../../../_store/blood-bank/bloodbank.selector';
 import { BloodBank } from '../../../models/BloodBank';
+import { AccountService } from '../../../services/account.service';
+import { userinfo } from '../../../models/Employee';
+import { getRecipientList } from '../../../_store/recipient/recipient.selector';
 
 @Component({
   selector: 'app-recipient-list',
@@ -36,16 +38,17 @@ export class RecipientListComponent {
   };
   edit: boolean = false;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private authService: AccountService) {}
 
   ngOnInit(): void {
     this.reloadData();
   }
 
   reloadData() {
-    // this.store.dispatch(loadRecipient());
-    this.store.select(getBloodBank).subscribe((item: BloodBank) => {
-      this.recipients = item.recipients;
+    let userInfo: userinfo = this.authService.getUserDataFromStorage();
+    this.store.dispatch(loadRecipient({ bloodbankId: userInfo.bloodBankId }));
+    this.store.select(getRecipientList).subscribe((item) => {
+      this.recipients = item;
     });
   }
 

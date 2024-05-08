@@ -137,6 +137,10 @@ export class AccountService {
     localStorage.setItem('userdata', JSON.stringify(userdata));
   }
 
+  setInventoryIdToLocalStorage(inventoryId: string) {
+    localStorage.setItem('inventoryId', JSON.stringify(inventoryId));
+  }
+
   getUserDataFromStorage() {
     let _obj: userinfo = {
       employeeName: '',
@@ -154,6 +158,16 @@ export class AccountService {
       return _obj;
     } else {
       return _obj;
+    }
+  }
+
+  getInventoryIdFromStorage() {
+    if (localStorage.getItem('inventoryId') != null) {
+      let jsonString = localStorage.getItem('inventoryId') as string;
+      let inventoryId = JSON.parse(jsonString);
+      return inventoryId;
+    } else {
+      return '';
     }
   }
 

@@ -3,15 +3,17 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { DonateService } from '../../../services/donate.service';
-import { DonorService } from '../../../services/donor.service';
 import { Donor } from '../../../models/donor';
-import { Blood } from '../../../models/Blood';
+import { Blood, BloodInventory } from '../../../models/Blood';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../../popup/popup.component';
 import { MaterialModule } from '../../../_module/Material.Module';
+import { Store } from '@ngrx/store';
+import { getDonorList } from '../../../_store/donor/donor.selector';
+import { getBloodInventory } from '../../../_store/bloodInventory/bloodInventory.selector';
 
 @Component({
   selector: 'app-donate',
@@ -23,8 +25,8 @@ import { MaterialModule } from '../../../_module/Material.Module';
 export class DonateComponent implements OnInit {
   constructor(
     private donateService: DonateService,
-    private donorService: DonorService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private store: Store
   ) {}
   ngOnInit(): void {
     this.reloadData();
@@ -43,9 +45,17 @@ export class DonateComponent implements OnInit {
 
   donors: Donor[] | undefined;
   bloodStocks: Observable<Blood[]> | undefined;
-  bloodStock: Blood = {
-    bloodGroup: '',
-    bloodStock: 0,
+  bloodStock: BloodInventory = {
+    bloodInventoryId: '',
+    a1: 0,
+    a2: 0,
+    b1: 0,
+    b2: 0,
+    o1: 0,
+    o2: 0,
+    aB1: 0,
+    aB2: 0,
+    bloodBankId: '',
   };
   dataSourse: any;
   displayedColumns: string[] = [
@@ -82,31 +92,34 @@ export class DonateComponent implements OnInit {
               bloodBankId: '',
             };
             this.bloodStock = {
-              bloodGroup: '',
-              bloodStock: 0,
+              bloodInventoryId: '',
+              a1: 0,
+              a2: 0,
+              b1: 0,
+              b2: 0,
+              o1: 0,
+              o2: 0,
+              aB1: 0,
+              aB2: 0,
+              bloodBankId: '',
             };
           });
         });
-
-      // this.bloodStock.bloodStock = this.bloodStock.bloodStock + 1;
-      // Process form data (e.g., save donor information)
-
-      // console.log('Form submitted!', this.selectedDonor);
-      // Clear form fields after submission
       form.reset();
       this.bloodStocks = this.donateService.getBloodList();
     }
   }
 
   reloadData() {
-    this.donorService.getDonorList().subscribe((res: Donor[]) => {
-      this.donors = res;
-      this.dataSourse = new MatTableDataSource<Donor>(res);
+    this.store.select(getDonorList).subscribe((data) => {
+      this.donors = data;
+      this.dataSourse = new MatTableDataSource<Donor>(data);
       this.dataSourse.paginator = this.paginator;
       this.dataSourse.sort = this.sort;
     });
-
-    this.bloodStocks = this.donateService.getBloodList();
+    this.store.select(getBloodInventory).subscribe((item) => {
+      this.bloodStock = item;
+    });
   }
 
   donateDonor(donor: Donor) {

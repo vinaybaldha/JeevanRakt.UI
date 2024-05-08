@@ -13,8 +13,10 @@ const NAV_URL = environment.apiURL;
 export class DonorService {
   // user = new User();
 
-  public getDonorList(): Observable<Donor[]> {
-    return this._http.get<Donor[]>(`${NAV_URL}/Donors`);
+  public getDonorList(bloodbankId: string): Observable<Donor[]> {
+    return this._http.get<Donor[]>(
+      `${NAV_URL}/Donors/bloodbank?bloodbankId=${bloodbankId}`
+    );
   }
 
   constructor(private _http: HttpClient) {}

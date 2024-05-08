@@ -13,7 +13,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let recipient of recipients | async">
+      <tr *ngFor="let recipient of recipients">
         <td>{{ recipient.recipientName }}</td>
 
         <td>{{ recipient.recipientAge }}</td>
@@ -22,11 +22,7 @@
         <td>{{ recipient.recipientGender }}</td>
         <td>{{ recipient.recipientAddress }}</td>
         <td>
-          <button
-            type="button"
-            (click)="transferRecipient(recipient)"
-            class="btn btn-primary"
-          >
+          <button type="button" (click)="transferRecipient(recipient)" class="btn btn-primary">
             Transfer
           </button>
         </td>
@@ -35,6 +31,6 @@
   </table>
 </div>
 <div>
-  Blood Stock for {{ blood?.bloodGroup }} : {{ blood?.bloodStock }}
+  Blood Stock for {{ blood.bloodGroup }} : {{ blood.bloodStock }}
   <button class="btn btn-primary" (click)="confirmBlood()">Confirm</button>
 </div>

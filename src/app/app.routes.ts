@@ -134,11 +134,4 @@ export const routes: Routes = [
         (m) => m.BloodbankComponent
       ),
   },
-  {
-    path: 'test',
-    loadComponent: () =>
-      import('./components/carousel/carousel.component').then(
-        (m) => m.CarouselComponent
-      ),
-  },
 ];
