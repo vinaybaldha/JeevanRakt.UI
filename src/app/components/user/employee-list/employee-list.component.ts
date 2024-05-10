@@ -8,25 +8,28 @@ import { getUser } from '../../../_store/user/user.actions';
 import { getuserlist } from '../../../_store/user/user.selector';
 import { MaterialModule } from '../../../_module/Material.Module';
 import { MatTableDataSource } from '@angular/material/table';
+import { loadSpinner } from '../../../_store/Globel/globel.actions';
 
 @Component({
   selector: 'app-employee-list',
   standalone: true,
   templateUrl: './employee-list.component.html',
   styleUrl: './employee-list.component.css',
-  imports: [RouterModule, CommonModule, EmployeeRegisterComponent, MaterialModule],
+  imports: [
+    RouterModule,
+    CommonModule,
+    EmployeeRegisterComponent,
+    MaterialModule,
+  ],
 })
 export class EmployeeListComponent implements OnInit {
   loggedemployee = '';
   tempUser = '';
   employees: Employee[] | undefined;
-  displayedColumns: string[] = ['employeeName', 'phoneNumber', 'email','role'];
+  displayedColumns: string[] = ['employeeName', 'phoneNumber', 'email', 'role'];
   dataSource = new MatTableDataSource<Employee>();
 
-  constructor(
-    private _router: Router,
-    private store : Store
-  ) {}
+  constructor(private _router: Router, private store: Store) {}
 
   ngOnInit(): void {
     this.tempUser = JSON.stringify(
@@ -44,15 +47,13 @@ export class EmployeeListComponent implements OnInit {
   }
 
   reloadData() {
-    this.store.dispatch(getUser())
-    this.store.select(getuserlist).subscribe(item=>{
-      this.employees = item
-    
-       this.dataSource = new MatTableDataSource<Employee>(this.employees);
-    })
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
+    this.store.dispatch(getUser());
+    this.store.select(getuserlist).subscribe((item) => {
+      this.employees = item;
 
-    
-   
+      this.dataSource = new MatTableDataSource<Employee>(this.employees);
+    });
   }
 
   logout() {

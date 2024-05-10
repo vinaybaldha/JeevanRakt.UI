@@ -7,6 +7,7 @@ import { MaterialModule } from '../../_module/Material.Module';
 import { Store } from '@ngrx/store';
 import { getBloodInventory } from '../../_store/bloodInventory/bloodInventory.selector';
 import { updateInventory } from '../../_store/bloodInventory/bloodInventory.actions';
+import { loadSpinner } from '../../_store/Globel/globel.actions';
 
 @Component({
   selector: 'app-popup',
@@ -48,6 +49,7 @@ export class PopupComponent implements OnInit {
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
+      this.store.dispatch(loadSpinner({ isLoaded: true }));
       this.store.select(getBloodInventory).subscribe((item) => {
         this.bloodInventory = item;
       });
@@ -87,6 +89,7 @@ export class PopupComponent implements OnInit {
           break;
         }
       }
+      this.store.dispatch(loadSpinner({ isLoaded: true }));
       this.store.dispatch(updateInventory({ inputData: updatedInventory }));
 
       form.reset();

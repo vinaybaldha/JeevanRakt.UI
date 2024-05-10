@@ -4,7 +4,6 @@ import {
   deleteInventorySuccess,
   loadInventoryFail,
   loadInventorySuccess,
-  loadSpinner,
   updateInventorySuccess,
 } from './bloodInventory.actions';
 import { BloodInventory, InventoryModel } from '../../models/Blood';
@@ -34,12 +33,6 @@ const _BloodInventoryReducer = createReducer(
       inventory: action.inputData,
       errorMessage: '',
       isLoaded: false,
-    };
-  }),
-  on(loadSpinner, (state, action) => {
-    return {
-      ...state,
-      isLoaded: action.isLoaded,
     };
   }),
   on(loadInventorySuccess, (state, action) => {

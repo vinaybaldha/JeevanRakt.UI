@@ -17,6 +17,7 @@ import {
 } from './user.actions';
 import { Router } from '@angular/router';
 import { loadBloodBankById } from '../blood-bank/bloodbank.actions';
+import { loadSpinner } from '../Globel/globel.actions';
 
 @Injectable()
 export class UserEffects {
@@ -30,21 +31,21 @@ export class UserEffects {
   _userregister = createEffect(() =>
     this.action$.pipe(
       ofType(beginRegister),
-      exhaustMap((action) => {
+      switchMap((action) => {
         return this.userService.registerEmployee(action.userdata).pipe(
-          map((data) => {
+          switchMap((data) => {
             this.router.navigate(['login']);
-            return showAlert({
+            return of(showAlert({
               message: 'Registerd Successfully',
               resptype: 'pass',
-            });
+            }),loadSpinner({ isLoaded: false }));
           }),
           catchError((_err) =>
             of(
               showAlert({
                 message: 'Registration Fail due to: ' + _err.message,
                 resptype: 'fail',
-              })
+              }),loadSpinner({ isLoaded: false })
             )
           )
         );
@@ -65,7 +66,8 @@ export class UserEffects {
               return of(
                 fetchMenu({ userrole: data.role }),
                 showAlert({ message: 'Login Successfully', resptype: 'pass' }),
-                loadBloodBankById({ id: data.bloodBankId })
+                loadBloodBankById({ id: data.bloodBankId }),
+                loadSpinner({ isLoaded: false })
               );
             }),
             catchError((_err) =>
@@ -73,7 +75,7 @@ export class UserEffects {
                 showAlert({
                   message: 'Login Fail due to: ' + _err.message,
                   resptype: 'fail',
-                })
+                }),loadSpinner({ isLoaded: false })
               )
             )
           );
@@ -90,7 +92,7 @@ export class UserEffects {
             if (data) {
               return of(
                 duplicateUserSuccess({ isDuplicate: true }),
-                showAlert({ message: 'Email Already Exist', resptype: 'fail' })
+                showAlert({ message: 'Email Already Exist', resptype: 'fail' }),loadSpinner({ isLoaded: false })
               );
             } else {
               return of(duplicateUserSuccess({ isDuplicate: false }));
@@ -101,7 +103,7 @@ export class UserEffects {
               showAlert({
                 message: 'Login Fail due to: ' + _err.message,
                 resptype: 'fail',
-              })
+              }),loadSpinner({ isLoaded: false })
             )
           )
         );
@@ -112,17 +114,17 @@ export class UserEffects {
   _loadmenubyrole = createEffect(() =>
     this.action$.pipe(
       ofType(fetchMenu),
-      exhaustMap((action) => {
+      switchMap((action) => {
         return this.userService.getMenuByRole(action.userrole).pipe(
-          map((data) => {
-            return fetchMenuSuccess({ menulist: data });
+          switchMap((data) => {
+            return of(fetchMenuSuccess({ menulist: data }),loadSpinner({ isLoaded: false }));
           }),
           catchError((_err) =>
             of(
               showAlert({
                 message: 'Fail to fetch MenuList due to: ' + _err.message,
                 resptype: 'fail',
-              })
+              }),loadSpinner({ isLoaded: false })
             )
           )
         );
@@ -133,17 +135,17 @@ export class UserEffects {
   _getallusers = createEffect(() =>
     this.action$.pipe(
       ofType(getUser),
-      exhaustMap((action) => {
+      switchMap((action) => {
         return this.userService.getEmployeeList().pipe(
-          map((data) => {
-            return getUserSuccess({ userlist: data });
+          switchMap((data) => {
+            return of(getUserSuccess({ userlist: data }),loadSpinner({ isLoaded: false }));
           }),
           catchError((_err) =>
             of(
               showAlert({
                 message: 'Fail to get userlist due to: ' + _err.message,
                 resptype: 'fail',
-              })
+              }),loadSpinner({ isLoaded: false })
             )
           )
         );

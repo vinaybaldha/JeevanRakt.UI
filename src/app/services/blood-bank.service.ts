@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { BloodBank } from '../models/BloodBank';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Filter } from '../models/Filter';
 
 const NAV_URL = environment.apiURL;
 
@@ -16,8 +17,10 @@ export class BloodBankService {
     new BehaviorSubject<BloodBank>(new BloodBank());
   bloodbank: Observable<BloodBank> = this.bloodbankasSubject.asObservable();
 
-  public getBloodBanks(): Observable<BloodBank[]> {
-    return this._http.get<BloodBank[]>(`${NAV_URL}/BloodBanks`);
+  public getBloodBanks(filter: Filter): Observable<BloodBank[]> {
+    return this._http.get<BloodBank[]>(
+      `${NAV_URL}/BloodBanks?page=${filter.page}&pageSize=${filter.pageSize}&filterOn=${filter.filterOn}&filterQuery=${filter.filterQuery}&sortBy=${filter.sortBy}&isAccending=${filter.isAccending}`
+    );
   }
 
   public getBloodBankById(id: string): Observable<BloodBank> {

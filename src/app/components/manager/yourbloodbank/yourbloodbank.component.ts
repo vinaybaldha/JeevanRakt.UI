@@ -13,6 +13,7 @@ import { BloodInventory } from '../../../models/Blood';
 import { MatDialog } from '@angular/material/dialog';
 import { EditbloodbankComponent } from '../editbloodbank/editbloodbank.component';
 import { CommonModule } from '@angular/common';
+import { loadSpinner } from '../../../_store/Globel/globel.actions';
 
 @Component({
   selector: 'app-yourbloodbank',
@@ -46,6 +47,7 @@ export class YourbloodbankComponent implements OnInit {
   reloadData() {
     const userInfo: userinfo = this.authService.getUserDataFromStorage();
     if (userInfo.bloodBankId != null) {
+      this.store.dispatch(loadSpinner({ isLoaded: true }));
       this.store.dispatch(loadBloodBankById({ id: userInfo.bloodBankId }));
       this.store.select(getBloodBank).subscribe((item) => {
         if (item.bloodBankId != null && item.bloodBankId != '') {
@@ -68,6 +70,7 @@ export class YourbloodbankComponent implements OnInit {
 
   deletebloodbank() {
     if (confirm('Are you sure you want to delete this bloodbank')) {
+      this.store.dispatch(loadSpinner({ isLoaded: true }));
       this.store.dispatch(
         deleteBloodBank({ bloodbankId: this.bloodBank.bloodBankId })
       );

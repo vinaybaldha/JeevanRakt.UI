@@ -4,7 +4,6 @@ import {
   duplicateUserSuccess,
   fetchMenuSuccess,
   getUserSuccess,
-  loadSpinner,
 } from './user.actions';
 
 const _UserReducer = createReducer(
@@ -25,12 +24,6 @@ const _UserReducer = createReducer(
   }),
   on(getUserSuccess, (state, action) => {
     return UserAdaptor.setAll(action.userlist, state);
-  }),
-  on(loadSpinner, (state, action) => {
-    return {
-      ...state,
-      isLoaded: action.isLoaded,
-    };
   })
 );
 

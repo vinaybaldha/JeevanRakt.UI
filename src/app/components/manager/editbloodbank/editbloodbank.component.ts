@@ -9,9 +9,9 @@ import {
   updateBloodBank,
 } from '../../../_store/blood-bank/bloodbank.actions';
 import { MaterialModule } from '../../../_module/Material.Module';
-import { v4 as uuidv4 } from 'uuid';
 import { AccountService } from '../../../services/account.service';
 import { userinfo } from '../../../models/Employee';
+import { loadSpinner } from '../../../_store/Globel/globel.actions';
 
 @Component({
   selector: 'app-editbloodbank',
@@ -63,6 +63,7 @@ export class EditbloodbankComponent implements OnInit {
           latitude: form.value.latitude,
           longitude: form.value.longitude,
         };
+        this.store.dispatch(loadSpinner({ isLoaded: true }));
         this.store.dispatch(updateBloodBank({ inputData: updatedBloodBank }));
 
         form.reset();
@@ -75,7 +76,7 @@ export class EditbloodbankComponent implements OnInit {
           latitude: form.value.latitude,
           longitude: form.value.longitude,
         };
-
+        this.store.dispatch(loadSpinner({ isLoaded: true }));
         this.store.dispatch(addBloodBank({ inputData: newBloodBank }));
       }
     }

@@ -16,6 +16,7 @@ import {
   updateRecipientSuccess,
 } from './reipient.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { loadSpinner } from '../Globel/globel.actions';
 
 @Injectable()
 export class RecipientEffects {
@@ -28,15 +29,25 @@ export class RecipientEffects {
   _loadRecipient = createEffect(() =>
     this.action$.pipe(
       ofType(loadRecipient),
-      exhaustMap((action) => {
-        return this.recipientService.getRecipientList(action.bloodbankId).pipe(
-          map((data) => {
-            return loadRecipientSuccess({ list: data });
-          }),
-          catchError((_err) =>
-            of(loadRecipientFail({ errormessage: _err.message }))
-          )
-        );
+      switchMap((action) => {
+        return this.recipientService
+          .getRecipientList(action.bloodbankId, action.fiter)
+          .pipe(
+            switchMap((data) => {
+              return of(
+                loadRecipientSuccess({ list: data }),
+                loadSpinner({
+                  isLoaded: false,
+                })
+              );
+            }),
+            catchError((_err) =>
+              of(
+                loadRecipientFail({ errormessage: _err.message }),
+                loadSpinner({ isLoaded: false })
+              )
+            )
+          );
       })
     )
   );
@@ -54,11 +65,15 @@ export class RecipientEffects {
                 showAlert({
                   message: 'recipient added successfully',
                   resptype: 'pass',
-                })
+                }),
+                loadSpinner({ isLoaded: false })
               );
             }),
             catchError((_err) =>
-              of(showAlert({ message: 'recipient add fail', resptype: 'fail' }))
+              of(
+                showAlert({ message: 'recipient add fail', resptype: 'fail' }),
+                loadSpinner({ isLoaded: false })
+              )
             )
           );
       })
@@ -76,12 +91,17 @@ export class RecipientEffects {
               showAlert({
                 message: 'recipient updated successfully',
                 resptype: 'pass',
-              })
+              }),
+              loadSpinner({ isLoaded: false })
             );
           }),
           catchError((_err) =>
             of(
-              showAlert({ message: 'recipient updated fail', resptype: 'fail' })
+              showAlert({
+                message: 'recipient updated fail',
+                resptype: 'fail',
+              }),
+              loadSpinner({ isLoaded: false })
             )
           )
         );
@@ -100,12 +120,14 @@ export class RecipientEffects {
               showAlert({
                 message: 'recipient removed successfully',
                 resptype: 'pass',
-              })
+              }),
+              loadSpinner({ isLoaded: false })
             );
           }),
           catchError((_err) =>
             of(
-              showAlert({ message: `recipient remove fail`, resptype: 'fail' })
+              showAlert({ message: `recipient remove fail`, resptype: 'fail' }),
+              loadSpinner({ isLoaded: false })
             )
           )
         );

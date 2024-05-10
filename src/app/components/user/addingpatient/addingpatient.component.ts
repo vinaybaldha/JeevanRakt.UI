@@ -11,6 +11,7 @@ import { SignalrService } from '../../../signalr.service';
 import { AccountService } from '../../../services/account.service';
 import { BloodBankService } from '../../../services/blood-bank.service';
 import { BloodBank } from '../../../models/BloodBank';
+import { loadSpinner } from '../../../_store/Globel/globel.actions';
 
 @Component({
   selector: 'app-addingpatient',
@@ -29,7 +30,6 @@ export class AddingpatientComponent implements OnInit {
   constructor(
     private store: Store,
     private bloodbankService: BloodBankService,
-    private _router: Router,
     private authService: AccountService
   ) {}
 
@@ -43,6 +43,7 @@ export class AddingpatientComponent implements OnInit {
     var guid = uuidv4();
     this.recipient.recipientId = guid;
     this.recipient.bloodBankId = this.bloodbank.bloodBankId;
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(addRecipient({ inputData: this.recipient }));
     this.addRecipientForm.resetForm();
     this.authService.addNotification().subscribe((result) => {

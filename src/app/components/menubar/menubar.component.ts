@@ -9,6 +9,7 @@ import { getMenuByRole } from '../../_store/user/user.selector';
 import { MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { fetchMenu } from '../../_store/user/user.actions';
+import { loadSpinner } from '../../_store/Globel/globel.actions';
 
 @Component({
   selector: 'app-menubar',
@@ -45,6 +46,7 @@ export class MenubarComponent implements DoCheck, OnInit {
     if (localStorage.getItem('userdata') != null) {
       let jsonString = localStorage.getItem('userdata') as string;
       let _obj = JSON.parse(jsonString) as userinfo;
+      this.store.dispatch(loadSpinner({ isLoaded: true }));
       this.store.dispatch(fetchMenu({ userrole: _obj.role }));
     }
     this.store.select(getMenuByRole).subscribe((item) => {

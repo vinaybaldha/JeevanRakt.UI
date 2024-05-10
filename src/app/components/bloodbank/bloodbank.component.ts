@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { BloodBank } from '../../models/BloodBank';
 import { BloodBankService } from '../../services/blood-bank.service';
 import { MaterialModule } from '../../_module/Material.Module';
-import { Blood } from '../../models/Blood';
 import { Router } from '@angular/router';
 
 @Component({

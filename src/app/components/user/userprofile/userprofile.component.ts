@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Observable } from 'rxjs';
-import { DonorService } from '../../../services/donor.service';
 import { Employee } from '../../../models/Employee';
 import { CommonModule } from '@angular/common';
 import $ from 'jquery';
@@ -24,11 +21,7 @@ export class UserprofileComponent implements OnInit {
   user: Employee = new Employee();
   msg = ' ';
 
-  constructor(
-    private authService: AccountService,
-    private activatedRoute: ActivatedRoute,
-    private _router: Router
-  ) {}
+  constructor(private authService: AccountService, private _router: Router) {}
 
   ngOnInit(): void {
     this.tempUser = JSON.stringify(localStorage.getItem('username') || '{}');

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Donor } from '../models/donor';
 import { environment } from '../../environments/environment';
 import { Recipient } from '../models/Recipient';
+import { Filter } from '../models/Filter';
 
 const NAV_URL = environment.apiURL;
 
@@ -13,9 +14,12 @@ const NAV_URL = environment.apiURL;
 export class DonorService {
   // user = new User();
 
-  public getDonorList(bloodbankId: string): Observable<Donor[]> {
+  public getDonorList(
+    bloodbankId: string,
+    filter: Filter
+  ): Observable<Donor[]> {
     return this._http.get<Donor[]>(
-      `${NAV_URL}/Donors/bloodbank?bloodbankId=${bloodbankId}`
+      `${NAV_URL}/Donors/bloodbank?bloodbankId=${bloodbankId}&page=${filter.page}&pageSize=${filter.pageSize}&filterOn=${filter.filterOn}&filterQuery=${filter.filterQuery}&sortBy=${filter.sortBy}&isAccending=${filter.isAccending}`
     );
   }
 

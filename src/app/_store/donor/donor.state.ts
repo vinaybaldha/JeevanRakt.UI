@@ -1,7 +1,6 @@
-import { DonorModel } from "../../models/donor";
+import { DonorModel } from '../../models/donor';
 
 export const donorState: DonorModel = {
-    list: [],
-    errormessage: '',
-    isLoaded: false
-}
+  list: [],
+  errormessage: '',
+};

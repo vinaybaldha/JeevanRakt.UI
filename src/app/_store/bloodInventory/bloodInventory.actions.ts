@@ -14,7 +14,6 @@ export const UPDATE_INVENTORY_SUCCESS = '[inventory] update inventory success';
 export const DELETE_INVENTORY = '[inventory] delete inventory';
 export const DELETE_INVENTORY_SUCCESS = '[inventory] delete inventory success';
 
-export const LOAD_SPINNER = '[inventory] load spinner';
 
 export const SHOW_ALERT = '[inventory] show alert';
 
@@ -63,8 +62,3 @@ export const showAlert = createAction(
   props<{ message: string; resptype: string }>()
 );
 export const emptyAction = createAction('emptyAction');
-
-export const loadSpinner = createAction(
-  LOAD_SPINNER,
-  props<{ isLoaded: boolean }>()
-);

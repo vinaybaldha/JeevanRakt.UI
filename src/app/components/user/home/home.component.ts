@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CarouselComponent } from '../../carousel/carousel.component';
 import { MaterialModule } from '../../../_module/Material.Module';
-import { Store } from '@ngrx/store';
-import { AccountService } from '../../../services/account.service';
 
 type Slide = {
   src: string;

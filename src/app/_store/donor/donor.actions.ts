@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Donor } from '../../models/donor';
+import { Filter } from '../../models/Filter';
 
 export const LOAD_DONOR = '[donor] load donor';
 export const LOAD_DONOR_SUCCESS = '[donor] load donor success';
@@ -14,13 +15,13 @@ export const UPDATE_DONOR_SUCCESS = '[donor] update donor success';
 export const DELETE_DONOR = '[donor] delete donor';
 export const DELETE_DONOR_SUCCESS = '[donor] delete donor success';
 
-export const LOAD_SPINNER = '[donor] load spinner';
+// export const LOAD_SPINNER = '[donor] load spinner';
 
 export const SHOW_ALERT = '[donor] show alert';
 
 export const loadDonor = createAction(
   LOAD_DONOR,
-  props<{ bloodbankId: string }>()
+  props<{ bloodbankId: string, filter:Filter }>()
 );
 export const loadDonorSuccess = createAction(
   LOAD_DONOR_SUCCESS,
@@ -61,7 +62,7 @@ export const showAlert = createAction(
 );
 export const emptyAction = createAction('emptyAction');
 
-export const loadSpinner = createAction(
-  LOAD_SPINNER,
-  props<{ isLoaded: boolean }>()
-);
+// export const loadSpinner = createAction(
+//   LOAD_SPINNER,
+//   props<{ isLoaded: boolean }>()
+// );

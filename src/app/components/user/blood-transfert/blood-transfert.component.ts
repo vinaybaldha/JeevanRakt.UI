@@ -1,7 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { RecipientService } from '../../../services/recipient.service';
 import { Recipient } from '../../../models/Recipient';
 import { Blood, BloodInventory } from '../../../models/Blood';
 import { Store } from '@ngrx/store';
@@ -11,6 +9,8 @@ import { getRecipientList } from '../../../_store/recipient/recipient.selector';
 import { userinfo } from '../../../models/Employee';
 import { loadRecipient } from '../../../_store/recipient/reipient.actions';
 import { AccountService } from '../../../services/account.service';
+import { loadSpinner } from '../../../_store/Globel/globel.actions';
+import { Filter } from '../../../models/Filter';
 
 @Component({
   selector: 'app-blood-transfert',
@@ -25,6 +25,14 @@ export class BloodTransfertComponent implements OnInit {
   recipients: Recipient[] | undefined;
   blood: Blood = new Blood();
   bloodInventory: BloodInventory = new BloodInventory();
+  filter: Filter = {
+    page: 1,
+    pageSize: 5,
+    filterOn: '',
+    filterQuery: '',
+    sortBy: '',
+    isAccending: false,
+  };
   transferRecipient(recipient: Recipient) {
     this.store.select(getBloodInventory).subscribe((data) => {
       this.bloodInventory = data;
@@ -79,7 +87,10 @@ export class BloodTransfertComponent implements OnInit {
 
   reloadData() {
     let userInfo: userinfo = this.authService.getUserDataFromStorage();
-    this.store.dispatch(loadRecipient({ bloodbankId: userInfo.bloodBankId }));
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
+    this.store.dispatch(
+      loadRecipient({ bloodbankId: userInfo.bloodBankId, fiter: this.filter })
+    );
     this.store.select(getRecipientList).subscribe((item) => {
       this.recipients = item;
     });
@@ -123,6 +134,7 @@ export class BloodTransfertComponent implements OnInit {
           break;
         }
       }
+      this.store.dispatch(loadSpinner({ isLoaded: true }));
       this.store.dispatch(updateInventory({ inputData: updatedInventory }));
     }
   }

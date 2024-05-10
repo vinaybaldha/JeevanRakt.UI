@@ -13,13 +13,13 @@ import {
   loadBloodBankByIdSuccess,
   loadBloodBankFail,
   loadBloodBankSuccess,
-  loadSpinner,
   showAlert,
   updateBloodBank,
   updateBloodBankSuccess,
 } from './bloodbank.actions';
 import { loadInventory } from '../bloodInventory/bloodInventory.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { loadSpinner } from '../Globel/globel.actions';
 
 @Injectable()
 export class BloodBankEffects {
@@ -33,12 +33,18 @@ export class BloodBankEffects {
     this.action$.pipe(
       ofType(loadBloodBank),
       switchMap((action) => {
-        return this.bloodbankService.getBloodBanks().pipe(
+        return this.bloodbankService.getBloodBanks(action.filter).pipe(
           switchMap((data) => {
-            return of(loadBloodBankSuccess({ list: data }));
+            return of(
+              loadBloodBankSuccess({ list: data }),
+              loadSpinner({ isLoaded: false })
+            );
           }),
           catchError((_err) =>
-            of(loadBloodBankFail({ errormessage: _err.message }))
+            of(
+              loadBloodBankFail({ errormessage: _err.message }),
+              loadSpinner({ isLoaded: false })
+            )
           )
         );
       })
@@ -55,7 +61,8 @@ export class BloodBankEffects {
               loadBloodBankByIdSuccess({ bloodbank: data }),
               loadInventory({
                 inventoryId: data.bloodInventory.bloodInventoryId,
-              })
+              }),
+              loadSpinner({ isLoaded: false })
             );
           })
         );
@@ -74,7 +81,8 @@ export class BloodBankEffects {
               showAlert({
                 message: 'bloodbank added successfully',
                 resptype: 'pass',
-              })
+              }),
+              loadSpinner({ isLoaded: false })
             );
           }),
           catchError((_err) =>
@@ -99,7 +107,8 @@ export class BloodBankEffects {
               showAlert({
                 message: 'bloodbank updated successfully',
                 resptype: 'pass',
-              })
+              }),
+              loadSpinner({ isLoaded: false })
             );
           }),
           catchError((_err) =>
@@ -124,7 +133,8 @@ export class BloodBankEffects {
               showAlert({
                 message: 'bloodbank removed successfully',
                 resptype: 'pass',
-              })
+              }),
+              loadSpinner({ isLoaded: false })
             );
           }),
           catchError((_err) =>

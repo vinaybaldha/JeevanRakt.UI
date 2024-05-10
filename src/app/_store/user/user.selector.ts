@@ -17,7 +17,3 @@ export const getMenuByRole = createSelector(
 );
 
 export const getuserlist = createSelector(getUserState, userSelector.selectAll);
-
-export const getSpinnerState = createSelector(getUserState, (state) => {
-  return state.isLoaded;
-});

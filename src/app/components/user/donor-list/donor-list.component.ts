@@ -7,12 +7,13 @@ import { Store } from '@ngrx/store';
 import {
   deleteDonor,
   loadDonor,
-  loadSpinner,
   updateDonor,
 } from '../../../_store/donor/donor.actions';
 import { userinfo } from '../../../models/Employee';
 import { AccountService } from '../../../services/account.service';
 import { getDonorList } from '../../../_store/donor/donor.selector';
+import { loadSpinner } from '../../../_store/Globel/globel.actions';
+import { Filter } from '../../../models/Filter';
 
 @Component({
   selector: 'app-donor-list',
@@ -26,6 +27,14 @@ export class DonorListComponent implements OnInit {
   bloodGroup: any;
   title = '';
   edit: boolean = false;
+  filter: Filter = {
+    page: 1,
+    pageSize: 1,
+    filterOn: '',
+    filterQuery: '',
+    sortBy: '',
+    isAccending: false,
+  };
 
   // Store the selected donor for editing
   selectedDonor: Donor = {
@@ -48,7 +57,10 @@ export class DonorListComponent implements OnInit {
 
   reloadData() {
     let userInfo: userinfo = this.authService.getUserDataFromStorage();
-    this.store.dispatch(loadDonor({ bloodbankId: userInfo.bloodBankId }));
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
+    this.store.dispatch(
+      loadDonor({ bloodbankId: userInfo.bloodBankId, filter: this.filter })
+    );
     this.store.select(getDonorList).subscribe((item) => {
       this.donors = item;
     });

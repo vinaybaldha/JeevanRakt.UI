@@ -9,11 +9,11 @@ import {
   loadRecipient,
   updateRecipient,
 } from '../../../_store/recipient/reipient.actions';
-import { getBloodBank } from '../../../_store/blood-bank/bloodbank.selector';
-import { BloodBank } from '../../../models/BloodBank';
 import { AccountService } from '../../../services/account.service';
 import { userinfo } from '../../../models/Employee';
 import { getRecipientList } from '../../../_store/recipient/recipient.selector';
+import { loadSpinner } from '../../../_store/Globel/globel.actions';
+import { Filter } from '../../../models/Filter';
 
 @Component({
   selector: 'app-recipient-list',
@@ -37,6 +37,14 @@ export class RecipientListComponent {
     bloodBankId: '',
   };
   edit: boolean = false;
+  filter: Filter = {
+    page: 1,
+    pageSize: 5,
+    filterOn: '',
+    filterQuery: '',
+    sortBy: '',
+    isAccending: false,
+  };
 
   constructor(private store: Store, private authService: AccountService) {}
 
@@ -46,7 +54,10 @@ export class RecipientListComponent {
 
   reloadData() {
     let userInfo: userinfo = this.authService.getUserDataFromStorage();
-    this.store.dispatch(loadRecipient({ bloodbankId: userInfo.bloodBankId }));
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
+    this.store.dispatch(
+      loadRecipient({ bloodbankId: userInfo.bloodBankId, fiter: this.filter })
+    );
     this.store.select(getRecipientList).subscribe((item) => {
       this.recipients = item;
     });
@@ -60,6 +71,7 @@ export class RecipientListComponent {
   }
 
   saveEditedRecipient() {
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(updateRecipient({ inputData: this.selectedRecipient }));
 
     this.selectedRecipient = {
@@ -77,6 +89,7 @@ export class RecipientListComponent {
   }
 
   deleteRecipient(recipient: Recipient) {
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(
       deleteRecipient({ recipientId: recipient.recipientId })
     );

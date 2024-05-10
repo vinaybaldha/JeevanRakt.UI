@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Recipient } from '../../models/Recipient';
+import { Filter } from '../../models/Filter';
 
 export const LOAD_RECIPIENT = '[recipient] load recipient';
 export const LOAD_RECIPIENT_SUCCESS = '[recipient] load recipient success';
@@ -18,7 +19,7 @@ export const SHOW_ALERT = '[recipient] show alert';
 
 export const loadRecipient = createAction(
   LOAD_RECIPIENT,
-  props<{ bloodbankId: string }>()
+  props<{ bloodbankId: string; fiter: Filter }>()
 );
 export const loadRecipientSuccess = createAction(
   LOAD_RECIPIENT_SUCCESS,

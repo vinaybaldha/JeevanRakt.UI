@@ -11,13 +11,13 @@ import {
   loadInventory,
   loadInventoryFail,
   loadInventorySuccess,
-  loadSpinner,
   showAlert,
   updateInventory,
   updateInventorySuccess,
 } from './bloodInventory.actions';
 import { BloodInventoryService } from '../../services/blood-inventory.service';
 import { AccountService } from '../../services/account.service';
+import { loadSpinner } from '../Globel/globel.actions';
 
 @Injectable()
 export class BloodInventoryEffects {
@@ -31,15 +31,18 @@ export class BloodInventoryEffects {
   _loadInventory = createEffect(() =>
     this.action$.pipe(
       ofType(loadInventory),
-      exhaustMap((action) => {
+      switchMap((action) => {
         return this.bloodInventoryService
           .getBloodINventoryById(action.inventoryId)
           .pipe(
-            map((data) => {
+            switchMap((data) => {
               this.authService.setInventoryIdToLocalStorage(
                 data.bloodInventoryId
               );
-              return loadInventorySuccess({ inventory: data });
+              return of(
+                loadInventorySuccess({ inventory: data }),
+                loadSpinner({ isLoaded: false })
+              );
             }),
             catchError((_err) =>
               of(
@@ -65,7 +68,8 @@ export class BloodInventoryEffects {
                 showAlert({
                   message: 'BloodInventory added successfully',
                   resptype: 'pass',
-                })
+                }),
+                loadSpinner({ isLoaded: false })
               );
             }),
             catchError((_err) =>
@@ -89,7 +93,8 @@ export class BloodInventoryEffects {
             switchMap(() => {
               return of(
                 updateInventorySuccess({ inputData: action.inputData }),
-                showAlert({ message: 'blood stock updated', resptype: 'pass' })
+                showAlert({ message: 'blood stock updated', resptype: 'pass' }),
+                loadSpinner({ isLoaded: false })
               );
             }),
             catchError((_err) =>
@@ -119,7 +124,8 @@ export class BloodInventoryEffects {
                 showAlert({
                   message: 'inventory removed successfully',
                   resptype: 'pass',
-                })
+                }),
+                loadSpinner({ isLoaded: false })
               );
             }),
             catchError((_err) =>

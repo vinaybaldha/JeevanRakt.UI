@@ -20,5 +20,4 @@ export class BloodInventory {
 export interface InventoryModel {
   inventory: BloodInventory;
   errormessage: string;
-  isLoaded: boolean;
 }

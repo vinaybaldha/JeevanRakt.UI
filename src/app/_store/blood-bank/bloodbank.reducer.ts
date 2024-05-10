@@ -5,7 +5,6 @@ import {
   loadBloodBankByIdSuccess,
   loadBloodBankFail,
   loadBloodBankSuccess,
-  loadSpinner,
   updateBloodBankSuccess,
 } from './bloodbank.actions';
 import { bloodbankState } from './bloodbank.state';
@@ -72,12 +71,6 @@ const _BloodBankReducer = createReducer(
     }
     return state;
   }),
-  on(loadSpinner, (state, action) => {
-    return {
-      ...state,
-      isLoaded: action.isLoaded,
-    };
-  })
 );
 
 export function BloodBankReducer(state: any, action: any) {

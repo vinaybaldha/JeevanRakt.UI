@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Recipient } from '../models/Recipient';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Filter } from '../models/Filter';
 const NAV_URL = environment.apiURL;
 
 @Injectable({
@@ -11,9 +12,12 @@ const NAV_URL = environment.apiURL;
 export class RecipientService {
   constructor(private _http: HttpClient) {}
 
-  public getRecipientList(bloodbankId: string): Observable<Recipient[]> {
+  public getRecipientList(
+    bloodbankId: string,
+    filter: Filter
+  ): Observable<Recipient[]> {
     return this._http.get<Recipient[]>(
-      `${NAV_URL}/Recipients/bloodbank?bloodbankId=${bloodbankId}`
+      `${NAV_URL}/Recipients/bloodbank?bloodbankId=${bloodbankId}&page=${filter.page}&pageSize=${filter.pageSize}&filterOn=${filter.filterOn}&filterQuery=${filter.filterQuery}&sortBy=${filter.sortBy}&isAccending=${filter.isAccending}`
     );
   }
 

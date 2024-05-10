@@ -1,6 +1,6 @@
 import { createReducer, on } from "@ngrx/store";
 import { donorState } from "./donor.state";
-import { addDonorSuccess, deleteDonorSuccess, loadDonorFail, loadDonorSuccess, loadSpinner, updateDonorSuccess } from "./donor.actions";
+import { addDonorSuccess, deleteDonorSuccess, loadDonorFail, loadDonorSuccess,  updateDonorSuccess } from "./donor.actions";
 
 const _DonorReducer = createReducer(donorState,
     on(loadDonorSuccess, (state,action)=>{
@@ -51,15 +51,6 @@ const _DonorReducer = createReducer(donorState,
         }
         return state;
     }),
-    on(loadSpinner, (state, action) => {
-        
-       
-            return {
-                ...state,
-                isLoaded: action.isLoaded
-            };
-      
-    })
     
 )
 

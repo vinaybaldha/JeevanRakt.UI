@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { Employee, userinfo } from '../models/Employee';
+import { Employee } from '../models/Employee';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../services/account.service';
 import { Store } from '@ngrx/store';
 import { beginLogin } from '../_store/user/user.actions';
-import { loadBloodBankById } from '../_store/blood-bank/bloodbank.actions';
-import { getBloodBank } from '../_store/blood-bank/bloodbank.selector';
-import { loadInventory } from '../_store/bloodInventory/bloodInventory.actions';
+import { loadSpinner } from '../_store/Globel/globel.actions';
 
 @Component({
   selector: 'app-login',
@@ -35,18 +33,12 @@ export class LoginComponent implements OnInit {
   }
 
   loginUser() {
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(
       beginLogin({
         userdata: { email: this.user.email, password: this.user.password },
       })
     );
-    // let userInfo: userinfo = this._service.getUserDataFromStorage();
-    // this.store.dispatch(loadBloodBankById({ id: userInfo.bloodBankId }));
-    // let inventoryId: string;
-    // this.store.select(getBloodBank).subscribe((data) => {
-    //   inventoryId = data.bloodInventory.bloodInventoryId;
-    //   this.store.dispatch(loadInventory({ inventoryId: inventoryId }));
-    // });
   }
 
   adminLogin() {

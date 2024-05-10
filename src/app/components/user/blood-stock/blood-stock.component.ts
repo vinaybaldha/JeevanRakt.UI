@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { getBloodInventory } from '../../../_store/bloodInventory/bloodInventory.selector';
 import { loadInventory } from '../../../_store/bloodInventory/bloodInventory.actions';
 import { AccountService } from '../../../services/account.service';
+import { loadSpinner } from '../../../_store/Globel/globel.actions';
 
 @Component({
   selector: 'app-blood-stock',
@@ -34,6 +35,7 @@ export class BloodStockComponent implements OnInit {
 
   getBloodDetails() {
     const inventoryId = this.authService.getInventoryIdFromStorage();
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(loadInventory({ inventoryId: inventoryId }));
     this.store.select(getBloodInventory).subscribe((data) => {
       this.bloodInventory = data;

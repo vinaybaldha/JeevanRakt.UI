@@ -19,6 +19,31 @@
         </mat-card-footer>
       </mat-card>
     </div>
+    <div class="row">
+      <div class="col-2">
+        <div class="dataTables_length"><label>Show
+            <select [(ngModel)]="pagesize" (change)="loadBloodBanks()">
+              <option value="6">6</option>
+              <option value="12">12</option>
+              <option value="24">24</option>
+              <option value="48">48</option>
+
+              <option value="100">100</option>
+            </select> entries</label>
+        </div>
+      </div>
+      <div class="col-md-10" style="float:right; text-align: right">
+        <div class="paginations">
+          <div>
+            <div class="btn-group" id="radiobtn">
+              <a class="btn btn-primary btn-sm notActive" (click)="onPrevious()"> Previous </a>
+              <a class="btn btn-primary btn-sm active">{{filter.page}}</a>
+              <a class="btn btn-primary btn-sm notActive" (click)="onNext()">Next </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container">
 
       <mat-card *ngFor="let bloodBank of bloodBanks" class="blood-bank-card">

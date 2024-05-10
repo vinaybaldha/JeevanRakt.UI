@@ -10,13 +10,13 @@ import {
   loadDonor,
   loadDonorFail,
   loadDonorSuccess,
-  loadSpinner,
   showAlert,
   updateDonor,
   updateDonorSuccess,
 } from './donor.actions';
 import { catchError, exhaustMap, map, of, switchMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { loadSpinner } from '../Globel/globel.actions';
 
 @Injectable()
 export class DonorEffects {
@@ -29,18 +29,23 @@ export class DonorEffects {
   _loadDonor = createEffect(() =>
     this.action$.pipe(
       ofType(loadDonor),
-      exhaustMap((action) => {
-        return this.donorService.getDonorList(action.bloodbankId).pipe(
-          map((data) => {
-            return loadDonorSuccess({ list: data });
-          }),
-          catchError((_err) =>
-            of(
-              loadDonorFail({ errormessage: _err.message }),
-              loadSpinner({ isLoaded: false })
+      switchMap((action) => {
+        return this.donorService
+          .getDonorList(action.bloodbankId, action.filter)
+          .pipe(
+            switchMap((data) => {
+              return of(
+                loadDonorSuccess({ list: data }),
+                loadSpinner({ isLoaded: false })
+              );
+            }),
+            catchError((_err) =>
+              of(
+                loadDonorFail({ errormessage: _err.message }),
+                loadSpinner({ isLoaded: false })
+              )
             )
-          )
-        );
+          );
       })
     )
   );
@@ -53,6 +58,7 @@ export class DonorEffects {
           switchMap((data) => {
             return of(
               addDonorSuccess({ inputData: action.inputData }),
+              loadSpinner({ isLoaded: false }),
               showAlert({ message: 'added successfully', resptype: 'pass' })
             );
           }),
@@ -75,6 +81,7 @@ export class DonorEffects {
           switchMap((data) => {
             return of(
               updateDonorSuccess({ inputData: action.inputData }),
+              loadSpinner({ isLoaded: false }),
               showAlert({ message: 'updated successfully', resptype: 'pass' })
             );
           }),
@@ -97,6 +104,7 @@ export class DonorEffects {
           switchMap((data) => {
             return of(
               deleteDonorSuccess({ donorId: action.donorId }),
+              loadSpinner({ isLoaded: false }),
               showAlert({ message: 'removed successfully', resptype: 'pass' })
             );
           }),

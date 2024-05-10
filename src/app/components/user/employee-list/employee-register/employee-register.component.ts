@@ -4,8 +4,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Employee } from '../../../../models/Employee';
 import { Store } from '@ngrx/store';
-import { beginRegister, duplicateUser } from '../../../../_store/user/user.actions';
+import {
+  beginRegister,
+  duplicateUser,
+} from '../../../../_store/user/user.actions';
 import { isDuplicateUser } from '../../../../_store/user/user.selector';
+import { loadSpinner } from '../../../../_store/Globel/globel.actions';
 
 @Component({
   selector: 'app-employee-register',
@@ -18,25 +22,27 @@ export class EmployeeRegisterComponent {
   user = new Employee();
   msg = ' ';
 
-  constructor(private store: Store, private _router: Router) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {}
 
   registerUser() {
     // console.log(this.user);
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(beginRegister({ userdata: this.user }));
   }
 
-  FunctionDuplicateUser(){
-    const username = this.user.email
-    if(username!= ''){
-      this.store.dispatch(duplicateUser({username:username}))
-      this.store.select(isDuplicateUser).subscribe(item=>{
-        const isExist = item
-        if(isExist){
-          this.user.email = ''
+  FunctionDuplicateUser() {
+    const username = this.user.email;
+    if (username != '') {
+      this.store.dispatch(loadSpinner({ isLoaded: true }));
+      this.store.dispatch(duplicateUser({ username: username }));
+      this.store.select(isDuplicateUser).subscribe((item) => {
+        const isExist = item;
+        if (isExist) {
+          this.user.email = '';
         }
-      })
+      });
     }
   }
 }

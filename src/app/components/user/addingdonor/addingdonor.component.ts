@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { addDonor } from '../../../_store/donor/donor.actions';
 import { BloodBankService } from '../../../services/blood-bank.service';
 import { BloodBank } from '../../../models/BloodBank';
+import { loadSpinner } from '../../../_store/Globel/globel.actions';
 
 @Component({
   selector: 'app-addingdonor',
@@ -40,6 +41,7 @@ export class AddingdonorComponent implements OnInit {
     var guid = uuidv4();
     this.donor.donorId = guid;
     this.donor.bloodBankId = this.bloodbank.bloodBankId;
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(addDonor({ inputData: this.donor }));
   }
 }
