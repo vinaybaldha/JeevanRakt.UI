@@ -1,186 +1,71 @@
-<div class="sidebar-logo">
-  <div class="welcometxt" style="float: left">
-    <b style="color: white; align-content: center">User Dashboard</b>
-  </div>
-</div>
-
-<div class="row" id="profilecard">
-  <div class="col-4 card" id="bloodCards">
-    <div class="card-block">
-      <a
-        ><img
-          class="bloodimg"
-          src="{{ profileDetails?.filePath }}"
-          width="120"
-          height="120"
-      /></a>
-      <div class="text">
-        <b style="color: navy">User Name : </b
-        ><b class="element" style="margin-left: 53px">
-          {{ profileDetails?.employeeName }}</b
-        >
-      </div>
-      <!-- <div class="text"><b style="color: navy;">Blood Group : </b><b class="element" style="color: red; font-size: larger; margin-left: 35px;"> {{user.bloodgroup}}</b> </div> -->
-      <div class="text">
-        <b style="color: navy">Mobile Number : </b
-        ><b class="element" style="margin-left: 12px">
-          {{ profileDetails?.phoneNumber }}</b
-        >
-      </div>
-      <!-- <div class="text"><b style="color: navy;">Gender : </b><b class="element" style="margin-left: 80px;"> {{user.gender}}</b> </div> -->
-      <div class="text">
-        <b style="color: navy">Mail ID : </b
-        ><b class="element" style="margin-left: 78px">
-          {{ profileDetails?.email }}</b
-        >
-      </div>
-      <!-- <div class="text"><b style="color: navy;">Age : </b><b class="element" style="margin-left: 110px;"> {{user.age}} years</b> </div> -->
-      <div class="btndiv" style="align-items: center">
-        <button class="editbtn" (click)="editProfile()">
-          <i class="fa fa-edit"></i> edit
+<div class="row" id="profilecard" *ngIf="!edited">
+  <div class="col-4">
+    <mat-card class="card">
+      <mat-card-header>
+        <div mat-card-avatar>
+          <img class="bloodimg" [src]="profileDetails.filePath" width="120" height="120">
+        </div>
+        <mat-card-title>{{ profileDetails.employeeName }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="text">
+          <b style="color: navy">Mobile Number : </b>
+          <span class="element">{{ profileDetails.phoneNumber }}</span>
+        </div>
+        <div class="text">
+          <b style="color: navy">Mail ID : </b>
+          <span class="element">{{ profileDetails.email }}</span>
+        </div>
+      </mat-card-content>
+      <mat-card-actions style="justify-content: center;">
+        <button mat-raised-button color="primary" (click)="editProfile()">
+          <mat-icon>edit</mat-icon> Edit
         </button>
-      </div>
-      <small
-        id="message"
-        *ngIf="temp === true"
-        style="text-align: center; margin-top: 3%; color: green"
-        ><b>Profile Updated Successfully !!!</b></small
-      >
-    </div>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </div>
 
-<div class="container" id="profileform">
+
+<div class="container" id="profileform" *ngIf="edited">
   <h3 class="textual">Update Profile</h3>
   <form #Updateform="ngForm" (ngSubmit)="updateUserProfile()">
-    <small *ngIf="temp === false" style="text-align: center; color: navy"
-      ><b>Dear {{ loggedUser }}, update your profile here</b></small
-    >
-    <small *ngIf="temp === true" style="text-align: center; color: green"
-      ><b>Profile Updated Successfully !!!</b></small
-    >
     <div class="form-group">
-      <label for="email">Email : <b class="text-danger">*</b></label>
-      <input
-        type="email"
-        class="form-control"
-        id="email"
-        value="user.email"
-        placeholder="enter email"
-        name="email"
-        [(ngModel)]="user.email"
-        required
-        pattern="^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$"
-        #email="ngModel"
-        [class.is-invalid]="email.invalid && email.touched"
-      />
-      <div *ngIf="email.errors && email.invalid && email.touched">
-        <small class="text-danger" *ngIf="email.errors['pattern']"
-          ><b>Invalid email Id</b></small
-        >
-      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>Email <b class="text-danger">*</b></mat-label>
+        <input matInput type="email" placeholder="Enter email" name="email" [(ngModel)]="user.email" required
+          #email="ngModel">
+        <mat-error *ngIf="email.invalid && email.touched">
+          <b *ngIf="email.errors?.['required']">Email is required</b>
+          <b *ngIf="email.errors?.['pattern']">Invalid email format</b>
+        </mat-error>
+      </mat-form-field>
     </div>
 
     <div class="form-group">
-      <label for="username">UserName: <b class="text-danger">*</b></label>
-      <input
-        type="text"
-        class="form-control"
-        placeholder="enter username"
-        value="user.username"
-        name="username"
-        [(ngModel)]="user.employeeName"
-        required
-        #username="ngModel"
-        [class.is-invalid]="username.invalid && username.touched"
-      />
-    </div>
-
-    <!-- <div class="form-group">
-      <label for="bloodgroup">Blood Group: <b class="text-danger">*</b></label>
-      <input
-        type="text"
-        class="form-control"
-        placeholder="enter blood group"
-        value="user.bloodgroup"
-        name="bloodgroup"
-        [(ngModel)]="user.bloodgroup"
-        required
-        #bloodgroup="ngModel"
-        [class.is-invalid]="bloodgroup.invalid && bloodgroup.touched"
-      />
-    </div> -->
-
-    <!-- <div class="form-group">
-      <label for="gender">Gender: <b class="text-danger">*</b></label>
-      <select
-        class="form-control"
-        id="sel1"
-        value="user.gender"
-        name="gender"
-        [(ngModel)]="user.gender"
-        required
-        #gender="ngModel"
-      >
-        <option selected>Male</option>
-        <option>Female</option>
-        <option>Others</option>
-      </select>
-    </div> -->
-
-    <!-- <div class="form-group">
-      <label for="age">Age: <b class="text-danger">*</b></label>
-      <input
-        type="number"
-        class="form-control"
-        value="user.age"
-        placeholder="enter your age"
-        name="age"
-        [(ngModel)]="user.age"
-        required
-        #age="ngModel"
-        [class.is-invalid]="age.invalid && age.touched"
-      />
-      <small class="text-danger" [class.d-none]="age.valid || age.untouched"
-        ><b>required field</b></small
-      >
-    </div> -->
-
-    <div class="form-group">
-      <label for="mobile">Mobile Number: <b class="text-danger">*</b></label>
-      <input
-        type="tel"
-        class="form-control"
-        placeholder="enter mobile number"
-        value="user.mobile"
-        name="mobile"
-        [(ngModel)]="user.phoneNumber"
-        required
-        #mobile="ngModel"
-        [class.is-invalid]="mobile.invalid && mobile.touched"
-      />
+      <mat-form-field appearance="fill">
+        <mat-label>UserName <b class="text-danger">*</b></mat-label>
+        <input matInput type="text" placeholder="Enter username" name="username" [(ngModel)]="user.employeeName"
+          required #username="ngModel">
+        <mat-error *ngIf="username.invalid && username.touched">
+          <b *ngIf="username.errors?.['required']">Username is required</b>
+        </mat-error>
+      </mat-form-field>
     </div>
 
     <div class="form-group">
-      <label for="pwd">Password: <b class="text-danger">*</b></label>
-      <input
-        type="password"
-        class="form-control"
-        placeholder="enter password"
-        value="user.password"
-        name="pwd"
-        [(ngModel)]="user.password"
-        required
-        #password="ngModel"
-        [class.is-invalid]="password.invalid && password.touched"
-      />
+      <mat-form-field appearance="fill">
+        <mat-label>Mobile Number <b class="text-danger">*</b></mat-label>
+        <input matInput type="tel" placeholder="Enter mobile number" name="mobile" [(ngModel)]="user.phoneNumber"
+          required #mobile="ngModel">
+        <mat-error *ngIf="mobile.invalid && mobile.touched">
+          <b *ngIf="mobile.errors?.['required']">Mobile number is required</b>
+        </mat-error>
+      </mat-form-field>
     </div>
 
-    <button
-      [disabled]="Updateform.form.invalid"
-      type="submit"
-      class="btn registerbtn"
-    >
+    <button mat-raised-button color="primary" [disabled]="Updateform.form.invalid" type="submit"
+      class="btn registerbtn">
       Update
     </button>
   </form>

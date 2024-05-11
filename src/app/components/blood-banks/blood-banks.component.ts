@@ -32,6 +32,8 @@ export class BloodBanksComponent {
     filterQuery: '',
   };
   pagesize: number = 6;
+  filterOn: string = '';
+  filterQuery: string = '';
 
   constructor(
     private store: Store,
@@ -44,7 +46,12 @@ export class BloodBanksComponent {
   }
 
   loadBloodBanks(): void {
-    this.filter = { ...this.filter, pageSize: this.pagesize };
+    this.filter = {
+      ...this.filter,
+      pageSize: this.pagesize,
+      filterOn: this.filterOn,
+      filterQuery: this.filterQuery,
+    };
     this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(loadBloodBank({ filter: this.filter }));
     this.store.select(getBloodBankList).subscribe((item) => {

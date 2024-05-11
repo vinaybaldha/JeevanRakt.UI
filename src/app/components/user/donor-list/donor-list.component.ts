@@ -27,15 +27,17 @@ export class DonorListComponent implements OnInit {
   bloodGroup: any;
   title = '';
   edit: boolean = false;
+  pagesize: number = 6;
   filter: Filter = {
     page: 1,
-    pageSize: 1,
+    pageSize: 100,
     filterOn: '',
     filterQuery: '',
     sortBy: '',
     isAccending: false,
   };
-
+  filterOn:string=''
+filterQuery:string=''
   // Store the selected donor for editing
   selectedDonor: Donor = {
     donorId: '',
@@ -56,6 +58,7 @@ export class DonorListComponent implements OnInit {
   }
 
   reloadData() {
+    this.filter = { ...this.filter, pageSize: this.pagesize, filterOn: this.filterOn, filterQuery: this.filterQuery};
     let userInfo: userinfo = this.authService.getUserDataFromStorage();
     this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(
@@ -94,5 +97,15 @@ export class DonorListComponent implements OnInit {
   deleteDonor(donor: Donor) {
     this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(deleteDonor({ donorId: donor.donorId }));
+  }
+
+  onPrevious() {
+    this.filter = { ...this.filter, page: this.filter.page - 1 };
+    this.reloadData();
+  }
+
+  onNext() {
+    this.filter = { ...this.filter, page: this.filter.page + 1 };
+    this.reloadData();
   }
 }

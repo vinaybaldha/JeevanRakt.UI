@@ -33,17 +33,6 @@
       <mat-nav-list>
         <mat-list-item *ngFor="let item of menulist" routerLinkActive="active"><button mat-button
             routerLink="{{item.menu}}"><mat-icon>menu</mat-icon>{{item.menu}}</button></mat-list-item>
-        <!-- <mat-list-item routerLinkActive="active" [routerLink]="'/home'"><button mat-button><mat-icon>home</mat-icon>Home</button></mat-list-item>
-            <mat-list-item routerLinkActive="active" [routerLink]="'./add-donor'"><button mat-button><mat-icon>add</mat-icon>Add Donor</button></mat-list-item>
-            <mat-list-item routerLinkActive="active" [routerLink]="'./add-recipient'"><button mat-button><mat-icon>add</mat-icon>Add Recipient</button></mat-list-item>
-            <mat-list-item routerLinkActive="active" [routerLink]="'/donor-list'"><button mat-button><mat-icon>list</mat-icon>Donor List</button></mat-list-item>
-            <mat-list-item routerLinkActive="active" [routerLink]="'/recipient-list'"><button mat-button><mat-icon>list</mat-icon>Recipient List</button></mat-list-item>
-            <mat-list-item routerLinkActive="active" [routerLink]="'/donate'"><button mat-button><mat-icon>bloodtype</mat-icon>Donate Blood</button></mat-list-item>
-            <mat-list-item routerLinkActive="active" [routerLink]="'/bloodstock'"><button mat-button><mat-icon>inventory</mat-icon>Blood Stock</button></mat-list-item>
-            <mat-list-item routerLinkActive="active" [routerLink]="'/employee-list'" *ngIf="isAdmin"><button mat-button><mat-icon>list</mat-icon>Employees</button></mat-list-item>
-            <mat-list-item routerLinkActive="active" [routerLink]="'/blood-transfert'"><button mat-button><mat-icon>timeline</mat-icon>Blood Transfert</button></mat-list-item>
-            <mat-list-item routerLinkActive="active" [routerLink]="'/userprofile'"><button mat-button><mat-icon>person</mat-icon>User Profile</button></mat-list-item>
-            <mat-list-item routerLinkActive="active" [routerLink]="'/blood-banks'"><button mat-button><mat-icon>list</mat-icon>Blood Banks</button></mat-list-item> -->
       </mat-nav-list>
     </mat-drawer>
     <mat-drawer-content>

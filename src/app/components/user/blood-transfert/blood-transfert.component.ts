@@ -1,9 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Recipient } from '../../../models/Recipient';
 import { Blood, BloodInventory } from '../../../models/Blood';
 import { Store } from '@ngrx/store';
-import { updateInventory } from '../../../_store/bloodInventory/bloodInventory.actions';
+import {
+  loadInventory,
+  updateInventory,
+} from '../../../_store/bloodInventory/bloodInventory.actions';
 import { getBloodInventory } from '../../../_store/bloodInventory/bloodInventory.selector';
 import { getRecipientList } from '../../../_store/recipient/recipient.selector';
 import { userinfo } from '../../../models/Employee';
@@ -11,11 +14,15 @@ import { loadRecipient } from '../../../_store/recipient/reipient.actions';
 import { AccountService } from '../../../services/account.service';
 import { loadSpinner } from '../../../_store/Globel/globel.actions';
 import { Filter } from '../../../models/Filter';
+import { MaterialModule } from '../../../_module/Material.Module';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
-  selector: 'app-blood-transfert',
+  selector: 'app_NEGATIVEblood_NEGATIVEtransfert',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MaterialModule],
   templateUrl: './blood-transfert.component.html',
   styleUrl: './blood-transfert.component.css',
 })
@@ -27,55 +34,70 @@ export class BloodTransfertComponent implements OnInit {
   bloodInventory: BloodInventory = new BloodInventory();
   filter: Filter = {
     page: 1,
-    pageSize: 5,
+    pageSize: 10000,
     filterOn: '',
     filterQuery: '',
     sortBy: '',
     isAccending: false,
   };
+  displayedColumns: string[] = [
+    'recipientName',
+    'recipientAge',
+    'recipientBloodType',
+    'recipientContactNumber',
+    'recipientGender',
+    'recipientAddress',
+    'transfer',
+  ];
+  dataSource = new MatTableDataSource<Recipient>();
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   transferRecipient(recipient: Recipient) {
+    const inventoryId = this.authService.getInventoryIdFromStorage();
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
+    this.store.dispatch(loadInventory({ inventoryId: inventoryId }));
     this.store.select(getBloodInventory).subscribe((data) => {
       this.bloodInventory = data;
     });
     switch (recipient.recipientBloodType) {
-      case 'A+': {
-        this.blood.bloodGroup = 'A+';
-        this.blood.bloodStock = this.bloodInventory?.a1;
+      case 'A_POSITIVE': {
+        this.blood.bloodGroup = 'A_POSITIVE';
+        this.blood.bloodStock = this.bloodInventory.a1;
         break;
       }
-      case 'A-': {
-        this.blood.bloodGroup = 'A-';
-        this.blood.bloodStock = this.bloodInventory?.a2;
+      case 'A_NEGATIVE': {
+        this.blood.bloodGroup = 'A_NEGATIVE';
+        this.blood.bloodStock = this.bloodInventory.a2;
         break;
       }
-      case 'B+': {
-        this.blood.bloodGroup = 'B+';
-        this.blood.bloodStock = this.bloodInventory?.b1;
+      case 'B_POSITIVE': {
+        this.blood.bloodGroup = 'B_POSITIVE';
+        this.blood.bloodStock = this.bloodInventory.b1;
         break;
       }
-      case 'B-': {
-        this.blood.bloodGroup = 'B-';
-        this.blood.bloodStock = this.bloodInventory?.b2;
+      case 'B_NEGATIVE': {
+        this.blood.bloodGroup = 'B_NEGATIVE';
+        this.blood.bloodStock = this.bloodInventory.b2;
         break;
       }
-      case 'O+': {
-        this.blood.bloodGroup = 'O+';
-        this.blood.bloodStock = this.bloodInventory?.o1;
+      case 'O_POSITIVE': {
+        this.blood.bloodGroup = 'O_POSITIVE';
+        this.blood.bloodStock = this.bloodInventory.o1;
         break;
       }
-      case 'O-': {
-        this.blood.bloodGroup = 'O-';
-        this.blood.bloodStock = this.bloodInventory?.o2;
+      case 'O_NEGATIVE': {
+        this.blood.bloodGroup = 'O_NEGATIVE';
+        this.blood.bloodStock = this.bloodInventory.o2;
         break;
       }
-      case 'AB+': {
-        this.blood.bloodGroup = 'AB+';
-        this.blood.bloodStock = this.bloodInventory?.aB1;
+      case 'AB_POSITIVE': {
+        this.blood.bloodGroup = 'AB_POSITIVE';
+        this.blood.bloodStock = this.bloodInventory.aB1;
         break;
       }
-      case 'AB-': {
-        this.blood.bloodGroup = 'AB-';
-        this.blood.bloodStock = this.bloodInventory?.aB2;
+      case 'AB_NEGATIVE': {
+        this.blood.bloodGroup = 'AB_NEGATIVE';
+        this.blood.bloodStock = this.bloodInventory.aB2;
         break;
       }
     }
@@ -93,6 +115,9 @@ export class BloodTransfertComponent implements OnInit {
     );
     this.store.select(getRecipientList).subscribe((item) => {
       this.recipients = item;
+      this.dataSource = new MatTableDataSource<Recipient>(this.recipients);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
 
@@ -101,35 +126,35 @@ export class BloodTransfertComponent implements OnInit {
       this.bloodInventory;
       const updatedInventory = { ...this.bloodInventory };
       switch (this.blood.bloodGroup) {
-        case 'A+': {
+        case 'A_POSITIVE': {
           updatedInventory.a1 = this.blood.bloodStock - 1;
           break;
         }
-        case 'A-': {
+        case 'A_NEGATIVE': {
           updatedInventory.a2 = this.blood.bloodStock - 1;
           break;
         }
-        case 'B+': {
+        case 'B_POSITIVE': {
           updatedInventory.b1 = this.blood.bloodStock - 1;
           break;
         }
-        case 'B-': {
+        case 'B_NEGATIVE': {
           updatedInventory.b2 = this.blood.bloodStock - 1;
           break;
         }
-        case 'O+': {
+        case 'O_POSITIVE': {
           updatedInventory.o1 = this.blood.bloodStock - 1;
           break;
         }
-        case 'O-': {
+        case 'O_NEGATIVE': {
           updatedInventory.o2 = this.blood.bloodStock - 1;
           break;
         }
-        case 'AB+': {
+        case 'AB_POSITIVE': {
           updatedInventory.aB1 = this.blood.bloodStock - 1;
           break;
         }
-        case 'AB-': {
+        case 'AB_NEGATIVE': {
           updatedInventory.aB2 = this.blood.bloodStock - 1;
           break;
         }

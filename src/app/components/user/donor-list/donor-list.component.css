@@ -111,3 +111,8 @@ body {
 button {
   border-radius: 20px;
 }
+
+.mat-mdc-form-field {
+  width: 98%;
+  margin: 1%;
+}

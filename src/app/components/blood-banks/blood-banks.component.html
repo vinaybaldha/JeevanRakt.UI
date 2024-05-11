@@ -19,6 +19,20 @@
         </mat-card-footer>
       </mat-card>
     </div>
+    <div class="row" style="margin-top: 2%; margin-bottom: 2%;">
+      <div class="col-3">
+        <select [(ngModel)]="filterOn" class="form-select" aria-label="category">
+          <option value="BloodBankName">Name</option>
+          <option value="Address">Address</option>
+        </select>
+      </div>
+      <div class="col-3">
+        <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search By">
+      </div>
+      <div class="col-3">
+        <button class="btn btn-sm btn-success" (click)="loadBloodBanks()">Search</button>
+      </div>
+    </div>
     <div class="row">
       <div class="col-2">
         <div class="dataTables_length"><label>Show
@@ -27,7 +41,6 @@
               <option value="12">12</option>
               <option value="24">24</option>
               <option value="48">48</option>
-
               <option value="100">100</option>
             </select> entries</label>
         </div>

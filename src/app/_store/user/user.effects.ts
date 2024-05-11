@@ -18,6 +18,7 @@ import {
 import { Router } from '@angular/router';
 import { loadBloodBankById } from '../blood-bank/bloodbank.actions';
 import { loadSpinner } from '../Globel/globel.actions';
+import { userinfo } from '../../models/Employee';
 
 @Injectable()
 export class UserEffects {
@@ -35,17 +36,21 @@ export class UserEffects {
         return this.userService.registerEmployee(action.userdata).pipe(
           switchMap((data) => {
             this.router.navigate(['login']);
-            return of(showAlert({
-              message: 'Registerd Successfully',
-              resptype: 'pass',
-            }),loadSpinner({ isLoaded: false }));
+            return of(
+              showAlert({
+                message: 'Registerd Successfully',
+                resptype: 'pass',
+              }),
+              loadSpinner({ isLoaded: false })
+            );
           }),
           catchError((_err) =>
             of(
               showAlert({
                 message: 'Registration Fail due to: ' + _err.message,
                 resptype: 'fail',
-              }),loadSpinner({ isLoaded: false })
+              }),
+              loadSpinner({ isLoaded: false })
             )
           )
         );
@@ -63,19 +68,34 @@ export class UserEffects {
             switchMap((data) => {
               this.userService.setUserToLocalStorage(data);
               this.router.navigate(['']);
-              return of(
-                fetchMenu({ userrole: data.role }),
-                showAlert({ message: 'Login Successfully', resptype: 'pass' }),
-                loadBloodBankById({ id: data.bloodBankId }),
-                loadSpinner({ isLoaded: false })
-              );
+              if (data.bloodBankId !== null) {
+                return of(
+                  fetchMenu({ userrole: data.role }),
+                  showAlert({
+                    message: 'Login Successfully',
+                    resptype: 'pass',
+                  }),
+                  loadBloodBankById({ id: data.bloodBankId }),
+                  loadSpinner({ isLoaded: false })
+                );
+              } else {
+                return of(
+                  fetchMenu({ userrole: data.role }),
+                  showAlert({
+                    message: 'Login Successfully',
+                    resptype: 'pass',
+                  }),
+                  loadSpinner({ isLoaded: false })
+                );
+              }
             }),
             catchError((_err) =>
               of(
                 showAlert({
                   message: 'Login Fail due to: ' + _err.message,
                   resptype: 'fail',
-                }),loadSpinner({ isLoaded: false })
+                }),
+                loadSpinner({ isLoaded: false })
               )
             )
           );
@@ -92,7 +112,8 @@ export class UserEffects {
             if (data) {
               return of(
                 duplicateUserSuccess({ isDuplicate: true }),
-                showAlert({ message: 'Email Already Exist', resptype: 'fail' }),loadSpinner({ isLoaded: false })
+                showAlert({ message: 'Email Already Exist', resptype: 'fail' }),
+                loadSpinner({ isLoaded: false })
               );
             } else {
               return of(duplicateUserSuccess({ isDuplicate: false }));
@@ -103,7 +124,8 @@ export class UserEffects {
               showAlert({
                 message: 'Login Fail due to: ' + _err.message,
                 resptype: 'fail',
-              }),loadSpinner({ isLoaded: false })
+              }),
+              loadSpinner({ isLoaded: false })
             )
           )
         );
@@ -117,14 +139,18 @@ export class UserEffects {
       switchMap((action) => {
         return this.userService.getMenuByRole(action.userrole).pipe(
           switchMap((data) => {
-            return of(fetchMenuSuccess({ menulist: data }),loadSpinner({ isLoaded: false }));
+            return of(
+              fetchMenuSuccess({ menulist: data }),
+              loadSpinner({ isLoaded: false })
+            );
           }),
           catchError((_err) =>
             of(
               showAlert({
                 message: 'Fail to fetch MenuList due to: ' + _err.message,
                 resptype: 'fail',
-              }),loadSpinner({ isLoaded: false })
+              }),
+              loadSpinner({ isLoaded: false })
             )
           )
         );
@@ -138,14 +164,18 @@ export class UserEffects {
       switchMap((action) => {
         return this.userService.getEmployeeList().pipe(
           switchMap((data) => {
-            return of(getUserSuccess({ userlist: data }),loadSpinner({ isLoaded: false }));
+            return of(
+              getUserSuccess({ userlist: data }),
+              loadSpinner({ isLoaded: false })
+            );
           }),
           catchError((_err) =>
             of(
               showAlert({
                 message: 'Fail to get userlist due to: ' + _err.message,
                 resptype: 'fail',
-              }),loadSpinner({ isLoaded: false })
+              }),
+              loadSpinner({ isLoaded: false })
             )
           )
         );

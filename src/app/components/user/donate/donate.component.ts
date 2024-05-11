@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, numberAttribute } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -19,6 +19,7 @@ import { loadDonor } from '../../../_store/donor/donor.actions';
 import { AccountService } from '../../../services/account.service';
 import { loadSpinner } from '../../../_store/Globel/globel.actions';
 import { Filter } from '../../../models/Filter';
+import { loadInventory } from '../../../_store/bloodInventory/bloodInventory.actions';
 
 @Component({
   selector: 'app-donate',
@@ -50,7 +51,7 @@ export class DonateComponent implements OnInit {
   };
   filter: Filter = {
     page: 1,
-    pageSize: 5,
+    pageSize: 10000,
     filterOn: '',
     filterQuery: '',
     sortBy: '',
@@ -81,8 +82,11 @@ export class DonateComponent implements OnInit {
     'donorAddress',
     'action',
   ];
+  displayedColumns2: string[] = ['bloodGroup', 'bloodStock'];
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  bloodStockDataSource: any;
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
@@ -135,8 +139,22 @@ export class DonateComponent implements OnInit {
       this.dataSourse.paginator = this.paginator;
       this.dataSourse.sort = this.sort;
     });
+    const inventoryId = this.authService.getInventoryIdFromStorage();
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
+    this.store.dispatch(loadInventory({ inventoryId: inventoryId }));
     this.store.select(getBloodInventory).subscribe((item) => {
       this.bloodStock = item;
+      let bloodstock: Blood[] = [
+        { bloodGroup: 'A+', bloodStock: item.a1 },
+        { bloodGroup: 'A-', bloodStock: item.a2 },
+        { bloodGroup: 'B+', bloodStock: item.b1 },
+        { bloodGroup: 'B-', bloodStock: item.b2 },
+        { bloodGroup: 'AB+', bloodStock: item.aB1 },
+        { bloodGroup: 'AB-', bloodStock: item.aB2 },
+        { bloodGroup: 'O+', bloodStock: item.o1 },
+        { bloodGroup: 'O-', bloodStock: item.o2 },
+      ];
+      this.bloodStockDataSource = new MatTableDataSource<Blood>(bloodstock);
     });
   }
 

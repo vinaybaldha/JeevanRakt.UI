@@ -45,6 +45,7 @@ export class RecipientListComponent {
     sortBy: '',
     isAccending: false,
   };
+  pagesize: number = 6;
 
   constructor(private store: Store, private authService: AccountService) {}
 
@@ -53,6 +54,7 @@ export class RecipientListComponent {
   }
 
   reloadData() {
+    this.filter = { ...this.filter, pageSize: this.pagesize };
     let userInfo: userinfo = this.authService.getUserDataFromStorage();
     this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(
@@ -93,5 +95,15 @@ export class RecipientListComponent {
     this.store.dispatch(
       deleteRecipient({ recipientId: recipient.recipientId })
     );
+  }
+
+  onPrevious() {
+    this.filter = { ...this.filter, page: this.filter.page - 1 };
+    this.reloadData();
+  }
+
+  onNext() {
+    this.filter = { ...this.filter, page: this.filter.page + 1 };
+    this.reloadData();
   }
 }

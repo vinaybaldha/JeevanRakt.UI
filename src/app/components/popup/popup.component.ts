@@ -10,7 +10,7 @@ import { updateInventory } from '../../_store/bloodInventory/bloodInventory.acti
 import { loadSpinner } from '../../_store/Globel/globel.actions';
 
 @Component({
-  selector: 'app-popup',
+  selector: 'app_NEGATIVEpopup',
   standalone: true,
   imports: [FormsModule, MaterialModule],
   templateUrl: './popup.component.html',
@@ -56,35 +56,35 @@ export class PopupComponent implements OnInit {
 
       const updatedInventory = { ...this.bloodInventory };
       switch (this.selectedDonor.donorBloodType) {
-        case 'A+': {
+        case 'A_POSITIVE': {
           updatedInventory.a1 = this.bloodInventory.a1 + 1;
           break;
         }
-        case 'A-': {
+        case 'A_NEGATIVE': {
           updatedInventory.a2 = this.bloodInventory.a2 + 1;
           break;
         }
-        case 'B+': {
+        case 'B_POSITIVE': {
           updatedInventory.b1 = this.bloodInventory.b1 + 1;
           break;
         }
-        case 'B-': {
+        case 'B_NEGATIVE': {
           updatedInventory.b2 = this.bloodInventory.b2 + 1;
           break;
         }
-        case 'O+': {
+        case 'O_POSITIVE': {
           updatedInventory.o1 = this.bloodInventory.o1 + 1;
           break;
         }
-        case 'O-': {
+        case 'O_NEGATIVE': {
           updatedInventory.o2 = this.bloodInventory.o2 + 1;
           break;
         }
-        case 'AB+': {
+        case 'AB_POSITIVE': {
           updatedInventory.aB1 = this.bloodInventory.aB1 + 1;
           break;
         }
-        case 'AB-': {
+        case 'AB_NEGATIVE': {
           updatedInventory.aB2 = this.bloodInventory.aB2 + 1;
           break;
         }
