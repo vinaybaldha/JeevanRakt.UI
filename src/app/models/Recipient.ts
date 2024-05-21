@@ -7,11 +7,13 @@ export class Recipient {
   recipientAge: number = 0;
   recipientAddress: string = '';
   bloodBankId: string = '';
+  paymentStatus: string = '';
 
   constructor() {}
 }
 
 export interface RecipientModel {
   list: Recipient[];
+  pendinglist: Recipient[];
   errormessage: string;
 }

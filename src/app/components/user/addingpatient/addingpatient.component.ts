@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 import { CommonModule } from '@angular/common';
@@ -7,7 +6,6 @@ import { Recipient } from '../../../models/Recipient';
 import { MaterialModule } from '../../../_module/Material.Module';
 import { Store } from '@ngrx/store';
 import { addRecipient } from '../../../_store/recipient/reipient.actions';
-import { SignalrService } from '../../../signalr.service';
 import { AccountService } from '../../../services/account.service';
 import { BloodBankService } from '../../../services/blood-bank.service';
 import { BloodBank } from '../../../models/BloodBank';
@@ -21,7 +19,16 @@ import { loadSpinner } from '../../../_store/Globel/globel.actions';
   styleUrl: './addingpatient.component.css',
 })
 export class AddingpatientComponent implements OnInit {
-  bloodGroups: string[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+  bloodGroups: string[] = [
+    'A_POSITIVE',
+    'A_NEGATIVE',
+    'B_POSITIVE',
+    'B_NEGATIVE',
+    'O_POSITIVE',
+    'O_NEGATIVE',
+    'AB_POSITIVE',
+    'AB_NEGATIVE',
+  ];
   genders: string[] = ['male', 'female', 'other'];
   bloodbank!: BloodBank;
   recipient = new Recipient();

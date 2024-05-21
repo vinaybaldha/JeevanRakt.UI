@@ -1,6 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
-import { addRecipientSuccess, deleteRecipientSuccess, loadRecipientFail, loadRecipientSuccess, updateRecipientSuccess } from './reipient.actions';
+import {
+  addRecipientSuccess,
+  deleteRecipientSuccess,
+  loadPendingRecipientSuccess,
+  loadRecipientFail,
+  loadRecipientSuccess,
+  updateRecipientSuccess,
+} from './reipient.actions';
 import { recipientState } from './recipient.state';
+import { getPendingRecipientList } from './recipient.selector';
 
 const _RecipientReducer = createReducer(
   recipientState,
@@ -19,35 +27,45 @@ const _RecipientReducer = createReducer(
     };
   }),
 
-  on(deleteRecipientSuccess,(state,action)=>{
-    let _newdata = state.list.filter(o=>o.recipientId!=action.recipientId)
+  on(deleteRecipientSuccess, (state, action) => {
+    let _newdata = state.list.filter(
+      (o) => o.recipientId != action.recipientId
+    );
     return {
-        ...state,
-        list: _newdata,
-        errormessage: ''
-    }
-}),
-on(addRecipientSuccess,(state,action)=>{
-    
+      ...state,
+      list: _newdata,
+      errormessage: '',
+    };
+  }),
+  on(addRecipientSuccess, (state, action) => {
     return {
-        ...state,
-        list: [...state.list, action.inputData],
-        errormessage: ''
-    }
-}),
-on(updateRecipientSuccess, (state, action) => {
-    const updatedIndex = state.list.findIndex(donor => donor.recipientId === action.inputData.recipientId);
+      ...state,
+      list: [...state.list, action.inputData],
+      errormessage: '',
+    };
+  }),
+  on(updateRecipientSuccess, (state, action) => {
+    const updatedIndex = state.list.findIndex(
+      (donor) => donor.recipientId === action.inputData.recipientId
+    );
     if (updatedIndex !== -1) {
-        const updatedList = [...state.list];
-        updatedList[updatedIndex] = action.inputData;
-        return {
-            ...state,
-            list: updatedList,
-            errorMessage: ''
-        };
+      const updatedList = [...state.list];
+      updatedList[updatedIndex] = action.inputData;
+      return {
+        ...state,
+        list: updatedList,
+        errorMessage: '',
+      };
     }
     return state;
-})
+  }),
+  on(loadPendingRecipientSuccess, (state, action) => {
+    return {
+      ...state,
+      pendinglist: action.list,
+      errormessage: '',
+    };
+  })
 );
 
 export function RecipientReducer(state: any, action: any) {

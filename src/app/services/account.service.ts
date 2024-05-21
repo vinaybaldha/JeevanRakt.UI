@@ -110,7 +110,7 @@ export class AccountService {
     });
   }
 
-  public resetPassword(resetPasswordDTO: {}) {
+  public resetPassword(resetPasswordDTO: {}): Observable<any> {
     return this._http.post<any>(
       `${NAV_URL}/Account/reset-password`,
       resetPasswordDTO

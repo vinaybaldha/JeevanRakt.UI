@@ -8,6 +8,8 @@ import {
   deleteRecipient,
   deleteRecipientSuccess,
   emptyAction,
+  loadPendingRecipient,
+  loadPendingRecipientSuccess,
   loadRecipient,
   loadRecipientFail,
   loadRecipientSuccess,
@@ -48,6 +50,30 @@ export class RecipientEffects {
               )
             )
           );
+      })
+    )
+  );
+
+  _loadPendingRecipient = createEffect(() =>
+    this.action$.pipe(
+      ofType(loadPendingRecipient),
+      switchMap((action) => {
+        return this.recipientService.getPendingRecipient().pipe(
+          switchMap((data) => {
+            return of(
+              loadPendingRecipientSuccess({ list: data }),
+              loadSpinner({
+                isLoaded: false,
+              })
+            );
+          }),
+          catchError((_err) =>
+            of(
+              loadRecipientFail({ errormessage: _err.message }),
+              loadSpinner({ isLoaded: false })
+            )
+          )
+        );
       })
     )
   );

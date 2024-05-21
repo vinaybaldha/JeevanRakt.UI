@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EmployeeListComponent } from './employee-list.component';
+import { StoreModule } from '@ngrx/store';
 
 describe('EmployeeListComponent', () => {
   let component: EmployeeListComponent;
@@ -8,10 +9,9 @@ describe('EmployeeListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EmployeeListComponent]
-    })
-    .compileComponents();
-    
+      imports: [EmployeeListComponent, StoreModule.forRoot([])],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(EmployeeListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

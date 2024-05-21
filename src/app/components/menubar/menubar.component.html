@@ -31,7 +31,7 @@
   <mat-drawer-container autosize>
     <mat-drawer #drawer opened="false" mode="side" position="start">
       <mat-nav-list>
-        <mat-list-item *ngFor="let item of menulist" routerLinkActive="active"><button mat-button
+        <mat-list-item *ngFor="let item of menulist" routerLinkActive="tabs"><button mat-button
             routerLink="{{item.menu}}"><mat-icon>menu</mat-icon>{{item.menu}}</button></mat-list-item>
       </mat-nav-list>
     </mat-drawer>
@@ -43,7 +43,10 @@
             <li *ngFor="let notification of notifications">{{ notification }}</li>
           </ul>
         </div>
-        <router-outlet></router-outlet>
+        <div class="container">
+          <router-outlet></router-outlet>
+        </div>
+
 
       </div>
     </mat-drawer-content>

@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Donor } from '../models/donor';
 import { environment } from '../../environments/environment';
-import { Recipient } from '../models/Recipient';
 import { Filter } from '../models/Filter';
 
 const NAV_URL = environment.apiURL;

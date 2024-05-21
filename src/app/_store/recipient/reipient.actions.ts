@@ -6,6 +6,12 @@ export const LOAD_RECIPIENT = '[recipient] load recipient';
 export const LOAD_RECIPIENT_SUCCESS = '[recipient] load recipient success';
 export const LOAD_RECIPIENT_FAIL = '[recipient] load recipient fail';
 
+export const LOAD_PENDING_RECIPIENT = '[recipient] load pending recipient';
+export const LOAD_PENDING_RECIPIENT_SUCCESS =
+  '[recipient] load pending recipient success';
+export const LOAD_PENDING_RECIPIENT_FAIL =
+  '[recipient] load pending recipient fail';
+
 export const ADD_RECIPIENT = '[recipient] add recipient';
 export const ADD_RECIPIENT_SUCCESS = '[recipient] add recipient success';
 
@@ -27,6 +33,16 @@ export const loadRecipientSuccess = createAction(
 );
 export const loadRecipientFail = createAction(
   LOAD_RECIPIENT_FAIL,
+  props<{ errormessage: string }>()
+);
+
+export const loadPendingRecipient = createAction(LOAD_PENDING_RECIPIENT);
+export const loadPendingRecipientSuccess = createAction(
+  LOAD_PENDING_RECIPIENT_SUCCESS,
+  props<{ list: Recipient[] }>()
+);
+export const loadPendingRecipientFail = createAction(
+  LOAD_PENDING_RECIPIENT_FAIL,
   props<{ errormessage: string }>()
 );
 

@@ -1,6 +1,7 @@
-import { RecipientModel } from "../../models/Recipient";
+import { RecipientModel } from '../../models/Recipient';
 
 export const recipientState: RecipientModel = {
-    list: [],
-    errormessage: ''
-}
+  list: [],
+  pendinglist: [],
+  errormessage: '',
+};

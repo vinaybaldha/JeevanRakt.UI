@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BloodBanksComponent } from './blood-banks.component';
+import { StoreModule } from '@ngrx/store';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('BloodBanksComponent', () => {
   let component: BloodBanksComponent;
@@ -8,10 +10,13 @@ describe('BloodBanksComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BloodBanksComponent]
-    })
-    .compileComponents();
-    
+      imports: [
+        BloodBanksComponent,
+        StoreModule.forRoot([]),
+        HttpClientTestingModule,
+      ],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(BloodBanksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

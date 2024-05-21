@@ -18,6 +18,7 @@ import {
 import { BloodInventoryService } from '../../services/blood-inventory.service';
 import { AccountService } from '../../services/account.service';
 import { loadSpinner } from '../Globel/globel.actions';
+import { deleteRecipient } from '../recipient/reipient.actions';
 
 @Injectable()
 export class BloodInventoryEffects {
@@ -93,6 +94,7 @@ export class BloodInventoryEffects {
             switchMap(() => {
               return of(
                 updateInventorySuccess({ inputData: action.inputData }),
+                deleteRecipient({ recipientId: action.recipientId }),
                 showAlert({ message: 'blood stock updated', resptype: 'pass' }),
                 loadSpinner({ isLoaded: false })
               );

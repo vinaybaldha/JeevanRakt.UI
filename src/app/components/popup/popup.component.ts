@@ -90,7 +90,9 @@ export class PopupComponent implements OnInit {
         }
       }
       this.store.dispatch(loadSpinner({ isLoaded: true }));
-      this.store.dispatch(updateInventory({ inputData: updatedInventory }));
+      this.store.dispatch(
+        updateInventory({ inputData: updatedInventory, recipientId: '' })
+      );
 
       form.reset();
     }

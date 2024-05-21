@@ -20,6 +20,7 @@ import { UserEffects } from './_store/user/user.effects';
 import { BloodInventoryEffects } from './_store/bloodInventory/bloodInventory.effects';
 import { BloodInventoryReducer } from './_store/bloodInventory/bloodInventory.reducer';
 import { GlobelReducer } from './_store/Globel/globel.reducer';
+import { GlobelEffects } from './_store/Globel/globel.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -32,7 +33,7 @@ export const appConfig: ApplicationConfig = {
       bloodbank: BloodBankReducer,
       user: UserReducer,
       inventory: BloodInventoryReducer,
-      globel: GlobelReducer
+      globel: GlobelReducer,
     }),
     provideEffects([
       DonorEffects,
@@ -40,6 +41,7 @@ export const appConfig: ApplicationConfig = {
       BloodBankEffects,
       UserEffects,
       BloodInventoryEffects,
+      GlobelEffects,
     ]),
     provideRouterStore(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),

@@ -21,6 +21,10 @@ export class RecipientService {
     );
   }
 
+  public getPendingRecipient(): Observable<Recipient[]> {
+    return this._http.get<Recipient[]>(`${NAV_URL}/Recipients/pending`);
+  }
+
   public addRecipientFromRemote(recipient: Recipient): Observable<any> {
     return this._http.post<any>(`${NAV_URL}/Recipients`, recipient);
   }

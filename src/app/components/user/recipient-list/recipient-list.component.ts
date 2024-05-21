@@ -35,6 +35,7 @@ export class RecipientListComponent {
     recipientAge: 0,
     recipientAddress: '',
     bloodBankId: '',
+    paymentStatus: '',
   };
   edit: boolean = false;
   filter: Filter = {
@@ -85,6 +86,7 @@ export class RecipientListComponent {
       recipientAge: 0,
       recipientAddress: '',
       bloodBankId: '',
+      paymentStatus: '',
     };
 
     this.edit = false;

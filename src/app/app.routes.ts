@@ -141,4 +141,23 @@ export const routes: Routes = [
         (m) => m.YourbloodbankComponent
       ),
   },
+  {
+    path: 'success',
+    loadComponent: () =>
+      import('./components/success/success.component').then(
+        (m) => m.SuccessComponent
+      ),
+  },
+  {
+    path: 'fail',
+    loadComponent: () =>
+      import('./components/fail/fail.component').then((m) => m.FailComponent),
+  },
+  {
+    path: 'blood-requests',
+    loadComponent: () =>
+      import('./components/user/blood-requests/blood-requests.component').then(
+        (m) => m.BloodRequestsComponent
+      ),
+  },
 ];

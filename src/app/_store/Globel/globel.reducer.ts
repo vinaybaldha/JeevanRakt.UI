@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { globelState } from './globel.state';
-import { loadSpinner } from './globel.actions';
+import { checkOutSuccess, loadSpinner } from './globel.actions';
 
 const _GlobelReducer = createReducer(
   globelState,
@@ -8,6 +8,12 @@ const _GlobelReducer = createReducer(
     return {
       ...state,
       isLoaded: action.isLoaded,
+    };
+  }),
+  on(checkOutSuccess, (state, action) => {
+    return {
+      ...state,
+      url: action.url,
     };
   })
 );

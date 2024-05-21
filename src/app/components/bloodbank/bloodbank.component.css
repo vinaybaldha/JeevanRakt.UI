@@ -10,3 +10,8 @@
 button {
   margin: 1%;
 }
+
+.col-lg-6 {
+  text-align: center;
+  justify-content: center;
+}

@@ -2,6 +2,9 @@
   <mat-card-header>
     <mat-card-title class="mat-card-title">Recipient List</mat-card-title>
   </mat-card-header>
+  <mat-form-field>
+    <input matInput (keyup)="filterChange($event)" placeholder="Enter the text">
+  </mat-form-field>
   <mat-card-content>
     <div class="mat-elevation-z8">
       <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">

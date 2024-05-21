@@ -14,7 +14,6 @@ export const UPDATE_INVENTORY_SUCCESS = '[inventory] update inventory success';
 export const DELETE_INVENTORY = '[inventory] delete inventory';
 export const DELETE_INVENTORY_SUCCESS = '[inventory] delete inventory success';
 
-
 export const SHOW_ALERT = '[inventory] show alert';
 
 export const addInventory = createAction(
@@ -28,7 +27,7 @@ export const addInventorySuccess = createAction(
 
 export const updateInventory = createAction(
   UPDATE_INVENTORY,
-  props<{ inputData: BloodInventory }>()
+  props<{ inputData: BloodInventory; recipientId: string }>()
 );
 export const updateInventorySuccess = createAction(
   UPDATE_INVENTORY_SUCCESS,

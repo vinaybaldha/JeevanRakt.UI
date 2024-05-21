@@ -6,3 +6,7 @@ const getGlobelState = createFeatureSelector<GlobelModel>('globel');
 export const getSpinnerState = createSelector(getGlobelState, (state) => {
   return state.isLoaded;
 });
+
+export const getUrl = createSelector(getGlobelState, (state) => {
+  return state.url;
+});

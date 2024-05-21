@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AccountService } from '../../services/account.service';
@@ -10,7 +10,7 @@ import { AccountService } from '../../services/account.service';
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.css',
 })
-export class ResetPasswordComponent {
+export class ResetPasswordComponent implements OnInit {
   token: string = '';
   email: string = '';
   password: string = '';
@@ -19,7 +19,8 @@ export class ResetPasswordComponent {
   constructor(
     private route: ActivatedRoute,
     private authService: AccountService
-  ) {
+  ) {}
+  ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.token = params['token'];
       this.email = params['email'];

@@ -30,6 +30,7 @@ export class BloodTransfertComponent implements OnInit {
   constructor(private store: Store, private authService: AccountService) {}
 
   recipients: Recipient[] | undefined;
+  recipientId: string = '';
   blood: Blood = new Blood();
   bloodInventory: BloodInventory = new BloodInventory();
   filter: Filter = {
@@ -59,6 +60,7 @@ export class BloodTransfertComponent implements OnInit {
     this.store.select(getBloodInventory).subscribe((data) => {
       this.bloodInventory = data;
     });
+    this.recipientId = recipient.recipientId;
     switch (recipient.recipientBloodType) {
       case 'A_POSITIVE': {
         this.blood.bloodGroup = 'A_POSITIVE';
@@ -160,7 +162,16 @@ export class BloodTransfertComponent implements OnInit {
         }
       }
       this.store.dispatch(loadSpinner({ isLoaded: true }));
-      this.store.dispatch(updateInventory({ inputData: updatedInventory }));
+      this.store.dispatch(
+        updateInventory({
+          inputData: updatedInventory,
+          recipientId: this.recipientId,
+        })
+      );
     }
+  }
+  filterChange(data: Event) {
+    const value = (data.target as HTMLInputElement).value;
+    this.dataSource.filter = value;
   }
 }

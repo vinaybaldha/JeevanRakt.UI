@@ -6,10 +6,16 @@
         <div>Address: {{bloodbank.address}}</div>
         <div>Total Donors: {{ totalDonors }}</div>
         <div>Total Recipients: {{ totalRecipients }}</div>
+        <div>
+            <div class="col-lg-6 mx-auto">
+                <h2>Bar Chart</h2>
+                <canvas id="barchart"></canvas>
+            </div>
+        </div>
     </mat-card-content>
     <mat-card-footer>
         <button mat-raised-button color="primary" (click)="donate()">Donate</button>
         <button mat-raised-button color="primary" (click)="addRequest()">Add Blood Request</button>
+        <button mat-raised-button color="primary" (click)="goback()">Back</button>
     </mat-card-footer>
-
 </mat-card>
