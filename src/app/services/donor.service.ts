@@ -43,4 +43,10 @@ export class DonorService {
   public getDonorById(id: string): Observable<any> {
     return this._http.get(`${NAV_URL}/donors/${id}`);
   }
+
+  public getTotalDonorsById(bloodbankId: string): Observable<any> {
+    return this._http.get(
+      `${NAV_URL}/donors/bloodbank/totaldonor?bloodbankId=${bloodbankId}`
+    );
+  }
 }

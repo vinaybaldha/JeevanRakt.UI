@@ -10,6 +10,7 @@ import { MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { fetchMenu } from '../../_store/user/user.actions';
 import { loadSpinner } from '../../_store/Globel/globel.actions';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-menubar',
@@ -22,6 +23,7 @@ import { loadSpinner } from '../../_store/Globel/globel.actions';
     LoadingspinnerComponent,
     MatCommonModule,
     CommonModule,
+    FlexLayoutModule,
   ],
 })
 export class MenubarComponent implements DoCheck, OnInit {

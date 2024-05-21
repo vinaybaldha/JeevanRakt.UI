@@ -57,7 +57,7 @@ mat-sidenav-content {
   padding: 20px; /* Optional: Adjust padding as needed */
 }
 
-.tabs {
+/* .tabs {
   width: 100%;
   max-width: 240px;
   height: 100%;
@@ -68,25 +68,8 @@ mat-sidenav-content {
   background-color: cornflowerblue;
   color: white;
   font-weight: bold;
-}
+} */
 
-.container {
-  height: 100vh;
-  width: 100%;
-  background: linear-gradient(45deg), #ffb5da, #ff3ea5, lightblue;
-  background-size: 300% 300%;
-  animation: color 12s ease-in-out infinite;
-}
-
-@keyframes color {
-  0% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+.icon-size {
+  font-size: 20px;
 }

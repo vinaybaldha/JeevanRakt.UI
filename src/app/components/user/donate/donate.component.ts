@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, numberAttribute } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -6,7 +6,7 @@ import { DonateService } from '../../../services/donate.service';
 import { Donor } from '../../../models/donor';
 import { Blood, BloodInventory } from '../../../models/Blood';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../../popup/popup.component';
@@ -20,6 +20,7 @@ import { AccountService } from '../../../services/account.service';
 import { loadSpinner } from '../../../_store/Globel/globel.actions';
 import { Filter } from '../../../models/Filter';
 import { loadInventory } from '../../../_store/bloodInventory/bloodInventory.actions';
+import { DonorService } from '../../../services/donor.service';
 
 @Component({
   selector: 'app-donate',
@@ -33,7 +34,8 @@ export class DonateComponent implements OnInit {
     private donateService: DonateService,
     private dialog: MatDialog,
     private store: Store,
-    private authService: AccountService
+    private authService: AccountService,
+    private donorService: DonorService
   ) {}
   ngOnInit(): void {
     this.reloadData();
@@ -51,7 +53,7 @@ export class DonateComponent implements OnInit {
   };
   filter: Filter = {
     page: 1,
-    pageSize: 10000,
+    pageSize: 5,
     filterOn: '',
     filterQuery: '',
     sortBy: '',
@@ -87,6 +89,7 @@ export class DonateComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   bloodStockDataSource: any;
+  totaldonor: number | undefined;
 
   onSubmit(form: NgForm): void {
     if (form.valid) {
@@ -133,8 +136,14 @@ export class DonateComponent implements OnInit {
     this.store.dispatch(
       loadDonor({ bloodbankId: userInfo.bloodBankId, filter: this.filter })
     );
+
     this.store.select(getDonorList).subscribe((data) => {
       this.donors = data;
+      this.donorService
+        .getTotalDonorsById(userInfo.bloodBankId)
+        .subscribe((data) => {
+          this.totaldonor = data;
+        });
       this.dataSourse = new MatTableDataSource<Donor>(data);
       this.dataSourse.paginator = this.paginator;
       this.dataSourse.sort = this.sort;
@@ -183,5 +192,14 @@ export class DonateComponent implements OnInit {
       console.log(item);
       this.reloadData();
     });
+  }
+
+  handlePageEvent(event: PageEvent) {
+    this.filter = {
+      ...this.filter,
+      pageSize: event.pageSize,
+      page: event.pageIndex + 1,
+    };
+    this.reloadData();
   }
 }
