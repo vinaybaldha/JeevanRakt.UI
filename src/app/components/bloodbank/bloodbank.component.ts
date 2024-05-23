@@ -2,10 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { BloodBank } from '../../models/BloodBank';
 import { BloodBankService } from '../../services/blood-bank.service';
 import { MaterialModule } from '../../_module/Material.Module';
-import { Router } from '@angular/router';
 import { Chart, registerables } from 'chart.js';
 import { Blood } from '../../models/Blood';
 import { Location } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { AddingdonorComponent } from '../user/addingdonor/addingdonor.component';
+import { ComponentType } from '@angular/cdk/portal';
+import { AddingpatientComponent } from '../user/addingpatient/addingpatient.component';
 
 Chart.register(...registerables);
 
@@ -27,8 +30,8 @@ export class BloodbankComponent implements OnInit {
 
   constructor(
     private bankService: BloodBankService,
-    private router: Router,
-    private _location: Location
+    private _location: Location,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -65,11 +68,11 @@ export class BloodbankComponent implements OnInit {
   }
 
   donate() {
-    this.router.navigate(['adddonor']);
+    this.OpenPopup(this.bloodbank, AddingdonorComponent);
   }
 
   addRequest() {
-    this.router.navigate(['addrecipient']);
+    this.OpenPopup(this.bloodbank, AddingpatientComponent);
   }
 
   RenderChart(labeldata: any, valuedata: any, colordata: any) {
@@ -90,5 +93,20 @@ export class BloodbankComponent implements OnInit {
   }
   goback() {
     this._location.back();
+  }
+
+  OpenPopup(selectedBloodBank: BloodBank, component: ComponentType<unknown>) {
+    var _popup = this.dialog.open(component, {
+      width: '60%',
+      height: '400px',
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+      data: {
+        selectedBloodBank: selectedBloodBank,
+      },
+    });
+    _popup.afterClosed().subscribe((item) => {
+      console.log(item);
+    });
   }
 }

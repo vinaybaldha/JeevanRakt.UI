@@ -5,7 +5,7 @@
   </div>
   <ng-template #bloodBankList>
     <button mat-raised-button color="accent" (click)="getLocation()">Get Nearest BloodBank</button>
-    <div *ngIf="visible">
+    <div *ngIf="visible" class="container responsive-grid">
       <mat-card>
         <mat-card-header>
           <mat-card-title>{{ bloodbank.bloodBankName }}</mat-card-title>
@@ -22,6 +22,7 @@
     <div class="row" style="margin-top: 2%; margin-bottom: 2%;">
       <div class="col-3">
         <select [(ngModel)]="filterOn" class="form-select" aria-label="category">
+          <option value="" selected disabled hidden>Select Category</option>
           <option value="BloodBankName">Name</option>
           <option value="Address">Address</option>
         </select>
@@ -30,7 +31,8 @@
         <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search By">
       </div>
       <div class="col-3">
-        <button class="btn btn-sm btn-success" (click)="loadBloodBanks()">Search</button>
+        <button class="btn btn-sm btn-success space" (click)="loadBloodBanks()">Search</button>
+        <button class="btn btn-sm btn-success space" (click)="clear()">Clear</button>
       </div>
     </div>
     <div class="row">
@@ -74,6 +76,4 @@
     </div>
 
   </ng-template>
-
-
 </div>

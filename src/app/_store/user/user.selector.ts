@@ -17,3 +17,5 @@ export const getMenuByRole = createSelector(
 );
 
 export const getuserlist = createSelector(getUserState, userSelector.selectAll);
+
+export const getProfileUrl = createSelector(getUserState, (state) => state.profileUrl);

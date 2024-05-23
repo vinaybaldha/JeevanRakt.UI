@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Employee, RoleAccess, userinfo } from '../models/Employee';
 import { Router } from '@angular/router';
+import { Upload } from '../models/UploadImage';
 
 const NAV_URL = environment.apiURL;
 
@@ -16,9 +17,9 @@ export class AccountService {
     Employee[]
   >([]);
 
-  public currentUserSubject: BehaviorSubject<string | null> =
-    new BehaviorSubject<string | null>('');
-  public currentUser: Observable<string | null> =
+  public currentUserSubject: BehaviorSubject<userinfo | null> =
+    new BehaviorSubject<userinfo | null>(null);
+  public currentUser: Observable<userinfo | null> =
     this.currentUserSubject.asObservable();
 
   public employees$: Observable<Employee[]> =
@@ -40,6 +41,7 @@ export class AccountService {
   public isLoginSubject: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
   public isLogin: Observable<boolean> = this.isAdminSubject.asObservable();
+  private tokenExpirationTimer: any;
 
   setJwtToken(token: string): void {
     this.jwtToken = token;
@@ -77,7 +79,10 @@ export class AccountService {
     this.AuthenticatedSubject.next(false);
     this.isAdminSubject.next(false);
     this.userSubject.next(null);
-
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
     localStorage.clear();
     this.router.navigate(['login']);
   }
@@ -185,5 +190,15 @@ export class AccountService {
 
   addNotification() {
     return this._http.get(`https://localhost:7016/api/Message`);
+  }
+
+  autoLogout(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logOut();
+    }, expirationDuration);
+  }
+
+  updateProfileImage(data: FormData) {
+    return this._http.post(`https://localhost:7016/api/account/upload`, data);
   }
 }

@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Employee, RoleAccess, usercred } from '../../models/Employee';
+import { Upload } from '../../models/UploadImage';
 
 export const BEGIN_REGISTER = '[auth] begin register';
 export const BEGIN_LOGIN = '[auth] begin login';
@@ -9,6 +10,8 @@ export const FETCH_MENU = '[auth] fetch menu';
 export const FETCH_MENU_SUCC = '[auth] fetch menu success';
 export const GET_USERS = '[auth] get users';
 export const GET_USER_SUCC = '[auth] get user success';
+export const UPLOAD_IMAGE = '[auth] upload image';
+export const UPLOAD_IMAGE_SUCCESS = '[auth] upload image success';
 
 export const SHOW_ALERT = '[auth] show alert';
 
@@ -40,6 +43,16 @@ export const getUser = createAction(GET_USERS);
 export const getUserSuccess = createAction(
   GET_USER_SUCC,
   props<{ userlist: Employee[] }>()
+);
+
+export const uploadImage = createAction(
+  UPLOAD_IMAGE,
+  props<{ image: FormData }>()
+);
+
+export const uploadImageSuccess = createAction(
+  UPLOAD_IMAGE_SUCCESS,
+  props<{ imageUrl: string }>()
 );
 
 export const showAlert = createAction(

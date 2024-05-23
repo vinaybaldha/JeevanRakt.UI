@@ -1,3 +1,24 @@
+<h1>Recipient List</h1>
+<div class="row" style="margin-top: 2%; margin-bottom: 2%;">
+  <div class="col-3">
+    <select [(ngModel)]="filterOn" class="form-select" aria-label="category">
+      <option value="" selected disabled hidden>Select Category</option>
+      <option value="DonorName">Name</option>
+      <option value="DonorAge">Age</option>
+      <option value="DonorGender">Gender</option>
+      <option value="DonorContactNumber">BloodType</option>
+      <option value="DonorGender">Gender</option>
+      <option value="DonorAddress">Address</option>
+    </select>
+  </div>
+  <div class="col-3">
+    <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search By">
+  </div>
+  <div class="col-3">
+    <button class="btn btn-sm btn-success space" (click)="reloadData()">Search</button>
+    <button class="btn btn-sm btn-success space" (click)="clear()">Clear</button>
+  </div>
+</div>
 <div class="row">
   <div class="col-2">
     <div class="dataTables_length"><label>Show
@@ -36,11 +57,14 @@
             <span class="element" style="color: red">{{
               recipient.recipientBloodType
               }}</span></mat-card-subtitle>
-          <img *ngIf="recipient.recipientGender.toLowerCase() === 'male'" mat-card-sm-image src="assets/img/male.png" />
-          <img *ngIf="recipient.recipientGender.toLowerCase() === 'female'" mat-card-sm-image
-            src="assets/img/female.png" />
+
         </mat-card-title-group>
       </mat-card-header>
+      <img mat-card-avatar mat-card-sm-image
+        *ngIf="recipient.recipientGender.toLowerCase() === 'male' || recipient.recipientGender.toLowerCase() === 'other'"
+        mat-card-sm-image src="assets/img/male.png" />
+      <img mat-card-avatar mat-card-sm-image *ngIf="recipient.recipientGender.toLowerCase() === 'female'"
+        mat-card-sm-image src="assets/img/female.png" />
       <mat-card-content>
         Gender: {{ recipient.recipientGender }}
       </mat-card-content>

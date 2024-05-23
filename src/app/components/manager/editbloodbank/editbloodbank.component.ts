@@ -49,7 +49,7 @@ export class EditbloodbankComponent implements OnInit {
   isEdited: boolean = false;
 
   closePopup(form: NgForm) {
-    this, this.onSubmit(form);
+    this.onSubmit(form);
     this.ref.close('close using function');
   }
 

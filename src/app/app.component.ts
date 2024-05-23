@@ -36,17 +36,7 @@ import { loadInventory } from './_store/bloodInventory/bloodInventory.actions';
   ],
 })
 export class AppComponent implements OnInit {
-  ngOnInit(): void {
-    // let userInfo: userinfo = this.authService.getUserDataFromStorage();
-    // if (userInfo.token !== null) {
-    //   this.store.dispatch(loadBloodBankById({ id: userInfo.bloodBankId }));
-    //   let inventoryId: string;
-    //   this.store.select(getBloodBank).subscribe((data) => {
-    //     inventoryId = data.bloodInventory.bloodInventoryId;
-    //     this.store.dispatch(loadInventory({ inventoryId: inventoryId }));
-    //   });
-    // }
-  }
+  ngOnInit(): void {}
 
   constructor(
     private singlarService: SignalrService,

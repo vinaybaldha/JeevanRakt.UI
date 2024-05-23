@@ -1,12 +1,19 @@
-<div class="row" id="profilecard" *ngIf="!edited">
-  <div class="col-4">
+<div *ngIf="!edited">
+  <div>
     <mat-card class="card">
       <mat-card-header>
-        <div mat-card-avatar>
-          <img class="bloodimg" [src]="profileDetails.filePath" width="120" height="120">
-        </div>
-        <mat-card-title>{{ profileDetails.employeeName }}</mat-card-title>
+        <mat-card-title>Name: {{ profileDetails.employeeName }}</mat-card-title>
       </mat-card-header>
+      <img mat-card-avatar *ngIf="!imagePreview" [src]="profileDetails.filePath" mat-card-sm-image />
+      <img mat-card-avatar [src]="imagePreview" *ngIf="imagePreview" alt="Profile Image Preview" mat-card-sm-image />
+      <div>
+        <label for="profileImage">Profile Image:</label>
+        <input type="file" id="profileImage" (change)="onFileChange($event)">
+        <button mat-raised-button color="primary" [disabled]="!imagePreview" type="submit" class="btn registerbtn"
+          (click)="uploadImage()">
+          Update
+        </button>
+      </div>
       <mat-card-content>
         <div class="text">
           <b style="color: navy">Mobile Number : </b>
@@ -63,10 +70,12 @@
         </mat-error>
       </mat-form-field>
     </div>
-
-    <button mat-raised-button color="primary" [disabled]="Updateform.form.invalid" type="submit"
-      class="btn registerbtn">
-      Update
-    </button>
+    <div mat-dialog-actions>
+      <button mat-raised-button color="primary" [disabled]="Updateform.form.invalid" type="submit"
+        class="btn registerbtn">
+        Update
+      </button>
+      <button style="margin-left: 5%;" mat-raised-button color="primary" (click)="goback()">Back</button>
+    </div>
   </form>
 </div>

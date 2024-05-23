@@ -4,6 +4,7 @@ import {
   duplicateUserSuccess,
   fetchMenuSuccess,
   getUserSuccess,
+  uploadImageSuccess,
 } from './user.actions';
 
 const _UserReducer = createReducer(
@@ -24,6 +25,14 @@ const _UserReducer = createReducer(
   }),
   on(getUserSuccess, (state, action) => {
     return UserAdaptor.setAll(action.userlist, state);
+  }),
+
+  on(uploadImageSuccess, (state, action) => {
+    return {
+      ...state,
+      isLoaded: false,
+      profileUrl: action.imageUrl,
+    };
   })
 );
 

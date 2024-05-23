@@ -1,134 +1,117 @@
-<mat-card>
-  <mat-card-header>
-    <h1>Donate Page</h1>
-    <!-- Search functionality -->
-    <div class="row" style="margin-top: 2%; margin-bottom: 2%;">
-      <div class="col-3">
-        <mat-form-field appearance="fill">
-          <mat-label>Category</mat-label>
-          <mat-select [(ngModel)]="filterOn">
-            <mat-option value="DonorName">Name</mat-option>
-            <mat-option value="DonorBloodType">BloodType</mat-option>
-            <mat-option value="DonorContactNumber">Contact Number</mat-option>
-            <mat-option value="DonorGender">Gender</mat-option>
-            <mat-option value="DonorAge">Age</mat-option>
-            <mat-option value="DonorAddress">Address</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <mat-form-field appearance="fill">
-          <mat-label>Search By</mat-label>
-          <input matInput [(ngModel)]="filterQuery" placeholder="Search By">
-        </mat-form-field>
-      </div>
-      <div class="col-3">
-        <button mat-button class="btn btn-sm btn-success" (click)="reloadData()">Search</button>
-      </div>
-    </div>
-  </mat-card-header>
-  <mat-card-content>
-    <div class="row">
-      <div *ngFor="let donor of donors" class="example-card col-md-3">
-        <!-- Material cards -->
-        <mat-card class="mat">
-          <mat-card-header>
-            <mat-card-title-group>
-              <mat-card-title>Name: {{ donor.donorName }}</mat-card-title>
-              <mat-card-subtitle>
-                Blood Group:
-                <span class="element" style="color: red">{{
-                  donor.donorBloodType
-                  }}</span></mat-card-subtitle>
+<h1>Donor List</h1>
+<div class="row" style="margin-top: 2%; margin-bottom: 2%;">
+  <div class="col-3">
+    <select [(ngModel)]="filterOn" class="form-select" aria-label="category">
+      <option value="" selected disabled hidden>Select Category</option>
+      <option value="DonorName">Name</option>
+      <option value="DonorAge">Age</option>
+      <option value="DonorGender">Gender</option>
+      <option value="DonorContactNumber">BloodType</option>
+      <option value="DonorGender">Gender</option>
+      <option value="DonorAddress">Address</option>
+    </select>
+  </div>
+  <div class="col-3">
+    <input type="text" class="form-control" [(ngModel)]="filterQuery" placeholder="Search By">
+  </div>
+  <div class="col-3">
+    <button class="btn btn-sm btn-success space" (click)="reloadData()">Search</button>
+    <button class="btn btn-sm btn-success space" (click)="clear()">Clear</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-2">
+    <div class="dataTables_length"><label>Show
+        <select [(ngModel)]="pagesize" (change)="reloadData()">
+          <option value="6">6</option>
+          <option value="12">12</option>
+          <option value="24">24</option>
+          <option value="48">48</option>
 
-            </mat-card-title-group>
-          </mat-card-header>
-          <img mat-card-avatar *ngIf="donor.donorGender.toLowerCase() === 'male'" mat-card-sm-image
-            src="assets/img/male.png" />
-          <img mat-card-avatar *ngIf="donor.donorGender.toLowerCase() === 'female'" mat-card-sm-image
-            src="assets/img/female.png" />
-          <img mat-card-avatar *ngIf="donor.donorGender.toLowerCase() === 'other'" mat-card-sm-image
-            src="assets/img/male.png" />
-          <mat-card-content> Gender: {{ donor.donorGender }} </mat-card-content>
-          <mat-card-content> Address: {{ donor.donorAddress }} </mat-card-content>
-          <mat-card-content> Age: {{ donor.donorAge }} </mat-card-content>
-          <mat-card-content>
-            Contact: {{ donor.donorContactNumber }}
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-flat-button (click)="editDonor(donor)" color="primary" style="margin-right: 25px">
-              Edit
-            </button>
-            <button mat-flat-button (click)="deleteDonor(donor)" color="warn">
-              Delete
-            </button>
-          </mat-card-actions>
-        </mat-card>
-      </div>
+          <option value="100">100</option>
+        </select> entries</label>
     </div>
-    <!-- Edit donor form -->
-    <div class="edit-form" *ngIf="edit">
-      <!-- Form content -->
-      <h3>Edit Donor</h3>
-      <form (ngSubmit)="saveEditedDonor()">
-        <div class="form-group">
-          <label>Donor Name:</label>
-          <input type="text" class="form-control" [(ngModel)]="selectedDonor.donorName" name="donorName" />
-        </div>
-        <div class="form-group">
-          <label>Blood Group:</label>
-          <input type="text" class="form-control" [(ngModel)]="selectedDonor.donorBloodType" name="BloodGroup" />
-        </div>
-        <div class="form-group">
-          <label>Gender:</label>
-          <input type="text" class="form-control" [(ngModel)]="selectedDonor.donorGender" name="Gender" />
-        </div>
-        <div class="form-group">
-          <label>Contact:</label>
-          <input type="text" class="form-control" [(ngModel)]="selectedDonor.donorContactNumber" name="ContactNumber" />
-        </div>
-        <div class="form-group">
-          <label>Age:</label>
-          <input type="number" class="form-control" [(ngModel)]="selectedDonor.donorAge" name="Age" />
-        </div>
-        <div class="form-group">
-          <label>Address:</label>
-          <input type="text" class="form-control" [(ngModel)]="selectedDonor.donorAddress" name="Address" />
-        </div>
-        <button type="submit" class="btn btn-primary">Save</button>
-      </form>
-    </div>
-  </mat-card-content>
-  <mat-card-footer>
-    <!-- Pagination -->
-    <div class="row">
-      <div class="col-2">
-        <div class="dataTables_length">
-          <label>Show
-            <mat-form-field>
-              <mat-select [(ngModel)]="pagesize" (change)="reloadData()">
-                <mat-option value="6">6</mat-option>
-                <mat-option value="12">12</mat-option>
-                <mat-option value="24">24</mat-option>
-                <mat-option value="48">48</mat-option>
-                <mat-option value="100">100</mat-option>
-              </mat-select>
-            </mat-form-field>
-            entries
-          </label>
-        </div>
-      </div>
-      <div class="col-md-10" style="float:right; text-align: right">
-        <div class="paginations">
-          <div>
-            <div class="btn-group" id="radiobtn">
-              <a class="btn btn-primary btn-sm notActive" (click)="onPrevious()"> Previous </a>
-              <a class="btn btn-primary btn-sm active">{{filter.page}}</a>
-              <a class="btn btn-primary btn-sm notActive" (click)="onNext()">Next </a>
-            </div>
-          </div>
+  </div>
+  <div class="col-md-10" style="float:right; text-align: right">
+    <div class="paginations">
+      <div>
+        <div class="btn-group" id="radiobtn">
+          <a class="btn btn-primary btn-sm notActive" (click)="onPrevious()"> Previous </a>
+          <a class="btn btn-primary btn-sm active">{{filter.page}}</a>
+          <a class="btn btn-primary btn-sm notActive" (click)="onNext()">Next </a>
         </div>
       </div>
     </div>
-  </mat-card-footer>
-</mat-card>
+  </div>
+</div>
+
+<div class="row">
+  <div *ngFor="let donor of donors" class="example-card">
+    <!-- Material cards -->
+    <mat-card class="mat">
+      <mat-card-header>
+        <mat-card-title-group>
+          <mat-card-title>Name: {{ donor.donorName }}</mat-card-title>
+          <mat-card-subtitle>
+            Blood Group:
+            <span class="element" style="color: red">{{
+              donor.donorBloodType
+              }}</span></mat-card-subtitle>
+
+        </mat-card-title-group>
+      </mat-card-header>
+      <img mat-card-avatar *ngIf="donor.donorGender.toLowerCase() === 'male'" mat-card-sm-image
+        src="assets/img/male.png" />
+      <img mat-card-avatar *ngIf="donor.donorGender.toLowerCase() === 'female'" mat-card-sm-image
+        src="assets/img/female.png" />
+      <img mat-card-avatar *ngIf="donor.donorGender.toLowerCase() === 'other'" mat-card-sm-image
+        src="assets/img/male.png" />
+      <mat-card-content> Gender: {{ donor.donorGender }} </mat-card-content>
+      <mat-card-content> Address: {{ donor.donorAddress }} </mat-card-content>
+      <mat-card-content> Age: {{ donor.donorAge }} </mat-card-content>
+      <mat-card-content>
+        Contact: {{ donor.donorContactNumber }}
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button (click)="editDonor(donor)" color="primary" style="margin-right: 25px">
+          Edit
+        </button>
+        <button mat-flat-button (click)="deleteDonor(donor)" color="warn">
+          Delete
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<!-- Edit donor form -->
+<div class="edit-form" *ngIf="edit">
+  <!-- Form content -->
+  <h3>Edit Donor</h3>
+  <form (ngSubmit)="saveEditedDonor()">
+    <div class="form-group">
+      <label>Donor Name:</label>
+      <input type="text" class="form-control" [(ngModel)]="selectedDonor.donorName" name="donorName" />
+    </div>
+    <div class="form-group">
+      <label>Blood Group:</label>
+      <input type="text" class="form-control" [(ngModel)]="selectedDonor.donorBloodType" name="BloodGroup" />
+    </div>
+    <div class="form-group">
+      <label>Gender:</label>
+      <input type="text" class="form-control" [(ngModel)]="selectedDonor.donorGender" name="Gender" />
+    </div>
+    <div class="form-group">
+      <label>Contact:</label>
+      <input type="text" class="form-control" [(ngModel)]="selectedDonor.donorContactNumber" name="ContactNumber" />
+    </div>
+    <div class="form-group">
+      <label>Age:</label>
+      <input type="number" class="form-control" [(ngModel)]="selectedDonor.donorAge" name="Age" />
+    </div>
+    <div class="form-group">
+      <label>Address:</label>
+      <input type="text" class="form-control" [(ngModel)]="selectedDonor.donorAddress" name="Address" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+</div>

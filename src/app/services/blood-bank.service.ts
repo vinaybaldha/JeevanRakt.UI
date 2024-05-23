@@ -17,8 +17,8 @@ export class BloodBankService {
     new BehaviorSubject<BloodBank>(new BloodBank());
   bloodbank: Observable<BloodBank> = this.bloodbankasSubject.asObservable();
 
-  public getBloodBanks(filter: Filter): Observable<BloodBank[]> {
-    return this._http.get<BloodBank[]>(
+  public getBloodBanks(filter: Filter): Observable<any> {
+    return this._http.get<any>(
       `${NAV_URL}/BloodBanks?page=${filter.page}&pageSize=${filter.pageSize}&filterOn=${filter.filterOn}&filterQuery=${filter.filterQuery}&sortBy=${filter.sortBy}&isAccending=${filter.isAccending}`
     );
   }

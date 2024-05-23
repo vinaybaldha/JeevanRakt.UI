@@ -36,7 +36,10 @@ export class BloodBankEffects {
         return this.bloodbankService.getBloodBanks(action.filter).pipe(
           switchMap((data) => {
             return of(
-              loadBloodBankSuccess({ list: data }),
+              loadBloodBankSuccess({
+                list: data.bloodBanks,
+                pages: data.pages,
+              }),
               loadSpinner({ isLoaded: false })
             );
           }),

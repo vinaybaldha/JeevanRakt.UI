@@ -1,17 +1,8 @@
-<!-- <app-carousel></app-carousel> -->
 <div>
-
-
   <div class="center">
-
     <h1>Welcome to Blood Bank Management System</h1>
-
-
     <h2>Helping Save Lives</h2>
-
   </div>
-
-
   <h2>
     Our Blood Bank Management System ensures efficient management of blood
     inventory and donor information to facilitate life-saving transfusions.
@@ -63,7 +54,7 @@
     donation center today!
   </p>
   <h1 class="donor-title">Compatible Blood Type Donors</h1>
-  <table mat-table [dataSource]="donors" class="mat-elevation-z8">
+  <table mat-table [dataSource]="donors" class="mat-table-responsive">
     <ng-container matColumnDef="bloodType">
       <th mat-header-cell *matHeaderCellDef>Blood Type</th>
       <td mat-cell *matCellDef="let donor">{{ donor.bloodType }}</td>
@@ -113,5 +104,4 @@
     Find out which type of donation suits you best and make a difference
     today!
   </h3>
-
 </div>

@@ -10,3 +10,7 @@ export const getBloodBankList = createSelector(getBloodBankState, (state) => {
 export const getBloodBank = createSelector(getBloodBankState, (state) => {
   return state.bloodbank;
 });
+
+export const getPages = createSelector(getBloodBankState, (state) => {
+  return state.pages;
+});

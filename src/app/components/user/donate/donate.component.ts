@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -8,7 +8,11 @@ import { Blood, BloodInventory } from '../../../models/Blood';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialog,
+  MatDialogRef,
+} from '@angular/material/dialog';
 import { PopupComponent } from '../../popup/popup.component';
 import { MaterialModule } from '../../../_module/Material.Module';
 import { Store } from '@ngrx/store';
@@ -40,7 +44,7 @@ export class DonateComponent implements OnInit {
   ngOnInit(): void {
     this.reloadData();
   }
-
+  inputData: any;
   selectedDonor: Donor = {
     donorId: '',
     donorName: '',

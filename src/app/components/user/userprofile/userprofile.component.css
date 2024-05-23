@@ -5,7 +5,8 @@
 }
 
 .card {
-  width: 300px;
+  margin: 1%;
+  background-color: #e9e8e8;
 }
 
 .text {
@@ -27,4 +28,13 @@
   text-align: center;
   margin-top: 3%;
   color: green;
+}
+
+.mat-mdc-card-header {
+  text-align: center;
+  justify-content: center;
+}
+
+.mat-mdc-card-avatar {
+  margin-left: 47%;
 }

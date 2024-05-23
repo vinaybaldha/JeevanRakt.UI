@@ -73,3 +73,35 @@ mat-sidenav-content {
 .icon-size {
   font-size: 20px;
 }
+
+.mat-drawer-content {
+  background-color: antiquewhite;
+}
+
+.mat-drawer-container {
+  height: calc(100vh - 64px);
+}
+
+.menu-item {
+  border-left: 5px solid;
+  border-left-color: rgba(0, 0, 0, 0);
+}
+
+.selected-menu-item {
+  border-left-color: var(--primary-color);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* :host * {
+  transition: all 500ms ease-in-out;
+} */
+
+/* .hide-header-text {
+  opacity: 0;
+  height: 0px !important;
+}
+
+mat-drawer,
+mat-drawer-content {
+  transition: all 500ms ease-in-out;
+} */

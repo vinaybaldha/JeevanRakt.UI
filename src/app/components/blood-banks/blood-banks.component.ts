@@ -5,7 +5,10 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { Store } from '@ngrx/store';
 import { loadBloodBank } from '../../_store/blood-bank/bloodbank.actions';
-import { getBloodBankList } from '../../_store/blood-bank/bloodbank.selector';
+import {
+  getBloodBankList,
+  getPages,
+} from '../../_store/blood-bank/bloodbank.selector';
 import { MaterialModule } from '../../_module/Material.Module';
 import { Router } from '@angular/router';
 import { loadSpinner } from '../../_store/Globel/globel.actions';
@@ -34,6 +37,8 @@ export class BloodBanksComponent {
   pagesize: number = 6;
   filterOn: string = '';
   filterQuery: string = '';
+  minPage: number = 1;
+  maxPage: number = 10;
 
   constructor(
     private store: Store,
@@ -56,6 +61,9 @@ export class BloodBanksComponent {
     this.store.dispatch(loadBloodBank({ filter: this.filter }));
     this.store.select(getBloodBankList).subscribe((item) => {
       this.bloodBanks = item;
+    });
+    this.store.select(getPages).subscribe((item) => {
+      this.maxPage = item;
     });
   }
 
@@ -85,12 +93,30 @@ export class BloodBanksComponent {
   }
 
   onPrevious() {
-    this.filter = { ...this.filter, page: this.filter.page - 1 };
-    this.loadBloodBanks();
+    if (this.filter.page > this.minPage) {
+      this.filter = { ...this.filter, page: this.filter.page - 1 };
+      this.loadBloodBanks();
+    }
   }
 
   onNext() {
-    this.filter = { ...this.filter, page: this.filter.page + 1 };
+    if (this.filter.page < this.maxPage) {
+      this.filter = { ...this.filter, page: this.filter.page + 1 };
+      this.loadBloodBanks();
+    }
+  }
+
+  clear() {
+    this.filter = {
+      pageSize: 3,
+      page: 1,
+      sortBy: '',
+      isAccending: true,
+      filterOn: '',
+      filterQuery: '',
+    };
+    this.filterQuery = '';
+    this.filterOn = '';
     this.loadBloodBanks();
   }
 }

@@ -27,7 +27,7 @@ export const loadBloodBank = createAction(
 );
 export const loadBloodBankSuccess = createAction(
   LOAD_BLOODBANK_SUCCESS,
-  props<{ list: BloodBank[] }>()
+  props<{ list: BloodBank[]; pages: number }>()
 );
 export const loadBloodBankFail = createAction(
   LOAD_BLOODBANK_FAIL,

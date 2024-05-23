@@ -8,7 +8,7 @@
     <div fxShow="true" fxHide.lt-md="true">
       <button mat-button (click)="onHome()"><mat-icon>home</mat-icon>Home</button>
       <button mat-button (click)="onAbout()">About</button>
-      <button mat-button (click)="logout()" *ngIf="userInfo">
+      <button mat-button (click)="logout()">
         <mat-icon>logout</mat-icon>Logout
       </button>
       <button mat-raised-button color="accent" [routerLink]="'/login'" style="margin: 1%;" *ngIf="!userInfo">
@@ -18,7 +18,7 @@
       <button mat-raised-button color="accent" [routerLink]="'/register'" *ngIf="!userInfo">Sign Up</button>
       <a mat-icon-button routerLink="userprofile">
         <mat-icon *ngIf="!profileUrl">account_circle</mat-icon>
-        <mat-icon> <img *ngIf="profileUrl" [src]="profileUrl" /></mat-icon>
+        <mat-icon> <img mat-card-avatar *ngIf="profileUrl" [src]="profileUrl" /></mat-icon>
       </a>
       <span>{{ username }}</span>
       <button (click)="fetchNotifications()" mat-icon-button>
@@ -27,24 +27,26 @@
           'notifications_active' : 'notifications' }}</mat-icon>
       </button>
     </div>
-
   </mat-toolbar>
-
   <mat-drawer-container autosize>
     <mat-drawer #drawer opened="false" mode="side" position="start">
       <mat-nav-list>
-        <mat-list-item (click)="drawer.close()" *ngFor="let item of menulist" routerLinkActive="active">
-          <!-- <button mat-button (click)="drawer.close()"
-            routerLink="{{item.menu}}"><mat-icon>menu</mat-icon>{{item.menu}}</button> -->
-          <div matLine routerLink="{{item.menu}}">
-            <span><mat-icon class="icon-size">label_outline</mat-icon></span>
-            <strong>{{item.menu}}</strong>
-          </div>
 
-        </mat-list-item>
-        <mat-list-item><button mat-button (click)="logout()" *ngIf="userInfo">
-            <mat-icon>logout</mat-icon>Logout
-          </button></mat-list-item>
+        <!-- (click)="drawer.close()" -->
+        <a mat-list-item class="menu-item" *ngFor="let item of menulist" routerLinkActive="selected-menu-item"
+          #rla="routerLinkActive" [activated]="rla.isActive" routerLink="{{item.menu}}">
+          <mat-icon [fontSet]="
+            rla.isActive ? 'material-icons' : 'material-icons-outlined'
+          " matListItemIcon>label_outline</mat-icon>
+          <span matListItemTitle>{{ item.menu }}</span>
+        </a>
+        <a mat-list-item class="menu-item" routerLinkActive="selected-menu-item" (click)="logout()"
+          #rla="routerLinkActive" [activated]="rla.isActive">
+          <mat-icon [fontSet]="
+          rla.isActive ? 'material-icons' : 'material-icons-outlined'
+        " matListItemIcon>logout</mat-icon>
+          <span matListItemTitle>Logout</span>
+        </a>
       </mat-nav-list>
     </mat-drawer>
     <mat-drawer-content>
@@ -55,9 +57,7 @@
             <li *ngFor="let notification of notifications">{{ notification }}</li>
           </ul>
         </div>
-
         <router-outlet></router-outlet>
-
       </div>
     </mat-drawer-content>
   </mat-drawer-container>

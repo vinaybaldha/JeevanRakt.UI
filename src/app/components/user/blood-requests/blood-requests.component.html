@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="available">
     <mat-card-header>
         <mat-card-title class="mat-card-title">Recipient List</mat-card-title>
     </mat-card-header>
@@ -62,3 +62,7 @@
         </div>
     </mat-card-content>
 </mat-card>
+
+<div *ngIf="!available">
+    <h2>No Blood Request Found</h2>
+</div>

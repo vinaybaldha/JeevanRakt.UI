@@ -4,6 +4,10 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 } */
 
+.background {
+  background-color: antiquewhite;
+}
+
 .center {
   text-align: center;
 }
@@ -90,4 +94,22 @@ h4 {
   line-height: 20px;
   font-weight: normal;
   font-family: "Orienta", sans-serif;
+}
+
+.mat-mdc-table {
+  width: 100%;
+  text-align: left;
+  background-color: lemonchiffon;
+  border-collapse: collapse;
+  margin: 1%;
+}
+
+.mat-mdc-table th {
+  background-color: goldenrod;
+  color: white;
+}
+.mat-mdc-table td,
+.mat-mdc-table th {
+  padding: 10px;
+  border: 1px solid goldenrod;
 }

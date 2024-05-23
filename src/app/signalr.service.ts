@@ -37,8 +37,4 @@ export class SignalrService {
       showAlert({ message: notification.message, resptype: 'pass' })
     );
   }
-
-  // addNotification(message:string){
-  //   return this._http.get(`https://localhost:7016/api/Message?message=${message}`)
-  // }
 }

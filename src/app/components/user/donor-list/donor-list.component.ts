@@ -108,4 +108,18 @@ filterQuery:string=''
     this.filter = { ...this.filter, page: this.filter.page + 1 };
     this.reloadData();
   }
+
+  clear() {
+    this.filter = {
+      pageSize: 3,
+      page: 1,
+      sortBy: '',
+      isAccending: true,
+      filterOn: '',
+      filterQuery: '',
+    };
+    this.filterQuery = '';
+    this.filterOn = '';
+    this.reloadData();
+  }
 }

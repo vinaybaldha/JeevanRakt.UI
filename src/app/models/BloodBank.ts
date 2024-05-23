@@ -18,4 +18,5 @@ export interface BloodBankModel {
   list: BloodBank[];
   errormessage: string;
   bloodbank: BloodBank;
+  pages: number;
 }

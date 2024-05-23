@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { v4 as uuidv4 } from 'uuid';
 import { CommonModule } from '@angular/common';
@@ -6,9 +6,9 @@ import { Donor } from '../../../models/donor';
 import { MaterialModule } from '../../../_module/Material.Module';
 import { Store } from '@ngrx/store';
 import { addDonor } from '../../../_store/donor/donor.actions';
-import { BloodBankService } from '../../../services/blood-bank.service';
 import { BloodBank } from '../../../models/BloodBank';
 import { loadSpinner } from '../../../_store/Globel/globel.actions';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-addingdonor',
@@ -28,14 +28,17 @@ export class AddingdonorComponent implements OnInit {
 
   constructor(
     private store: Store,
-    private bloodbankService: BloodBankService
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private ref: MatDialogRef<AddingdonorComponent>
   ) {}
 
   ngOnInit(): void {
-    this.bloodbankService.bloodbank.subscribe((item) => {
-      this.bloodbank = item;
-    });
+    this.inputData = this.data;
+    this.bloodbank = { ...this.data.selectedBloodBank };
   }
+
+  inputData: any;
+  closeMessage = 'close using directive';
 
   addDonor() {
     var guid = uuidv4();
@@ -43,5 +46,10 @@ export class AddingdonorComponent implements OnInit {
     this.donor.bloodBankId = this.bloodbank.bloodBankId;
     this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(addDonor({ inputData: this.donor }));
+  }
+
+  closePopup() {
+    this.addDonor();
+    this.ref.close('close using function');
   }
 }

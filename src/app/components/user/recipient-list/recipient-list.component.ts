@@ -46,6 +46,8 @@ export class RecipientListComponent {
     sortBy: '',
     isAccending: false,
   };
+  filterOn: string = '';
+  filterQuery: string = '';
   pagesize: number = 6;
 
   constructor(private store: Store, private authService: AccountService) {}
@@ -55,7 +57,12 @@ export class RecipientListComponent {
   }
 
   reloadData() {
-    this.filter = { ...this.filter, pageSize: this.pagesize };
+    this.filter = {
+      ...this.filter,
+      pageSize: this.pagesize,
+      filterOn: this.filterOn,
+      filterQuery: this.filterQuery,
+    };
     let userInfo: userinfo = this.authService.getUserDataFromStorage();
     this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(
@@ -106,6 +113,20 @@ export class RecipientListComponent {
 
   onNext() {
     this.filter = { ...this.filter, page: this.filter.page + 1 };
+    this.reloadData();
+  }
+
+  clear() {
+    this.filter = {
+      pageSize: 3,
+      page: 1,
+      sortBy: '',
+      isAccending: true,
+      filterOn: '',
+      filterQuery: '',
+    };
+    this.filterQuery = '';
+    this.filterOn = '';
     this.reloadData();
   }
 }

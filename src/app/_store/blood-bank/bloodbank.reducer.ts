@@ -16,6 +16,7 @@ const _BloodBankReducer = createReducer(
     return {
       ...state,
       list: action.list,
+      pages: action.pages,
       errormessage: '',
     };
   }),
@@ -70,7 +71,7 @@ const _BloodBankReducer = createReducer(
       };
     }
     return state;
-  }),
+  })
 );
 
 export function BloodBankReducer(state: any, action: any) {

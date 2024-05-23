@@ -5,7 +5,7 @@ import { LoadingspinnerComponent } from '../loadingspinner/loadingspinner.compon
 import { AccountService } from '../../services/account.service';
 import { RoleAccess, userinfo } from '../../models/Employee';
 import { Store } from '@ngrx/store';
-import { getMenuByRole } from '../../_store/user/user.selector';
+import { getMenuByRole, getProfileUrl } from '../../_store/user/user.selector';
 import { MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { fetchMenu } from '../../_store/user/user.actions';
@@ -40,9 +40,13 @@ export class MenubarComponent implements DoCheck, OnInit {
       this.isAdmin = res;
     });
 
-    this.userInfo = this.authService.getUserDataFromStorage();
-    this.profileUrl = this.userInfo.filePath;
-    this.username = this.userInfo.email;
+    this.authService.currentUser.subscribe((data) => {
+      this.userInfo = data;
+      if (this.userInfo != null) {
+        this.profileUrl = this.userInfo.filePath;
+        this.username = this.userInfo.email;
+      }
+    });
   }
   ngOnInit(): void {
     if (localStorage.getItem('userdata') != null) {
@@ -53,6 +57,11 @@ export class MenubarComponent implements DoCheck, OnInit {
     }
     this.store.select(getMenuByRole).subscribe((item) => {
       this.menulist = item;
+    });
+    this.store.select(getProfileUrl).subscribe((item) => {
+      if (item !== '') {
+        this.profileUrl = item;
+      }
     });
   }
   ngDoCheck(): void {
@@ -73,15 +82,7 @@ export class MenubarComponent implements DoCheck, OnInit {
   menulist!: RoleAccess[];
   showNotifications: boolean = false;
   notifications: string[] = [];
-  userInfo: userinfo = {
-    employeeName: '',
-    email: '',
-    phoneNumber: '',
-    token: '',
-    filePath: '',
-    role: '',
-    bloodBankId: '',
-  };
+  userInfo: userinfo | null = null;
 
   onHome() {
     this.router.navigate(['home']);

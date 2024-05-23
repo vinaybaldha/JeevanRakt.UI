@@ -8,11 +8,12 @@ import { loadPendingRecipient } from '../../../_store/recipient/reipient.actions
 import { getPendingRecipientList } from '../../../_store/recipient/recipient.selector';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-blood-requests',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule, CommonModule],
   templateUrl: './blood-requests.component.html',
   styleUrl: './blood-requests.component.css',
 })
@@ -33,6 +34,7 @@ export class BloodRequestsComponent implements OnInit {
     'pay',
   ];
   recipients: Recipient[] | undefined;
+  available: boolean = false;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -40,6 +42,10 @@ export class BloodRequestsComponent implements OnInit {
     this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(loadPendingRecipient());
     this.store.select(getPendingRecipientList).subscribe((item) => {
+      if (item.length === 0) {
+        this.available = false;
+      }
+      this.available = true;
       this.recipients = item;
       this.dataSource = new MatTableDataSource<Recipient>(this.recipients);
       this.dataSource.paginator = this.paginator;
@@ -48,6 +54,7 @@ export class BloodRequestsComponent implements OnInit {
   }
 
   onPay(recipient: Recipient) {
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(checkOut({ id: recipient.recipientId }));
   }
 }

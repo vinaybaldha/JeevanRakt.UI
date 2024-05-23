@@ -14,11 +14,12 @@ import {
   getUser,
   getUserSuccess,
   showAlert,
+  uploadImage,
+  uploadImageSuccess,
 } from './user.actions';
 import { Router } from '@angular/router';
 import { loadBloodBankById } from '../blood-bank/bloodbank.actions';
 import { loadSpinner } from '../Globel/globel.actions';
-import { userinfo } from '../../models/Employee';
 
 @Injectable()
 export class UserEffects {
@@ -66,7 +67,11 @@ export class UserEffects {
           .loginEmployee(action.userdata.email, action.userdata.password)
           .pipe(
             switchMap((data) => {
+              const expirationDuration =
+                new Date(data.expiration).getTime() - new Date().getTime();
+              this.userService.autoLogout(expirationDuration);
               this.userService.setUserToLocalStorage(data);
+              this.userService.currentUserSubject.next(data);
               this.router.navigate(['']);
               if (data.bloodBankId !== null) {
                 return of(
@@ -194,6 +199,35 @@ export class UserEffects {
               return emptyAction();
             })
           );
+      })
+    )
+  );
+
+  _uploadImage = createEffect(() =>
+    this.action$.pipe(
+      ofType(uploadImage),
+      switchMap((action) => {
+        return this.userService.updateProfileImage(action.image).pipe(
+          switchMap((data) => {
+            return of(
+              uploadImageSuccess({ imageUrl: data.toString() }),
+              showAlert({
+                message: 'Image Upload Successfully',
+                resptype: 'pass',
+              }),
+              loadSpinner({ isLoaded: false })
+            );
+          }),
+          catchError((_err) =>
+            of(
+              showAlert({
+                message: 'Image Upload Fail' + _err.message,
+                resptype: 'fail',
+              }),
+              loadSpinner({ isLoaded: false })
+            )
+          )
+        );
       })
     )
   );
