@@ -4,6 +4,7 @@
       <mat-icon>menu</mat-icon>
     </button>
     <span>JeevanRakt</span>
+    <img mat-card-avatar src="assets/img/logo-color.png" />
     <span class="spacer"></span>
     <div fxShow="true" fxHide.lt-md="true">
       <button mat-button (click)="onHome()"><mat-icon>home</mat-icon>Home</button>
@@ -50,7 +51,7 @@
       </mat-nav-list>
     </mat-drawer>
     <mat-drawer-content>
-      <div style="text-align: center; min-height: 600px;">
+      <div style="min-height: 600px;">
         <div *ngIf="showNotifications">
           <h2>Notifications</h2>
           <ul>

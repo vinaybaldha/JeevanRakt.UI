@@ -57,25 +57,12 @@ mat-sidenav-content {
   padding: 20px; /* Optional: Adjust padding as needed */
 }
 
-/* .tabs {
-  width: 100%;
-  max-width: 240px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  position: relative;
-  background-color: cornflowerblue;
-  color: white;
-  font-weight: bold;
-} */
-
 .icon-size {
   font-size: 20px;
 }
 
 .mat-drawer-content {
-  background-color: antiquewhite;
+  background-color: #e3e2df;
 }
 
 .mat-drawer-container {
@@ -91,17 +78,3 @@ mat-sidenav-content {
   border-left-color: var(--primary-color);
   background: rgba(0, 0, 0, 0.05);
 }
-
-/* :host * {
-  transition: all 500ms ease-in-out;
-} */
-
-/* .hide-header-text {
-  opacity: 0;
-  height: 0px !important;
-}
-
-mat-drawer,
-mat-drawer-content {
-  transition: all 500ms ease-in-out;
-} */

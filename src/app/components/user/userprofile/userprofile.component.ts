@@ -89,6 +89,5 @@ export class UserprofileComponent implements OnInit {
   uploadImage() {
     this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(uploadImage({ image: this.formData }));
-    window.location.reload();
   }
 }

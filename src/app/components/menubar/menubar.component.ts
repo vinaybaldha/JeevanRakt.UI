@@ -41,8 +41,14 @@ export class MenubarComponent implements DoCheck, OnInit {
     });
 
     this.authService.currentUser.subscribe((data) => {
-      this.userInfo = data;
-      if (this.userInfo != null) {
+      if (data !== null) {
+        this.userInfo = data;
+        if (this.userInfo != null) {
+          this.profileUrl = this.userInfo.filePath;
+          this.username = this.userInfo.email;
+        }
+      } else {
+        this.userInfo = this.authService.getUserDataFromStorage();
         this.profileUrl = this.userInfo.filePath;
         this.username = this.userInfo.email;
       }

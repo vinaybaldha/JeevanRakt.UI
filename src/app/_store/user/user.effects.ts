@@ -20,6 +20,7 @@ import {
 import { Router } from '@angular/router';
 import { loadBloodBankById } from '../blood-bank/bloodbank.actions';
 import { loadSpinner } from '../Globel/globel.actions';
+import { userinfo } from '../../models/Employee';
 
 @Injectable()
 export class UserEffects {
@@ -208,9 +209,12 @@ export class UserEffects {
       ofType(uploadImage),
       switchMap((action) => {
         return this.userService.updateProfileImage(action.image).pipe(
-          switchMap((data) => {
+          switchMap((data: any) => {
+            var userdata = this.userService.getUserDataFromStorage();
+            userdata.filePath = data.filePath;
+            this.userService.setUserToLocalStorage(userdata);
+            this.userService.currentUserSubject.next(userdata);
             return of(
-              uploadImageSuccess({ imageUrl: data.toString() }),
               showAlert({
                 message: 'Image Upload Successfully',
                 resptype: 'pass',

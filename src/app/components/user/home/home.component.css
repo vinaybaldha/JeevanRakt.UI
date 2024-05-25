@@ -113,3 +113,69 @@ h4 {
   padding: 10px;
   border: 1px solid goldenrod;
 }
+
+.feature_container {
+  display: grid;
+  text-align: center;
+  grid-template-columns: auto auto auto;
+  padding: 1rem;
+  gap: 2rem;
+  justify-content: center;
+}
+
+.example-card {
+  max-width: 400px;
+  margin-bottom: 25px;
+  padding: auto;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.mat-list-base.inline-list {
+  display: flex;
+}
+
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.inline-list {
+  flex: 1;
+  margin-right: 20px;
+}
+.image-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-container img {
+  max-width: 60%; /* Ensure the image doesn't exceed its container's width */
+  max-height: 100%; /* Ensure the image doesn't exceed its container's height */
+  width: auto; /* Ensure the image maintains its aspect ratio */
+  height: auto; /* Ensure the image maintains its aspect ratio */
+}
+
+.mat-table {
+  font-size: 12px; /* Set the font size of the table cells */
+}
+
+.mat-header-cell,
+.mat-cell {
+  padding: 8px; /* Reduce padding around cells */
+}
+
+.mat-header-row,
+.mat-row {
+  height: 32px; /* Set the height of table rows */
+}
+
+.table {
+  width: 70%;
+}
