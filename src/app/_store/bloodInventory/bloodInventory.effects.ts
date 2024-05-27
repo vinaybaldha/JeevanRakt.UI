@@ -19,6 +19,7 @@ import { BloodInventoryService } from '../../services/blood-inventory.service';
 import { AccountService } from '../../services/account.service';
 import { loadSpinner } from '../Globel/globel.actions';
 import { deleteRecipient } from '../recipient/reipient.actions';
+import { deleteDonor } from '../donor/donor.actions';
 
 @Injectable()
 export class BloodInventoryEffects {
@@ -92,12 +93,30 @@ export class BloodInventoryEffects {
           .updateBloodInventory(action.inputData)
           .pipe(
             switchMap(() => {
-              return of(
-                updateInventorySuccess({ inputData: action.inputData }),
-                deleteRecipient({ recipientId: action.recipientId }),
-                showAlert({ message: 'blood stock updated', resptype: 'pass' }),
-                loadSpinner({ isLoaded: false })
-              );
+              if (action.donorId) {
+                return of(
+                  updateInventorySuccess({ inputData: action.inputData }),
+                  deleteDonor({ donorId: action.donorId }),
+                  showAlert({
+                    message: 'blood stock updated',
+                    resptype: 'pass',
+                  }),
+                  loadSpinner({ isLoaded: false })
+                );
+              } else if (action.recipientId) {
+                return of(
+                  updateInventorySuccess({ inputData: action.inputData }),
+                  deleteRecipient({ recipientId: action.recipientId }),
+                  showAlert({
+                    message: 'blood stock updated',
+                    resptype: 'pass',
+                  }),
+                  loadSpinner({ isLoaded: false })
+                );
+              } else {
+                // Return an empty observable if there's no condition
+                return of();
+              }
             }),
             catchError((_err) =>
               of(

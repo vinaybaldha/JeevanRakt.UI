@@ -4,16 +4,14 @@ import { CommonModule } from '@angular/common';
 import { Donor } from '../../../models/donor';
 import { MaterialModule } from '../../../_module/Material.Module';
 import { Store } from '@ngrx/store';
-import {
-  deleteDonor,
-  loadDonor,
-  updateDonor,
-} from '../../../_store/donor/donor.actions';
+import { deleteDonor, loadDonor } from '../../../_store/donor/donor.actions';
 import { userinfo } from '../../../models/Employee';
 import { AccountService } from '../../../services/account.service';
 import { getDonorList } from '../../../_store/donor/donor.selector';
 import { loadSpinner } from '../../../_store/Globel/globel.actions';
 import { Filter } from '../../../models/Filter';
+import { MatDialog } from '@angular/material/dialog';
+import { EditDonorComponent } from '../edit-donor/edit-donor.component';
 
 @Component({
   selector: 'app-donor-list',
@@ -36,8 +34,8 @@ export class DonorListComponent implements OnInit {
     sortBy: '',
     isAccending: false,
   };
-  filterOn:string=''
-filterQuery:string=''
+  filterOn: string = '';
+  filterQuery: string = '';
   // Store the selected donor for editing
   selectedDonor: Donor = {
     donorId: '',
@@ -50,7 +48,11 @@ filterQuery:string=''
     bloodBankId: '',
   };
 
-  constructor(private store: Store, private authService: AccountService) {}
+  constructor(
+    private store: Store,
+    private authService: AccountService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     // this.store.dispatch(loadSpinner({ isLoaded: true }));
@@ -58,7 +60,12 @@ filterQuery:string=''
   }
 
   reloadData() {
-    this.filter = { ...this.filter, pageSize: this.pagesize, filterOn: this.filterOn, filterQuery: this.filterQuery};
+    this.filter = {
+      ...this.filter,
+      pageSize: this.pagesize,
+      filterOn: this.filterOn,
+      filterQuery: this.filterQuery,
+    };
     let userInfo: userinfo = this.authService.getUserDataFromStorage();
     this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(
@@ -72,26 +79,7 @@ filterQuery:string=''
   search() {}
 
   editDonor(donor: Donor) {
-    this.selectedDonor = { ...donor };
-    this.edit = true;
-  }
-
-  saveEditedDonor() {
-    this.store.dispatch(loadSpinner({ isLoaded: true }));
-    this.store.dispatch(updateDonor({ inputData: this.selectedDonor }));
-
-    this.selectedDonor = {
-      donorId: '',
-      donorName: '',
-      donorBloodType: '',
-      donorGender: '',
-      donorContactNumber: '',
-      donorAge: 0,
-      donorAddress: '',
-      bloodBankId: '',
-    };
-
-    this.edit = false;
+    this.OpenPopup(donor);
   }
 
   deleteDonor(donor: Donor) {
@@ -121,5 +109,21 @@ filterQuery:string=''
     this.filterQuery = '';
     this.filterOn = '';
     this.reloadData();
+  }
+
+  OpenPopup(selectedDonor: Donor) {
+    var _popup = this.dialog.open(EditDonorComponent, {
+      width: '60%',
+      height: '400px',
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+      data: {
+        selectedDonor: selectedDonor,
+      },
+    });
+    _popup.afterClosed().subscribe((item) => {
+      console.log(item);
+      this.reloadData();
+    });
   }
 }

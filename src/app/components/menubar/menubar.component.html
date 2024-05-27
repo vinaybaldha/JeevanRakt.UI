@@ -17,7 +17,7 @@
         Login
       </button>
       <button mat-raised-button color="accent" [routerLink]="'/register'" *ngIf="!userInfo">Sign Up</button>
-      <a mat-icon-button routerLink="userprofile">
+      <a mat-icon-button routerLink="profile">
         <mat-icon *ngIf="!profileUrl">account_circle</mat-icon>
         <mat-icon> <img mat-card-avatar *ngIf="profileUrl" [src]="profileUrl" /></mat-icon>
       </a>
@@ -31,7 +31,7 @@
   </mat-toolbar>
   <mat-drawer-container autosize>
     <mat-drawer #drawer opened="false" mode="side" position="start">
-      <mat-nav-list>
+      <mat-nav-list (click)="drawer.close()">
 
         <!-- (click)="drawer.close()" -->
         <a mat-list-item class="menu-item" *ngFor="let item of menulist" routerLinkActive="selected-menu-item"
@@ -66,3 +66,4 @@
 <div style="text-align: center; min-height: 600px;" *ngIf="!isMenuVisible">
   <router-outlet></router-outlet>
 </div>
+<app-loadingspinner></app-loadingspinner>

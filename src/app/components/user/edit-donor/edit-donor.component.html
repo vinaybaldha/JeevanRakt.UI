@@ -1,0 +1,60 @@
+<!-- Edit donor form -->
+<div class="edit-form">
+    <!-- Form content -->
+    <h3>Edit Donor</h3>
+    <mat-form-field appearance="fill" class="mat-50">
+        <mat-label>Donor Name</mat-label>
+        <input matInput placeholder="Enter donor name" name="donorname" [(ngModel)]="selectedDonor.donorName" required
+            #donorname="ngModel" [class.is-invalid]="donorname.invalid && donorname.touched" />
+        <mat-error *ngIf="donorname.invalid && donorname.touched">Required field</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="mat-50">
+        <mat-label>Blood Group</mat-label>
+        <mat-select name="bloodgroup" [(ngModel)]="selectedDonor.donorBloodType" required #bloodgroup="ngModel"
+            [class.is-invalid]="bloodgroup.invalid && bloodgroup.touched">
+            <mat-option *ngFor="let bloodGroup of bloodGroups" value="{{ bloodGroup }}">{{ bloodGroup }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="bloodgroup.invalid && bloodgroup.touched">Required field</mat-error>
+    </mat-form-field>
+    <mat-form-field class="mat-50">
+        <mat-label>Phone number</mat-label>
+        <input matInput class="form-control" placeholder="Enter mobile number" name="mobile"
+            [(ngModel)]="selectedDonor.donorContactNumber" required #mobile="ngModel"
+            [class.is-invalid]="mobile.invalid && mobile.touched" />
+        <mat-icon matSuffix>phone</mat-icon>
+        <mat-error *ngIf="mobile.invalid && mobile.touched">Required field</mat-error>
+    </mat-form-field>
+    <div>
+        <mat-radio-group [(ngModel)]="selectedDonor.donorGender" name="gender" required #gender="ngModel"
+            color="primary">
+            @for (gender of genders; track gender) {
+            <mat-radio-button class="example-radio-button" [value]="gender">{{
+                gender
+                }}</mat-radio-button>
+            }
+            <mat-error *ngIf="gender.invalid && gender.touched">Required field</mat-error>
+        </mat-radio-group>
+    </div>
+    <mat-form-field appearance="fill" class="mat-50">
+        <mat-label>Age</mat-label>
+        <input matInput type="number" min="0" max="65" placeholder="Enter donor age" name="age"
+            [(ngModel)]="selectedDonor.donorAge" required #age="ngModel"
+            [class.is-invalid]="age.invalid && age.touched" />
+        <mat-error *ngIf="age.invalid && age.touched">Required field</mat-error>
+
+        <mat-error *ngIf="age.errors?.['max']">Required field</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="mat-50">
+        <mat-label>Address</mat-label>
+        <input matInput class="form-control" placeholder="Enter donor address" name="address"
+            [(ngModel)]="selectedDonor.donorAddress" required #address="ngModel"
+            [class.is-invalid]="address.invalid && address.touched" />
+        <mat-error *ngIf="address.invalid && address.touched">Required field</mat-error>
+    </mat-form-field>
+    <div mat-dialog-actions>
+        <button mat-raised-button color="warn" (click)="closePopup()">Confirm</button>
+        <button mat-raised-button color="accent" [mat-dialog-close]="closeMessage">Cancel</button>
+    </div>
+</div>

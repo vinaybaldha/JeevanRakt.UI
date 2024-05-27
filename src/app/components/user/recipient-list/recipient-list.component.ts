@@ -14,6 +14,8 @@ import { userinfo } from '../../../models/Employee';
 import { getRecipientList } from '../../../_store/recipient/recipient.selector';
 import { loadSpinner } from '../../../_store/Globel/globel.actions';
 import { Filter } from '../../../models/Filter';
+import { EditRecipientComponent } from '../edit-recipient/edit-recipient.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-recipient-list',
@@ -50,7 +52,11 @@ export class RecipientListComponent {
   filterQuery: string = '';
   pagesize: number = 6;
 
-  constructor(private store: Store, private authService: AccountService) {}
+  constructor(
+    private store: Store,
+    private authService: AccountService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.reloadData();
@@ -76,27 +82,7 @@ export class RecipientListComponent {
   search() {}
 
   editRecipient(recipient: Recipient) {
-    this.selectedRecipient = { ...recipient };
-    this.edit = true;
-  }
-
-  saveEditedRecipient() {
-    this.store.dispatch(loadSpinner({ isLoaded: true }));
-    this.store.dispatch(updateRecipient({ inputData: this.selectedRecipient }));
-
-    this.selectedRecipient = {
-      recipientId: '',
-      recipientName: '',
-      recipientBloodType: '',
-      recipientContactNumber: '',
-      recipientGender: '',
-      recipientAge: 0,
-      recipientAddress: '',
-      bloodBankId: '',
-      paymentStatus: '',
-    };
-
-    this.edit = false;
+    this.OpenPopup(recipient);
   }
 
   deleteRecipient(recipient: Recipient) {
@@ -128,5 +114,21 @@ export class RecipientListComponent {
     this.filterQuery = '';
     this.filterOn = '';
     this.reloadData();
+  }
+
+  OpenPopup(selectedRecipient: Recipient) {
+    var _popup = this.dialog.open(EditRecipientComponent, {
+      width: '60%',
+      height: '400px',
+      enterAnimationDuration: '1000ms',
+      exitAnimationDuration: '1000ms',
+      data: {
+        selectedRecipient: selectedRecipient,
+      },
+    });
+    _popup.afterClosed().subscribe((item) => {
+      console.log(item);
+      this.reloadData();
+    });
   }
 }

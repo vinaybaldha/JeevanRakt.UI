@@ -48,53 +48,54 @@ export class PopupComponent implements OnInit {
   }
 
   onSubmit(form: NgForm): void {
-    if (form.valid) {
-      this.store.dispatch(loadSpinner({ isLoaded: true }));
-      this.store.select(getBloodInventory).subscribe((item) => {
-        this.bloodInventory = item;
-      });
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
+    this.store.select(getBloodInventory).subscribe((item) => {
+      this.bloodInventory = item;
+    });
 
-      const updatedInventory = { ...this.bloodInventory };
-      switch (this.selectedDonor.donorBloodType) {
-        case 'A_POSITIVE': {
-          updatedInventory.a1 = this.bloodInventory.a1 + 1;
-          break;
-        }
-        case 'A_NEGATIVE': {
-          updatedInventory.a2 = this.bloodInventory.a2 + 1;
-          break;
-        }
-        case 'B_POSITIVE': {
-          updatedInventory.b1 = this.bloodInventory.b1 + 1;
-          break;
-        }
-        case 'B_NEGATIVE': {
-          updatedInventory.b2 = this.bloodInventory.b2 + 1;
-          break;
-        }
-        case 'O_POSITIVE': {
-          updatedInventory.o1 = this.bloodInventory.o1 + 1;
-          break;
-        }
-        case 'O_NEGATIVE': {
-          updatedInventory.o2 = this.bloodInventory.o2 + 1;
-          break;
-        }
-        case 'AB_POSITIVE': {
-          updatedInventory.aB1 = this.bloodInventory.aB1 + 1;
-          break;
-        }
-        case 'AB_NEGATIVE': {
-          updatedInventory.aB2 = this.bloodInventory.aB2 + 1;
-          break;
-        }
+    const updatedInventory = { ...this.bloodInventory };
+    switch (this.selectedDonor.donorBloodType) {
+      case 'A_POSITIVE': {
+        updatedInventory.a1 = this.bloodInventory.a1 + 1;
+        break;
       }
-      this.store.dispatch(loadSpinner({ isLoaded: true }));
-      this.store.dispatch(
-        updateInventory({ inputData: updatedInventory, recipientId: '' })
-      );
-
-      form.reset();
+      case 'A_NEGATIVE': {
+        updatedInventory.a2 = this.bloodInventory.a2 + 1;
+        break;
+      }
+      case 'B_POSITIVE': {
+        updatedInventory.b1 = this.bloodInventory.b1 + 1;
+        break;
+      }
+      case 'B_NEGATIVE': {
+        updatedInventory.b2 = this.bloodInventory.b2 + 1;
+        break;
+      }
+      case 'O_POSITIVE': {
+        updatedInventory.o1 = this.bloodInventory.o1 + 1;
+        break;
+      }
+      case 'O_NEGATIVE': {
+        updatedInventory.o2 = this.bloodInventory.o2 + 1;
+        break;
+      }
+      case 'AB_POSITIVE': {
+        updatedInventory.aB1 = this.bloodInventory.aB1 + 1;
+        break;
+      }
+      case 'AB_NEGATIVE': {
+        updatedInventory.aB2 = this.bloodInventory.aB2 + 1;
+        break;
+      }
     }
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
+    this.store.dispatch(
+      updateInventory({
+        inputData: updatedInventory,
+        donorId: this.selectedDonor.donorId,
+      })
+    );
+
+    form.reset();
   }
 }

@@ -6,23 +6,34 @@
       </mat-card-header>
       <img mat-card-avatar *ngIf="!imagePreview" [src]="profileDetails.filePath" mat-card-sm-image />
       <img mat-card-avatar [src]="imagePreview" *ngIf="imagePreview" alt="Profile Image Preview" mat-card-sm-image />
-      <div>
-        <label for="profileImage">Profile Image:</label>
-        <input type="file" id="profileImage" (change)="onFileChange($event)">
-        <button mat-raised-button color="primary" [disabled]="!imagePreview" type="submit" class="btn registerbtn"
-          (click)="uploadImage()">
-          Update
-        </button>
-      </div>
+
       <mat-card-content>
-        <div class="text">
-          <b style="color: navy">Mobile Number : </b>
-          <span class="element">{{ profileDetails.phoneNumber }}</span>
-        </div>
-        <div class="text">
-          <b style="color: navy">Mail ID : </b>
-          <span class="element">{{ profileDetails.email }}</span>
-        </div>
+
+        <mat-list>
+          <mat-list-item>
+            <span matListItemTitle>Profile Image:<input type="file" id="profileImage" (change)="onFileChange($event)">
+              <button mat-raised-button color="primary" [disabled]="!imagePreview" type="submit" class="btn registerbtn"
+                (click)="uploadImage()">
+                Update
+              </button></span>
+
+
+          </mat-list-item>
+
+          <mat-list-item>
+            <span matListItemTitle style="color: navy">Mobile Number :</span>
+            <span matListItemLine>{{ profileDetails.phoneNumber }}</span>
+          </mat-list-item>
+          <mat-list-item>
+            <span matListItemTitle style="color: navy">Mail ID :</span>
+            <span matListItemLine>{{ profileDetails.email }}</span>
+          </mat-list-item>
+          <mat-list-item></mat-list-item>
+        </mat-list>
+
+
+
+
       </mat-card-content>
       <mat-card-actions style="justify-content: center;">
         <button mat-raised-button color="primary" (click)="editProfile()">

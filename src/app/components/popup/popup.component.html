@@ -9,13 +9,12 @@
       <form #donorForm="ngForm">
         <div class="form-group">
           <label for="name">Name:</label>
-          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="selectedDonor.donorName"
-            required />
+          <input type="text" class="form-control" id="name" name="name" [value]="selectedDonor.donorName" disabled />
         </div>
         <div class="form-group">
           <label for="bloodGroup">Blood Group:</label>
           <input type="text" class="form-control" id="bloodGroup" name="bloodGroup"
-            [(ngModel)]="selectedDonor.donorBloodType" required />
+            [value]="selectedDonor.donorBloodType" disabled />
         </div>
       </form>
     </mat-card-content>

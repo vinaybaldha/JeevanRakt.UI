@@ -18,7 +18,16 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
   styleUrl: './addingdonor.component.css',
 })
 export class AddingdonorComponent implements OnInit {
-  bloodGroups: string[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+  bloodGroups: string[] = [
+    'A_POSITIVE',
+    'A_NEGATIVE',
+    'B_POSITIVE',
+    'B_NEGATIVE',
+    'O_POSITIVE',
+    'O_NEGATIVE',
+    'AB_POSITIVE',
+    'AB_NEGATIVE',
+  ];
   loggedUser = '';
   tempUser = '';
   donor = new Donor();

@@ -98,7 +98,7 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'userprofile',
+    path: 'profile',
     loadComponent: () =>
       import('./components/user/userprofile/userprofile.component').then(
         (m) => m.UserprofileComponent

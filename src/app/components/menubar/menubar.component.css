@@ -78,3 +78,17 @@ mat-sidenav-content {
   border-left-color: var(--primary-color);
   background: rgba(0, 0, 0, 0.05);
 }
+.spinner-container {
+  width: 100%;
+  margin-top: 100px;
+}
+.mat-drawer-container {
+  position: relative;
+  z-index: 1;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #fafafa;
+  box-sizing: border-box;
+  -webkit-overflow-scrolling: touch;
+  display: block;
+  overflow: hidden;
+}

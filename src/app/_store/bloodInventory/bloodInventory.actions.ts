@@ -27,7 +27,7 @@ export const addInventorySuccess = createAction(
 
 export const updateInventory = createAction(
   UPDATE_INVENTORY,
-  props<{ inputData: BloodInventory; recipientId: string }>()
+  props<{ inputData: BloodInventory; recipientId?: string; donorId?: string }>()
 );
 export const updateInventorySuccess = createAction(
   UPDATE_INVENTORY_SUCCESS,
