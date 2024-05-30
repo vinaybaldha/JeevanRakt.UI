@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DonateComponent } from './donate.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { StoreModule } from '@ngrx/store';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('DonateComponent', () => {
   let component: DonateComponent;
@@ -11,13 +12,11 @@ describe('DonateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        DonateComponent,
-        HttpClientTestingModule,
+    imports: [DonateComponent,
         StoreModule.forRoot([]),
-        BrowserAnimationsModule,
-      ],
-    }).compileComponents();
+        BrowserAnimationsModule],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(DonateComponent);
     component = fixture.componentInstance;

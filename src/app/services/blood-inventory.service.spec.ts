@@ -1,15 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 
 import { BloodInventoryService } from './blood-inventory.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('BloodInventoryService', () => {
   let service: BloodInventoryService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-    }).compileComponents();
+    imports: [],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
     service = TestBed.inject(BloodInventoryService);
   });
 

@@ -5,6 +5,7 @@ import { DashboardComponent } from '../dashboard/dashboard.component';
 import { CommonModule } from '@angular/common';
 import { FeatureCardComponent } from '../../feature-card/feature-card.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FooterComponent } from '../../footer/footer.component';
 
 type Slide = {
   src: string;
@@ -22,6 +23,8 @@ type Slide = {
     CommonModule,
     FeatureCardComponent,
     FlexLayoutModule,
+    FooterComponent,
+    FooterComponent,
   ],
 })
 export class HomeComponent implements OnInit {

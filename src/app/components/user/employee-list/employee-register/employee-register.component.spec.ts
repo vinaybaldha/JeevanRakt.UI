@@ -2,9 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EmployeeRegisterComponent } from './employee-register.component';
 import { StoreModule } from '@ngrx/store';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('EmployeeRegisterComponent', () => {
   let component: EmployeeRegisterComponent;
@@ -12,14 +13,11 @@ describe('EmployeeRegisterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        EmployeeRegisterComponent,
+    imports: [EmployeeRegisterComponent,
         StoreModule.forRoot([]),
-        HttpClientTestingModule,
-        BrowserAnimationsModule,
-      ],
-      providers: [{ provide: ActivatedRoute, useValue: {} }],
-    }).compileComponents();
+        BrowserAnimationsModule],
+    providers: [{ provide: ActivatedRoute, useValue: {} }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(EmployeeRegisterComponent);
     component = fixture.componentInstance;

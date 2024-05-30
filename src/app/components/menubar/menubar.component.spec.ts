@@ -2,9 +2,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenubarComponent } from './menubar.component';
 import { StoreModule } from '@ngrx/store';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('MenubarComponent', () => {
   let component: MenubarComponent;
@@ -12,14 +13,11 @@ describe('MenubarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        MenubarComponent,
+    imports: [MenubarComponent,
         StoreModule.forRoot([]),
-        HttpClientTestingModule,
-        BrowserAnimationsModule,
-      ],
-      providers: [{ provide: ActivatedRoute, useValue: {} }],
-    }).compileComponents();
+        BrowserAnimationsModule],
+    providers: [{ provide: ActivatedRoute, useValue: {} }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(MenubarComponent);
     component = fixture.componentInstance;

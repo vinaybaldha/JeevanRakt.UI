@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { loadSpinner } from '../../_store/Globel/globel.actions';
 import { Filter } from '../../models/Filter';
 import { FormsModule } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-blood-banks',
@@ -39,6 +40,8 @@ export class BloodBanksComponent {
   filterQuery: string = '';
   minPage: number = 1;
   maxPage: number = 10;
+  totalItems: number = 100;
+  page: number = 1;
 
   constructor(
     private store: Store,
@@ -56,6 +59,7 @@ export class BloodBanksComponent {
       pageSize: this.pagesize,
       filterOn: this.filterOn,
       filterQuery: this.filterQuery,
+      page: this.page,
     };
     this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(loadBloodBank({ filter: this.filter }));
@@ -76,13 +80,16 @@ export class BloodBanksComponent {
   }
 
   getLocation() {
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.getLocationService().then((resp) => {
       console.log(resp);
+
       this.bankService
         .getNearestBloodBank(resp.lat, resp.lng)
         .subscribe((resp) => {
           this.bloodbank = resp;
           this.visible = true;
+          this.store.dispatch(loadSpinner({ isLoaded: false }));
         });
     });
   }
@@ -117,6 +124,13 @@ export class BloodBanksComponent {
     };
     this.filterQuery = '';
     this.filterOn = '';
+    this.loadBloodBanks();
+  }
+
+  pageEvent(event: PageEvent) {
+    this.pagesize = event.pageSize;
+    this.page = event.pageIndex + 1;
+
     this.loadBloodBanks();
   }
 }

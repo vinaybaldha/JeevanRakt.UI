@@ -3,8 +3,8 @@ import { HomeComponent } from './components/user/home/home.component';
 import { authGuard } from './services/auth.guard';
 
 export const routes: Routes = [
-  { path: 'home', component: HomeComponent, canActivate: [authGuard] },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'adddonor',
     loadComponent: () =>

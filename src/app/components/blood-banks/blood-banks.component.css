@@ -4,6 +4,7 @@
 
 .blood-bank-card {
   transition: transform 0.2s ease;
+  align-items: center;
 }
 
 .blood-bank-card:hover {
@@ -49,4 +50,8 @@ p {
 .mat-mdc-card {
   border-radius: 16px;
   box-shadow: 0 30px 30px -25px rgba(#4133b7, 0.25);
+}
+
+.location-card {
+  align-items: center;
 }

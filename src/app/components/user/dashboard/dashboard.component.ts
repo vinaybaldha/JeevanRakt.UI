@@ -7,6 +7,7 @@ import { DonorService } from '../../../services/donor.service';
 import { MaterialModule } from '../../../_module/Material.Module';
 import { AccountService } from '../../../services/account.service';
 import { DonateService } from '../../../services/donate.service';
+import { RecipientService } from '../../../services/recipient.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,9 +25,15 @@ export class DashboardComponent {
   donor = new Donor();
   number: Observable<any> | undefined;
   totalusers: Observable<any> | undefined;
-  totalbloodgroups: Observable<any> | undefined;
+  totalrecipients: Observable<any> | undefined;
 
-  constructor(private _router: Router, private donorService: DonorService, private authService:AccountService, private donateService:DonateService) {}
+  constructor(
+    private _router: Router,
+    private donorService: DonorService,
+    private authService: AccountService,
+    private donateService: DonateService,
+    private recipientService: RecipientService
+  ) {}
 
   ngOnInit(): void {
     this.tempUser = JSON.stringify(
@@ -42,7 +49,7 @@ export class DashboardComponent {
     this.msg = '';
     this.number = this.donorService.getTotalDonors();
     this.totalusers = this.authService.getTotalUsers();
-    this.totalbloodgroups = this.donateService.getTotalBloodGroups();
+    this.totalrecipients = this.recipientService.getTotalRecipients();
     // this.totalunits = this.donorService.getTotalUnits();
     // this.donationcount = this.donorService.getTotalDonationCount(
     //   this.loggedUser

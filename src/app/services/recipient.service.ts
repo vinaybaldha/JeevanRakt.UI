@@ -39,4 +39,8 @@ export class RecipientService {
   public deleteRecipient(id: string): Observable<any> {
     return this._http.delete<any>(`${NAV_URL}/Recipients/${id}`);
   }
+
+  public getTotalRecipients(): Observable<any> {
+    return this._http.get(`${NAV_URL}/recipients/totalrecipients`);
+  }
 }

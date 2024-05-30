@@ -43,7 +43,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
         MatBadgeModule,
         MatDialogModule,
         MatProgressSpinnerModule,
-        MatGridListModule
+        MatGridListModule,
+        MatMenuModule
     ]
 })
 export class MaterialModule{}

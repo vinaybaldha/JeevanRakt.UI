@@ -111,3 +111,7 @@ body {
 button {
   border-radius: 20px;
 }
+
+h1 {
+  text-align: center;
+}

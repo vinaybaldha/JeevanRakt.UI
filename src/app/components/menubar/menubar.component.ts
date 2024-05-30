@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { fetchMenu } from '../../_store/user/user.actions';
 import { loadSpinner } from '../../_store/Globel/globel.actions';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FooterComponent } from '../footer/footer.component';
 
 @Component({
   selector: 'app-menubar',
@@ -24,6 +25,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCommonModule,
     CommonModule,
     FlexLayoutModule,
+    FooterComponent,
   ],
 })
 export class MenubarComponent implements DoCheck, OnInit {
@@ -118,5 +120,13 @@ export class MenubarComponent implements DoCheck, OnInit {
         console.error('Error fetching notifications:', error);
       }
     );
+  }
+  onProfile() {
+    // Navigate to Profile
+    this.router.navigate(['/profile']);
+  }
+
+  onSettings() {
+    // Navigate to Settings
   }
 }

@@ -2,7 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResetPasswordComponent } from './reset-password.component';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('ResetPasswordComponent', () => {
   let component: ResetPasswordComponent;
@@ -10,22 +11,23 @@ describe('ResetPasswordComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ResetPasswordComponent, HttpClientTestingModule],
-      providers: [
+    imports: [ResetPasswordComponent],
+    providers: [
         {
-          provide: ActivatedRoute,
-          useValue: {
-            queryParams: {
-              subscribe: (fn: (value: any) => void) =>
-                fn({
-                  token: 'mockToken',
-                  email: 'mock@example.com',
-                }),
+            provide: ActivatedRoute,
+            useValue: {
+                queryParams: {
+                    subscribe: (fn: (value: any) => void) => fn({
+                        token: 'mockToken',
+                        email: 'mock@example.com',
+                    }),
+                },
             },
-          },
         },
-      ],
-    }).compileComponents();
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
+}).compileComponents();
 
     fixture = TestBed.createComponent(ResetPasswordComponent);
     component = fixture.componentInstance;

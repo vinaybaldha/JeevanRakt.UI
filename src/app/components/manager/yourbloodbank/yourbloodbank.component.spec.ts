@@ -2,7 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { YourbloodbankComponent } from './yourbloodbank.component';
 import { StoreModule } from '@ngrx/store';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 describe('YourbloodbankComponent', () => {
   let component: YourbloodbankComponent;
@@ -10,12 +11,10 @@ describe('YourbloodbankComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        YourbloodbankComponent,
-        StoreModule.forRoot([]),
-        HttpClientTestingModule,
-      ],
-    }).compileComponents();
+    imports: [YourbloodbankComponent,
+        StoreModule.forRoot([])],
+    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
+}).compileComponents();
 
     fixture = TestBed.createComponent(YourbloodbankComponent);
     component = fixture.componentInstance;
