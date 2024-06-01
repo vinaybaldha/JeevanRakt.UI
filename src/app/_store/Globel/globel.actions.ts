@@ -5,6 +5,7 @@ export const LOAD_SPINNER = '[globel] load spinner';
 export const CHECK_OUT = '[globel] check out';
 export const CHECK_OUT_SUCCESS = '[globel] check out success';
 export const ADD_NOTIFICATION = '[globel] add notification';
+export const CLEAR_NOTIFICATION = '[globel] clear notification';
 
 export const loadSpinner = createAction(
   LOAD_SPINNER,
@@ -20,3 +21,6 @@ export const addNotification = createAction(
   ADD_NOTIFICATION,
   props<{ notification: Notification }>()
 );
+export const clearNotification = createAction(
+  CLEAR_NOTIFICATION
+)

@@ -9,7 +9,7 @@ import { getMenuByRole, getProfileUrl } from '../../_store/user/user.selector';
 import { MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { fetchMenu } from '../../_store/user/user.actions';
-import { loadSpinner } from '../../_store/Globel/globel.actions';
+import { clearNotification, loadSpinner } from '../../_store/Globel/globel.actions';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FooterComponent } from '../footer/footer.component';
 import { getNotificationList } from '../../_store/Globel/globel.selector';
@@ -83,6 +83,8 @@ export class MenubarComponent implements DoCheck, OnInit, OnDestroy {
       .select(getNotificationList)
       .subscribe((item) => {
         this.notifications = item;
+        console.log(this.notifications);
+        this.notificationCount = this.notifications.length;
         this.badgevisible = this.notifications.length > 0 ? true : false;
       });
   }
@@ -103,9 +105,12 @@ export class MenubarComponent implements DoCheck, OnInit, OnDestroy {
   isMenuVisible: boolean = false;
   menulist!: RoleAccess[];
   showNotifications: boolean = false;
-  notifications: Notification[] = [];
+  notifications: Notification[] = [
+    
+  ];
   userInfo: userinfo | null = null;
   subscription: Subscription | undefined;
+  notificationCount: number = 0;
 
   onHome() {
     this.router.navigate(['home']);
@@ -123,19 +128,7 @@ export class MenubarComponent implements DoCheck, OnInit, OnDestroy {
     this.badgevisible = !this.badgevisible;
   }
 
-  fetchNotifications() {
-    // Call your service method to fetch notifications
-    this.authService.addNotification().subscribe(
-      (response: any) => {
-        // Assuming response is an array of notification messages
-        this.notifications = response;
-        this.showNotifications = true; // Show the notifications section
-      },
-      (error: any) => {
-        console.error('Error fetching notifications:', error);
-      }
-    );
-  }
+  
   onProfile() {
     // Navigate to Profile
     this.router.navigate(['/profile']);
@@ -144,4 +137,9 @@ export class MenubarComponent implements DoCheck, OnInit, OnDestroy {
   onSettings() {
     // Navigate to Settings
   }
+
+  clearNotification(){
+    this.store.dispatch(clearNotification());
+  }
 }
+

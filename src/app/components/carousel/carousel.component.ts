@@ -1,13 +1,13 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { CarouselModule } from '@syncfusion/ej2-angular-navigations/src/carousel/carousel.module';
+import { Component } from '@angular/core';
 
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 
-type Slide = {
-  img: string;
-};
+interface Slide {
+  image: string;
+  alt: string;
+  caption: string;
+}
 
 @Component({
   selector: 'app-carousel',
@@ -18,37 +18,34 @@ type Slide = {
 })
 export class CarouselComponent {
   slides: Slide[] = [
-    { img: 'assets/img/bd1.jpg' },
-    { img: 'assets/img/bd2.jpg' },
-    { img: 'assets/img/bd3.jpg' },
+    { image: 'assets/img/slide1.jpg', alt: 'Slide 1', caption: 'Slide 1 Caption' },
+    { image: 'assets/img/slide2.jpg', alt: 'Slide 2', caption: 'Slide 2 Caption' },
+    { image: 'assets/img/slide3.jpg', alt: 'Slide 3', caption: 'Slide 3 Caption' }
   ];
 
-  slideConfig = {
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    pauseOnHover: true,
-    infinite: true,
-    responsive: [
-      {
-        breakpoint: 992,
-        settings: {
-          arrows: true,
-          infinite: true,
-          slidesToShow: 3,
-          slidesToScroll: 3,
-        },
-      },
-      {
-        breakpoint: 768,
-        settings: {
-          arrows: true,
-          infinite: true,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
+  currentIndex: number = 0;
+
+  get currentTransform(): number {
+    return -this.currentIndex * 100;
+  }
+
+  constructor() {}
+
+  ngOnInit(): void {}
+
+  next(): void {
+    if (this.currentIndex < this.slides.length - 1) {
+      this.currentIndex++;
+    } else {
+      this.currentIndex = 0;
+    }
+  }
+
+  prev(): void {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+    } else {
+      this.currentIndex = this.slides.length - 1;
+    }
+  }
 }

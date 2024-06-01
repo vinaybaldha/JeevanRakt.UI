@@ -1,3 +1,4 @@
+<app-carousel></app-carousel>
 <div class="blood-banks">
   <h2>Blood Banks</h2>
   <div *ngIf="bloodBanks.length === 0; else bloodBankList">
@@ -38,7 +39,7 @@
     <div class="row" style="margin-top: 2%; margin-bottom: 2%;">
       <div class="col-3">
         <mat-form-field appearance="fill" style="width: 100%;">
-          <mat-label>Select Category</mat-label>
+         
           <mat-select [(ngModel)]="filterOn">
             <mat-option value="" disabled>Select Category</mat-option>
             <mat-option value="BloodBankName">Name</mat-option>
@@ -46,13 +47,16 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-3">
+      <div class="col-3" >
         <mat-form-field appearance="fill" style="width: 100%;">
           <mat-label>Search By</mat-label>
           <input matInput [(ngModel)]="filterQuery" placeholder="Search By">
         </mat-form-field>
       </div>
-      <div class="col-3">
+      <div class="col-3"style="
+      display: flex;
+      align-items: center;
+  ">
         <button mat-raised-button color="primary" (click)="loadBloodBanks()">Search</button>
         <button mat-raised-button color="warn" (click)="clear()" style="margin-left: 10px;">Clear</button>
       </div>

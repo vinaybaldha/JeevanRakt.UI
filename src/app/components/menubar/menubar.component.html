@@ -6,7 +6,10 @@
     <span>JeevanRakt</span>
     <img mat-card-avatar src="assets/img/fotor.png" />
     <span class="spacer"></span>
-    <div fxShow="true" fxHide.lt-md="true">
+    <div fxShow="true" fxHide.lt-md="true" style="
+    display: flex;
+    align-items: center;
+">
       <button mat-button (click)="onHome()"><mat-icon>home</mat-icon>Home</button>
       <!-- <button mat-button (click)="onAbout()">About</button> -->
       <!-- <button mat-button (click)="logout()">
@@ -39,18 +42,23 @@
         </button>
       </mat-menu>
       <span>{{ username }}</span>
-      <button (click)="fetchNotifications()" mat-icon-button [matMenuTriggerFor]="notificationMenu">
-        <mat-icon matBadge="15" matBadgeColor="accent" [matBadgeHidden]="!showNotifications" aria-hidden="false">{{
+      <button mat-icon-button [matMenuTriggerFor]="notificationMenu">
+        <mat-icon [matBadge]=notificationCount matBadgeColor="accent" [matBadgeHidden]="!badgevisible" aria-hidden="false">{{
           showNotifications ?
           'notifications_active' : 'notifications' }}</mat-icon>
       </button>
       <mat-menu #notificationMenu="matMenu">
         <ng-template matMenuContent>
-          <mat-list>
-            <mat-list-item *ngFor="let notification of notifications">
+          <mat-list >
+          
+            <mat-list-item class="check"  *ngFor="let notification of notifications">
               {{ notification.message }}
             </mat-list-item>
           </mat-list>
+          <div style="display: flex; justify-content: flex-end;">
+            <button mat-button (click)="clearNotification()">Clear</button>
+
+          </div>
         </ng-template>
       </mat-menu>
     </div>
@@ -78,12 +86,6 @@
     </mat-drawer>
     <mat-drawer-content>
       <div style="min-height: 600px;">
-        <div *ngIf="showNotifications">
-          <h2>Notifications</h2>
-          <ul>
-            <li *ngFor="let notification of notifications">{{ notification.message }}</li>
-          </ul>
-        </div>
         <router-outlet></router-outlet>
       </div>
     </mat-drawer-content>

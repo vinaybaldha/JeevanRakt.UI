@@ -15,13 +15,14 @@ import { loadSpinner } from '../../_store/Globel/globel.actions';
 import { Filter } from '../../models/Filter';
 import { FormsModule } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
+import { CarouselComponent } from "../carousel/carousel.component";
 
 @Component({
-  selector: 'app-blood-banks',
-  standalone: true,
-  imports: [CommonModule, MatCardModule, MaterialModule, FormsModule],
-  templateUrl: './blood-banks.component.html',
-  styleUrl: './blood-banks.component.css',
+    selector: 'app-blood-banks',
+    standalone: true,
+    templateUrl: './blood-banks.component.html',
+    styleUrl: './blood-banks.component.css',
+    imports: [CommonModule, MatCardModule, MaterialModule, FormsModule, CarouselComponent]
 })
 export class BloodBanksComponent {
   bloodBanks: BloodBank[] = [];

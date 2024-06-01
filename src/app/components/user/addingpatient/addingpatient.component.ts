@@ -10,6 +10,7 @@ import { AccountService } from '../../../services/account.service';
 import { BloodBank } from '../../../models/BloodBank';
 import { loadSpinner } from '../../../_store/Globel/globel.actions';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Notification } from '../../../models/Notification';
 
 @Component({
   selector: 'app-addingpatient',
@@ -31,8 +32,9 @@ export class AddingpatientComponent implements OnInit {
   ];
   genders: string[] = ['male', 'female', 'other'];
   bloodbank!: BloodBank;
-  recipient = new Recipient();
+  recipient:Recipient = new Recipient();
   closeMessage = 'close using directive';
+  notification: Notification = new Notification();
   @ViewChild('addrecipientform') addRecipientForm!: NgForm;
 
   constructor(
@@ -55,7 +57,10 @@ export class AddingpatientComponent implements OnInit {
     this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(addRecipient({ inputData: this.recipient }));
     this.addRecipientForm.resetForm();
-    this.authService.addNotification().subscribe((result) => {
+    this.notification.productID = guid;
+    this.notification.productName = this.recipient.recipientName;
+    this.notification.message = `blood request from ${this.recipient.recipientName}`
+    this.authService.addNotification(this.notification).subscribe((result) => {
       console.log('send notification');
     });
   }
@@ -65,3 +70,5 @@ export class AddingpatientComponent implements OnInit {
     this.ref.close('close using function');
   }
 }
+
+

@@ -3,6 +3,7 @@ import { globelState } from './globel.state';
 import {
   addNotification,
   checkOutSuccess,
+  clearNotification,
   loadSpinner,
 } from './globel.actions';
 
@@ -25,6 +26,12 @@ const _GlobelReducer = createReducer(
       ...state,
       notificationlist: [...state.notificationlist, action.notification],
     };
+  }),
+  on(clearNotification, (state, action) => {
+    return {
+      ...state,
+      notificationlist: [],
+    }
   })
 );
 

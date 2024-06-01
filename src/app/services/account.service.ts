@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { Employee, RoleAccess, userinfo } from '../models/Employee';
 import { Router } from '@angular/router';
 import { Upload } from '../models/UploadImage';
+import { Notification } from '../models/Notification';
 
 const NAV_URL = environment.apiURL;
 
@@ -188,8 +189,8 @@ export class AccountService {
     );
   }
 
-  addNotification() {
-    return this._http.get(`https://localhost:7016/api/Message`);
+  addNotification(notification: Notification) {
+    return this._http.post(`https://localhost:7016/api/Message`,notification);
   }
 
   autoLogout(expirationDuration: number) {

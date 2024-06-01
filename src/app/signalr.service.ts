@@ -33,7 +33,7 @@ export class SignalrService {
 
   showNotification(notification: Notification) {
     // this.toastr.warning( notification.message,notification.productID+" "+notification.productName);
-    console.log(notification);
+    // console.log(notification);
     // this.store.dispatch(
     //   showAlert({ message: notification.message, resptype: 'pass' })
     // );
