@@ -33,4 +33,10 @@ export class BloodInventoryService {
   public getBloodINventoryById(id: string): Observable<BloodInventory> {
     return this._http.get<BloodInventory>(`${NAV_URL}/BloodInventories/${id}`);
   }
+
+  public getTotalBloodstocks(): Observable<number> {
+    return this._http.get<number>(
+      `${NAV_URL}/BloodInventories/totalbloodstocks`
+    );
+  }
 }

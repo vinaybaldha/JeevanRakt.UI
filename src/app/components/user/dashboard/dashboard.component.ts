@@ -8,6 +8,8 @@ import { MaterialModule } from '../../../_module/Material.Module';
 import { AccountService } from '../../../services/account.service';
 import { DonateService } from '../../../services/donate.service';
 import { RecipientService } from '../../../services/recipient.service';
+import { BloodInventoryService } from '../../../services/blood-inventory.service';
+import { BloodBankService } from '../../../services/blood-bank.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -26,36 +28,24 @@ export class DashboardComponent {
   number: Observable<any> | undefined;
   totalusers: Observable<any> | undefined;
   totalrecipients: Observable<any> | undefined;
+  totalbloodstock: Observable<any> | undefined;
+  totalbloodbank: Observable<any> | undefined;
 
   constructor(
     private _router: Router,
     private donorService: DonorService,
     private authService: AccountService,
-    private donateService: DonateService,
-    private recipientService: RecipientService
+    private recipientService: RecipientService,
+    private bloodInventoryService: BloodInventoryService,
+    private bloodbankService: BloodBankService
   ) {}
 
   ngOnInit(): void {
-    this.tempUser = JSON.stringify(
-      sessionStorage.getItem('loggedUser') || '{}'
-    );
-    if (
-      this.tempUser.charAt(0) === '"' &&
-      this.tempUser.charAt(this.tempUser.length - 1) === '"'
-    ) {
-      this.tempUser = this.tempUser.substr(1, this.tempUser.length - 2);
-    }
-    this.loggedUser = this.tempUser;
-    this.msg = '';
     this.number = this.donorService.getTotalDonors();
     this.totalusers = this.authService.getTotalUsers();
     this.totalrecipients = this.recipientService.getTotalRecipients();
-    // this.totalunits = this.donorService.getTotalUnits();
-    // this.donationcount = this.donorService.getTotalDonationCount(
-    //   this.loggedUser
-    // );
-    // this.totalrequests = this.donorService.getTotalRequests(this.loggedUser);
-    // this.requests = this.donorService.getRequestHistory();
+    this.totalbloodstock = this.bloodInventoryService.getTotalBloodstocks();
+    this.totalbloodbank = this.bloodbankService.getTotalBloodBanks();
   }
 
   navigateHome() {

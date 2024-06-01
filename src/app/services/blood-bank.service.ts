@@ -48,4 +48,8 @@ export class BloodBankService {
   public deleteBloodBank(id: string): Observable<any> {
     return this._http.delete<any>(`${NAV_URL}/BloodBanks/${id}`);
   }
+
+  getTotalBloodBanks(): Observable<number> {
+    return this._http.get<number>(`${NAV_URL}/BloodBanks/totalbloodbanks`);
+  }
 }

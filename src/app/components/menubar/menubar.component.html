@@ -8,10 +8,10 @@
     <span class="spacer"></span>
     <div fxShow="true" fxHide.lt-md="true">
       <button mat-button (click)="onHome()"><mat-icon>home</mat-icon>Home</button>
-      <button mat-button (click)="onAbout()">About</button>
-      <button mat-button (click)="logout()">
+      <!-- <button mat-button (click)="onAbout()">About</button> -->
+      <!-- <button mat-button (click)="logout()">
         <mat-icon>logout</mat-icon>Logout
-      </button>
+      </button> -->
       <button mat-raised-button color="accent" [routerLink]="'/login'" style="margin: 1%;" *ngIf="!userInfo">
         <mat-icon>login</mat-icon>
         Login
@@ -39,11 +39,20 @@
         </button>
       </mat-menu>
       <span>{{ username }}</span>
-      <button (click)="fetchNotifications()" mat-icon-button>
+      <button (click)="fetchNotifications()" mat-icon-button [matMenuTriggerFor]="notificationMenu">
         <mat-icon matBadge="15" matBadgeColor="accent" [matBadgeHidden]="!showNotifications" aria-hidden="false">{{
           showNotifications ?
           'notifications_active' : 'notifications' }}</mat-icon>
       </button>
+      <mat-menu #notificationMenu="matMenu">
+        <ng-template matMenuContent>
+          <mat-list>
+            <mat-list-item *ngFor="let notification of notifications">
+              {{ notification.message }}
+            </mat-list-item>
+          </mat-list>
+        </ng-template>
+      </mat-menu>
     </div>
   </mat-toolbar>
   <mat-drawer-container autosize>
@@ -72,7 +81,7 @@
         <div *ngIf="showNotifications">
           <h2>Notifications</h2>
           <ul>
-            <li *ngFor="let notification of notifications">{{ notification }}</li>
+            <li *ngFor="let notification of notifications">{{ notification.message }}</li>
           </ul>
         </div>
         <router-outlet></router-outlet>
@@ -84,4 +93,3 @@
   <router-outlet></router-outlet>
 
 </div>
-<app-loadingspinner></app-loadingspinner>

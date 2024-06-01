@@ -1,4 +1,4 @@
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { Component, DoCheck, OnDestroy, OnInit } from '@angular/core';
 import { MaterialModule } from '../../_module/Material.Module';
 import { Router, RouterModule } from '@angular/router';
 import { LoadingspinnerComponent } from '../loadingspinner/loadingspinner.component';
@@ -12,6 +12,9 @@ import { fetchMenu } from '../../_store/user/user.actions';
 import { loadSpinner } from '../../_store/Globel/globel.actions';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FooterComponent } from '../footer/footer.component';
+import { getNotificationList } from '../../_store/Globel/globel.selector';
+import { Notification } from '../../models/Notification';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-menubar',
@@ -28,7 +31,7 @@ import { FooterComponent } from '../footer/footer.component';
     FooterComponent,
   ],
 })
-export class MenubarComponent implements DoCheck, OnInit {
+export class MenubarComponent implements DoCheck, OnInit, OnDestroy {
   constructor(
     private router: Router,
     private store: Store,
@@ -56,6 +59,11 @@ export class MenubarComponent implements DoCheck, OnInit {
       }
     });
   }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
   ngOnInit(): void {
     if (localStorage.getItem('userdata') != null) {
       let jsonString = localStorage.getItem('userdata') as string;
@@ -71,6 +79,12 @@ export class MenubarComponent implements DoCheck, OnInit {
         this.profileUrl = item;
       }
     });
+    this.subscription = this.store
+      .select(getNotificationList)
+      .subscribe((item) => {
+        this.notifications = item;
+        this.badgevisible = this.notifications.length > 0 ? true : false;
+      });
   }
   ngDoCheck(): void {
     const currentRoute = this.router.url;
@@ -89,8 +103,9 @@ export class MenubarComponent implements DoCheck, OnInit {
   isMenuVisible: boolean = false;
   menulist!: RoleAccess[];
   showNotifications: boolean = false;
-  notifications: string[] = [];
+  notifications: Notification[] = [];
   userInfo: userinfo | null = null;
+  subscription: Subscription | undefined;
 
   onHome() {
     this.router.navigate(['home']);

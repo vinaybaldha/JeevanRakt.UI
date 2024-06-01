@@ -3,6 +3,7 @@ import * as signalR from '@microsoft/signalr';
 import { Notification } from './models/Notification';
 import { Store } from '@ngrx/store';
 import { showAlert } from './_store/donor/donor.actions';
+import { addNotification } from './_store/Globel/globel.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -33,8 +34,9 @@ export class SignalrService {
   showNotification(notification: Notification) {
     // this.toastr.warning( notification.message,notification.productID+" "+notification.productName);
     console.log(notification);
-    this.store.dispatch(
-      showAlert({ message: notification.message, resptype: 'pass' })
-    );
+    // this.store.dispatch(
+    //   showAlert({ message: notification.message, resptype: 'pass' })
+    // );
+    this.store.dispatch(addNotification({ notification: notification }));
   }
 }

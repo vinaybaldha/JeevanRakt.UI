@@ -2,35 +2,59 @@
   <b>User Dashboard</b>
 </div>
 
-<mat-card class="mat-card bg-light" id="bloodCards">
-  <mat-card-content class="text-left">
-    <div style="font-weight: bolder; font-size: 28px">
-      Total Donors <mat-icon>favorite</mat-icon>
-    </div>
-    <div style="color: maroon; text-transform: capitalize; font-size: 20px; font-weight: bolder;">
-      {{ number | async }} donors
-    </div>
-  </mat-card-content>
-</mat-card>
+<div class="row">
+  <mat-card class="mat-card bg-light" id="bloodCards">
+    <mat-card-content class="text-left">
+      <div style="font-weight: bolder; font-size: 22px">
+        Total Donors <mat-icon>favorite</mat-icon>
+      </div>
+      <div style="color: maroon; text-transform: capitalize; font-size: 20px; font-weight: bolder;">
+        {{ number | async }} donors
+      </div>
+    </mat-card-content>
+  </mat-card>
 
-<mat-card class="mat-card bg-light" id="bloodCards">
-  <mat-card-content class="text-left">
-    <div style="font-weight: bolder; font-size: 28px">
-      Total Registered Users <mat-icon>person</mat-icon>
-    </div>
-    <div style="color: maroon; text-transform: capitalize; font-size: 20px; font-weight: bolder;">
-      {{ totalusers | async }} users
-    </div>
-  </mat-card-content>
-</mat-card>
+  <mat-card class="mat-card bg-light" id="bloodCards">
+    <mat-card-content class="text-left">
+      <div style="font-weight: bolder; font-size: 22px">
+        Total Registered Users <mat-icon>person</mat-icon>
+      </div>
+      <div style="color: maroon; text-transform: capitalize; font-size: 20px; font-weight: bolder;">
+        {{ totalusers | async }} users
+      </div>
+    </mat-card-content>
+  </mat-card>
 
-<mat-card class="mat-card bg-light" id="bloodCards">
-  <mat-card-content class="text-left">
-    <div style="font-weight: bolder; font-size: 28px">
-      Total Recipients <mat-icon>format_list_bulleted</mat-icon>
-    </div>
-    <div style="color: maroon; text-transform: capitalize; font-size: 20px; font-weight: bolder;">
-      {{ totalrecipients | async }} Recipients
-    </div>
-  </mat-card-content>
-</mat-card>
+  <mat-card class="mat-card bg-light" id="bloodCards">
+    <mat-card-content class="text-left">
+      <div style="font-weight: bolder; font-size: 22px">
+        Total Recipients <mat-icon>format_list_bulleted</mat-icon>
+      </div>
+      <div style="color: maroon; text-transform: capitalize; font-size: 20px; font-weight: bolder;">
+        {{ totalrecipients | async }} Recipients
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mat-card bg-light" id="bloodCards">
+    <mat-card-content class="text-left">
+      <div style="font-weight: bolder; font-size: 22px">
+        Total BloodStock <mat-icon>format_list_bulleted</mat-icon>
+      </div>
+      <div style="color: maroon; text-transform: capitalize; font-size: 20px; font-weight: bolder;">
+        {{ totalbloodstock | async }} Units
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="mat-card bg-light" id="bloodCards">
+    <mat-card-content class="text-left">
+      <div style="font-weight: bolder; font-size: 22px">
+        Total BloodBanks <mat-icon>format_list_bulleted</mat-icon>
+      </div>
+      <div style="color: maroon; text-transform: capitalize; font-size: 20px; font-weight: bolder;">
+        {{ totalbloodbank | async }} Units
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

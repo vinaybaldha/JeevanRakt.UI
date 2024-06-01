@@ -57,3 +57,10 @@ mat-icon {
   transform: scale(1.05); /* Scale up by 5% on hover */
   cursor: pointer; /* Change cursor to pointer on hover */
 }
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 20px;
+}
