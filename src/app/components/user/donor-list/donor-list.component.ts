@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Donor } from '../../../models/donor';
@@ -47,6 +47,12 @@ export class DonorListComponent implements OnInit {
     donorAddress: '',
     bloodBankId: '',
   };
+  private timer: any = null;
+  public loadedAll: boolean = false;
+  @HostListener('window:scroll', ['$event'])
+  scrollHandler(event: any) {
+    this.detectBottom();
+  }
 
   constructor(
     private store: Store,
@@ -125,5 +131,28 @@ export class DonorListComponent implements OnInit {
       console.log(item);
       this.reloadData();
     });
+  }
+
+  detectBottom(): void {
+    const scrollContainer = document.documentElement || document.body;
+    if ((scrollContainer.scrollTop + window.innerHeight) >= (scrollContainer.scrollHeight - 10)) {
+      this.loadMoreItems();
+    }
+  }
+
+  loadMoreItems() {
+    if (!this.loadedAll) {
+      console.log('Loading more items');
+      this.store.dispatch(loadSpinner({ isLoaded: true }));
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
+
+      this.timer = setTimeout(() => {
+        this.timer = null;
+        this.filter.page += 1;
+        this.reloadData();
+      }, 250);
+    }
   }
 }
