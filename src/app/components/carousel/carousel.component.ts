@@ -18,9 +18,9 @@ interface Slide {
 })
 export class CarouselComponent {
   slides: Slide[] = [
-    { image: 'assets/img/slide1.jpg', alt: 'Slide 1', caption: 'Slide 1 Caption' },
-    { image: 'assets/img/slide2.jpg', alt: 'Slide 2', caption: 'Slide 2 Caption' },
-    { image: 'assets/img/slide3.jpg', alt: 'Slide 3', caption: 'Slide 3 Caption' }
+    { image: 'assets/img/bg1.jpg', alt: 'Slide 1', caption: 'Slide 1 Caption' },
+    { image: 'assets/img/bg2.jpg', alt: 'Slide 2', caption: 'Slide 2 Caption' },
+    { image: 'assets/img/bg3.jpg', alt: 'Slide 3', caption: 'Slide 3 Caption' },
   ];
 
   currentIndex: number = 0;
