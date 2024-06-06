@@ -6,8 +6,8 @@
       <option value="DonorName">Name</option>
       <option value="DonorAge">Age</option>
       <option value="DonorGender">Gender</option>
-      <option value="DonorContactNumber">BloodType</option>
-      <option value="DonorGender">Gender</option>
+      <option value="DonorContactNumber">Contact Number</option>
+      <option value="DonorBloodType">Blood Type</option>
       <option value="DonorAddress">Address</option>
     </select>
   </div>
@@ -27,7 +27,6 @@
           <option value="12">12</option>
           <option value="24">24</option>
           <option value="48">48</option>
-
           <option value="100">100</option>
         </select> entries</label>
     </div>
@@ -47,38 +46,26 @@
 
 <div class="row">
   <div *ngFor="let donor of donors" class="example-card">
-    <!-- Material cards -->
     <mat-card class="mat">
       <mat-card-header>
         <mat-card-title-group>
           <mat-card-title>Name: {{ donor.donorName }}</mat-card-title>
           <mat-card-subtitle>
             Blood Group:
-            <span class="element" style="color: red">{{
-              donor.donorBloodType
-              }}</span></mat-card-subtitle>
-
+            <span class="element" style="color: red">{{ donor.donorBloodType }}</span>
+          </mat-card-subtitle>
         </mat-card-title-group>
       </mat-card-header>
-      <img mat-card-avatar *ngIf="donor.donorGender.toLowerCase() === 'male'" mat-card-sm-image
-        src="assets/img/male.png" />
-      <img mat-card-avatar *ngIf="donor.donorGender.toLowerCase() === 'female'" mat-card-sm-image
-        src="assets/img/female.png" />
-      <img mat-card-avatar *ngIf="donor.donorGender.toLowerCase() === 'other'" mat-card-sm-image
-        src="assets/img/male.png" />
-      <mat-card-content> Gender: {{ donor.donorGender }} </mat-card-content>
-      <mat-card-content> Address: {{ donor.donorAddress }} </mat-card-content>
-      <mat-card-content> Age: {{ donor.donorAge }} </mat-card-content>
-      <mat-card-content>
-        Contact: {{ donor.donorContactNumber }}
-      </mat-card-content>
+      <img mat-card-avatar *ngIf="donor.donorGender.toLowerCase() === 'male'" mat-card-sm-image src="assets/img/male.png" />
+      <img mat-card-avatar *ngIf="donor.donorGender.toLowerCase() === 'female'" mat-card-sm-image src="assets/img/female.png" />
+      <img mat-card-avatar *ngIf="donor.donorGender.toLowerCase() === 'other'" mat-card-sm-image src="assets/img/other.png" />
+      <mat-card-content>Gender: {{ donor.donorGender }}</mat-card-content>
+      <mat-card-content>Address: {{ donor.donorAddress }}</mat-card-content>
+      <mat-card-content>Age: {{ donor.donorAge }}</mat-card-content>
+      <mat-card-content>Contact: {{ donor.donorContactNumber }}</mat-card-content>
       <mat-card-actions>
-        <button mat-flat-button (click)="editDonor(donor)" color="primary" style="margin-right: 25px">
-          Edit
-        </button>
-        <button mat-flat-button (click)="deleteDonor(donor)" color="warn">
-          Delete
-        </button>
+        <button mat-flat-button (click)="editDonor(donor)" color="primary" style="margin-right: 25px">Edit</button>
+        <button mat-flat-button (click)="deleteDonor(donor)" color="warn">Delete</button>
       </mat-card-actions>
     </mat-card>
   </div>
