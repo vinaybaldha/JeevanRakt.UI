@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class SuccessComponent implements OnInit {
   constructor(private router: Router) {}
   ngOnInit(): void {
+    
     setTimeout(() => {
       this.router.navigate(['/blood-requests']);
     }, 5000);

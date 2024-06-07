@@ -58,3 +58,4 @@ export class BloodRequestsComponent implements OnInit {
     this.store.dispatch(checkOut({ id: recipient.recipientId }));
   }
 }
+

@@ -36,10 +36,10 @@ export class SignalrService {
     // this.authService.isAdmin.subscribe((res) => {
     //   this.roles = res ? 'Admin' : 'User';
     // });
-    this.roles = localStorage.getItem('roles');
-    console.log(`Adding user to role group: ${this.roles}`);
+    // this.roles = localStorage.getItem('userdata[role]');
+    console.log(`Adding user to role group: ${this.userInfo.role}`);
     this.hubConnection
-      .invoke('AddToRoleGroup', this.roles)
+      .invoke('AddToRoleGroup', this.userInfo.role)
       .catch((err) => console.error('Error while adding to group: ' + err));
   }
 

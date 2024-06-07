@@ -17,13 +17,18 @@ import {
 import { catchError, exhaustMap, map, of, switchMap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { loadSpinner } from '../Globel/globel.actions';
+import { Notification } from '../../models/Notification';
+import { Recipient } from '../../models/Recipient';
+import { AccountService } from '../../services/account.service';
+import { Donor } from '../../models/donor';
 
 @Injectable()
 export class DonorEffects {
   constructor(
     private action$: Actions,
     private donorService: DonorService,
-    private _snackbar: MatSnackBar
+    private _snackbar: MatSnackBar,
+    private authService: AccountService
   ) {}
 
   _loadDonor = createEffect(() =>
@@ -55,7 +60,14 @@ export class DonorEffects {
       ofType(addDonor),
       switchMap((action) => {
         return this.donorService.addDonorFromRemote(action.inputData).pipe(
-          switchMap((data) => {
+          switchMap((data:Donor) => {
+            var notification = new Notification()
+            notification.productID = data.donorId;
+            notification.productName = data.donorName;
+            notification.message = `blood donation request from ${data.donorName}`
+            this.authService.addNotification(notification).subscribe((result) => {
+              console.log('send notification');
+            });
             return of(
               addDonorSuccess({ inputData: action.inputData }),
               loadSpinner({ isLoaded: false }),

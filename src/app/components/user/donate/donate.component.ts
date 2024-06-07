@@ -32,6 +32,7 @@ import { DonorService } from '../../../services/donor.service';
   imports: [FormsModule, CommonModule, MaterialModule],
   templateUrl: './donate.component.html',
   styleUrl: './donate.component.css',
+  providers: [DonateService],
 })
 export class DonateComponent implements OnInit {
   constructor(

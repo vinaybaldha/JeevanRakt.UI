@@ -6,7 +6,6 @@ import { Donor } from '../../../models/donor';
 import { DonorService } from '../../../services/donor.service';
 import { MaterialModule } from '../../../_module/Material.Module';
 import { AccountService } from '../../../services/account.service';
-import { DonateService } from '../../../services/donate.service';
 import { RecipientService } from '../../../services/recipient.service';
 import { BloodInventoryService } from '../../../services/blood-inventory.service';
 import { BloodBankService } from '../../../services/blood-bank.service';

@@ -55,6 +55,7 @@ export class AddingdonorComponent implements OnInit {
     this.donor.bloodBankId = this.bloodbank.bloodBankId;
     this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(addDonor({ inputData: this.donor }));
+    
   }
 
   closePopup() {

@@ -57,12 +57,6 @@ export class AddingpatientComponent implements OnInit {
     this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(addRecipient({ inputData: this.recipient }));
     this.addRecipientForm.resetForm();
-    this.notification.productID = guid;
-    this.notification.productName = this.recipient.recipientName;
-    this.notification.message = `blood request from ${this.recipient.recipientName}`
-    this.authService.addNotification(this.notification).subscribe((result) => {
-      console.log('send notification');
-    });
   }
 
   closePopup() {

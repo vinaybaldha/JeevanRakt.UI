@@ -83,7 +83,6 @@ export class MenubarComponent implements DoCheck, OnInit, OnDestroy {
       .select(getNotificationList)
       .subscribe((item) => {
         this.notifications = item;
-        console.log(this.notifications);
         this.notificationCount = this.notifications.length;
         this.badgevisible = this.notifications.length > 0 ? true : false;
       });
