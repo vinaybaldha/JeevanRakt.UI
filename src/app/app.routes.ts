@@ -160,4 +160,11 @@ export const routes: Routes = [
         (m) => m.BloodRequestsComponent
       ),
   },
+  {
+    path: 'addbloodbank',
+    loadComponent: () =>
+      import('./components/user/addbloodbank/addbloodbank.component').then(
+        (m) => m.AddbloodbankComponent
+      ),
+  },
 ];

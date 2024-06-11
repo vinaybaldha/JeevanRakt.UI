@@ -1,0 +1,26 @@
+<form #bloodbankform="ngForm" (ngSubmit)="submit()" class="fix">
+    <h1 mat-dialog-title>Add new Bloodbank</h1>
+    <div mat-dialog-content>
+        <mat-form-field appearance="fill" class="mat-50">
+            <mat-label>Bloodbank Name</mat-label>
+            <input matInput placeholder="Enter bloodbank name" name="bloodbankname"
+                [(ngModel)]="bloodbank.bloodBankName" required #bloodbankname="ngModel"
+                [class.is-invalid]="bloodbankname.invalid && bloodbankname.touched" />
+            <mat-error *ngIf="bloodbankname.invalid && bloodbankname.touched">Required field</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="mat-50">
+            <mat-label>Address</mat-label>
+            <input matInput class="form-control" placeholder="Enter bloodbank address" name="address"
+                [(ngModel)]="bloodbank.address" required #address="ngModel"
+                [class.is-invalid]="address.invalid && address.touched" />
+            <mat-error *ngIf="address.invalid && address.touched">Required field</mat-error>
+        </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+        <button mat-raised-button color="warn" [disabled]="bloodbankform.form.invalid" type="submit">
+            Add Bloodbank
+        </button>
+        <button mat-raised-button color="accent" (click)="onCancel()">Cancel</button>
+    </div>
+</form>
