@@ -52,4 +52,10 @@ export class BloodBankService {
   getTotalBloodBanks(): Observable<number> {
     return this._http.get<number>(`${NAV_URL}/BloodBanks/totalbloodbanks`);
   }
+
+  getPendingBloodBanks(): Observable<BloodBank[]> {
+    return this._http.get<BloodBank[]>(
+      `${NAV_URL}/BloodBanks/getpendingbloodbanks`
+    );
+  }
 }

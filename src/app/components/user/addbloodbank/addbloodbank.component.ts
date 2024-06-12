@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { BloodBank } from '../../../models/BloodBank';
 import { BloodBankService } from '../../../services/blood-bank.service';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { loadSpinner } from '../../../_store/Globel/globel.actions';
+import { addBloodBank } from '../../../_store/blood-bank/bloodbank.actions';
 
 @Component({
   selector: 'app-addbloodbank',
@@ -16,12 +19,16 @@ import { Router } from '@angular/router';
 export class AddbloodbankComponent {
   constructor(
     private bloodbankService: BloodBankService,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {}
 
-  bloodbank!: BloodBank;
+  bloodbank: BloodBank = new BloodBank();
 
-  submit() {}
+  submit() {
+    this.store.dispatch(loadSpinner({ isLoaded: true }));
+    this.store.dispatch(addBloodBank({ inputData: this.bloodbank }));
+  }
 
   onCancel() {
     this.router.navigate(['home']);
