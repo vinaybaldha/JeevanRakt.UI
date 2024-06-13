@@ -9,7 +9,10 @@ import { getMenuByRole, getProfileUrl } from '../../_store/user/user.selector';
 import { MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { fetchMenu } from '../../_store/user/user.actions';
-import { clearNotification, loadSpinner } from '../../_store/Globel/globel.actions';
+import {
+  clearNotification,
+  loadSpinner,
+} from '../../_store/Globel/globel.actions';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FooterComponent } from '../footer/footer.component';
 import { getNotificationList } from '../../_store/Globel/globel.selector';
@@ -104,9 +107,7 @@ export class MenubarComponent implements DoCheck, OnInit, OnDestroy {
   isMenuVisible: boolean = false;
   menulist!: RoleAccess[];
   showNotifications: boolean = false;
-  notifications: Notification[] = [
-    
-  ];
+  notifications: Notification[] = [];
   userInfo: userinfo | null = null;
   subscription: Subscription | undefined;
   notificationCount: number = 0;
@@ -127,7 +128,6 @@ export class MenubarComponent implements DoCheck, OnInit, OnDestroy {
     this.badgevisible = !this.badgevisible;
   }
 
-  
   onProfile() {
     // Navigate to Profile
     this.router.navigate(['/profile']);
@@ -137,8 +137,19 @@ export class MenubarComponent implements DoCheck, OnInit, OnDestroy {
     // Navigate to Settings
   }
 
-  clearNotification(){
+  clearNotification() {
     this.store.dispatch(clearNotification());
   }
-}
 
+  login() {
+    this.router.navigate(['login']);
+  }
+
+  registor() {
+    this.router.navigate(['register']);
+  }
+
+  addbloodbank() {
+    this.router.navigate(['addbloodbank']);
+  }
+}

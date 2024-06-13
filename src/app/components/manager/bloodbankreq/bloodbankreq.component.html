@@ -1,0 +1,68 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title class="mat-card-title">BloodBank Request</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="mat-elevation-z8">
+            <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <!-- Recipient Name Column -->
+                <ng-container matColumnDef="recipientName">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Recipient Name </th>
+                    <td mat-cell *matCellDef="let recipient"> {{ recipient.recipientName }} </td>
+                </ng-container>
+
+                <!-- Age Column -->
+                <ng-container matColumnDef="recipientAge">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Age </th>
+                    <td mat-cell *matCellDef="let recipient"> {{ recipient.recipientAge }} </td>
+                </ng-container>
+
+                <!-- Blood Type Column -->
+                <ng-container matColumnDef="recipientBloodType">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Blood Type </th>
+                    <td mat-cell *matCellDef="let recipient"> {{ recipient.recipientBloodType }} </td>
+                </ng-container>
+
+                <!-- Contact Number Column -->
+                <ng-container matColumnDef="recipientContactNumber">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Contact Number </th>
+                    <td mat-cell *matCellDef="let recipient"> {{ recipient.recipientContactNumber }} </td>
+                </ng-container>
+
+                <!-- Gender Column -->
+                <ng-container matColumnDef="recipientGender">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Gender </th>
+                    <td mat-cell *matCellDef="let recipient"> {{ recipient.recipientGender }} </td>
+                </ng-container>
+
+                <!-- Address Column -->
+                <ng-container matColumnDef="recipientAddress">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Address </th>
+                    <td mat-cell *matCellDef="let recipient"> {{ recipient.recipientAddress }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="paymentStatus">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Payment Status </th>
+                    <td mat-cell *matCellDef="let recipient"> {{ recipient.paymentStatus }} </td>
+                </ng-container>
+
+                <!-- Transfer Button Column -->
+                <ng-container matColumnDef="pay">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Action </th>
+                    <td mat-cell *matCellDef="let recipient">
+                        <button mat-raised-button color="primary" (click)="onPay(recipient)">Pay Now</button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            </table>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+<div *ngIf="!available">
+    <h2>No Blood Request Found</h2>
+</div>

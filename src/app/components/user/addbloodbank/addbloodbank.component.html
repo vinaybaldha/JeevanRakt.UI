@@ -1,0 +1,37 @@
+<form #bloodbankform="ngForm" (ngSubmit)="submit()">
+    <h1>Add new Bloodbank</h1>
+
+    <mat-form-field appearance="fill" class="mat-50">
+        <mat-label>Bloodbank Name</mat-label>
+        <input matInput placeholder="Enter bloodbank name" name="bloodbankname" [(ngModel)]="bloodbank.bloodBankName"
+            required #bloodbankname="ngModel" [class.is-invalid]="bloodbankname.invalid && bloodbankname.touched" />
+        <mat-error *ngIf="bloodbankname.invalid && bloodbankname.touched">Required field</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="mat-50">
+        <mat-label>Address</mat-label>
+        <input matInput placeholder="Enter bloodbank address" name="address" [(ngModel)]="bloodbank.address" required
+            #address="ngModel" [class.is-invalid]="address.invalid && address.touched" />
+        <mat-error *ngIf="address.invalid && address.touched">Required field</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="mat-50">
+        <mat-label>Latitude</mat-label>
+        <input matInput placeholder="Enter latitude" name="lat" [(ngModel)]="bloodbank.latitude" required #lat="ngModel"
+            [class.is-invalid]="lat.invalid && lat.touched" />
+        <mat-error *ngIf="lat.invalid && lat.touched">Required field</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="mat-50">
+        <mat-label>Longitude</mat-label>
+        <input matInput placeholder="Enter longitude" name="long" [(ngModel)]="bloodbank.longitude" required
+            #long="ngModel" [class.is-invalid]="long.invalid && long.touched" />
+        <mat-error *ngIf="long.invalid && long.touched">Required field</mat-error>
+    </mat-form-field>
+
+
+    <button mat-raised-button color="warn" [disabled]="bloodbankform.form.invalid" type="submit">
+        Add Bloodbank
+    </button>
+    <button mat-raised-button color="accent" (click)="onCancel()">Cancel</button>
+
+</form>

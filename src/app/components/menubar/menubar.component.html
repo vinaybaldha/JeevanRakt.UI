@@ -36,22 +36,35 @@
           <mat-icon>settings</mat-icon>
           <span>Settings</span>
         </button>
+        <button mat-menu-item (click)="login()">
+          <mat-icon>login</mat-icon>
+          <span>Login</span>
+        </button>
         <button mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
           <span>Logout</span>
         </button>
+        <button mat-menu-item (click)="registor()">
+          <mat-icon>register</mat-icon>
+          <span>Register</span>
+        </button>
+        <button mat-menu-item (click)="addbloodbank()">
+          <mat-icon>register</mat-icon>
+          <span>Add Your BloodBank</span>
+        </button>
       </mat-menu>
       <span>{{ username }}</span>
       <button mat-icon-button [matMenuTriggerFor]="notificationMenu">
-        <mat-icon [matBadge]=notificationCount matBadgeColor="accent" [matBadgeHidden]="!badgevisible" aria-hidden="false">{{
+        <mat-icon [matBadge]=notificationCount matBadgeColor="accent" [matBadgeHidden]="!badgevisible"
+          aria-hidden="false">{{
           showNotifications ?
           'notifications_active' : 'notifications' }}</mat-icon>
       </button>
       <mat-menu #notificationMenu="matMenu">
         <ng-template matMenuContent>
-          <mat-list >
-          
-            <mat-list-item class="check"  *ngFor="let notification of notifications">
+          <mat-list>
+
+            <mat-list-item class="check" *ngFor="let notification of notifications">
               {{ notification.message }}
             </mat-list-item>
           </mat-list>
