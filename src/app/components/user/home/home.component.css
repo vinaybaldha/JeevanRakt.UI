@@ -32,9 +32,9 @@
 }
 
 .image-container {
-  flex: 1;
-  text-align: center;
-  margin: 20px;
+  flex: 1; 
+  display: flex;
+  justify-content: center; 
 }
 
 .image-container img {
@@ -62,4 +62,14 @@ mat-divider {
   .example-card {
     flex: 1 1 calc(100% - 20px);
   }
+}
+
+.mat-list {
+  flex: 1;
+  min-width: 300px; 
+}
+
+.donation-image{
+  max-width: 100%; 
+  height: auto; 
 }
