@@ -6,11 +6,11 @@ export class BloodBank {
   bloodBankId: string = '';
   bloodBankName: string = '';
   address: string = '';
-  donors: Donor[] = [];
-  recipients: Recipient[] = [];
+  donors?: Donor[];
+  recipients?: Recipient[];
   latitude: number = 0;
   longitude: number = 0;
-  bloodInventory: BloodInventory = new BloodInventory();
+  bloodInventory?: BloodInventory;
   constructor() {}
 }
 
@@ -19,4 +19,5 @@ export interface BloodBankModel {
   errormessage: string;
   bloodbank: BloodBank;
   pages: number;
+  pendingbloodbank: BloodBank[];
 }

@@ -6,52 +6,34 @@
         <div class="mat-elevation-z8">
             <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-                <!-- Recipient Name Column -->
-                <ng-container matColumnDef="recipientName">
-                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Recipient Name </th>
-                    <td mat-cell *matCellDef="let recipient"> {{ recipient.recipientName }} </td>
-                </ng-container>
-
-                <!-- Age Column -->
-                <ng-container matColumnDef="recipientAge">
-                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Age </th>
-                    <td mat-cell *matCellDef="let recipient"> {{ recipient.recipientAge }} </td>
-                </ng-container>
-
-                <!-- Blood Type Column -->
-                <ng-container matColumnDef="recipientBloodType">
-                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Blood Type </th>
-                    <td mat-cell *matCellDef="let recipient"> {{ recipient.recipientBloodType }} </td>
-                </ng-container>
-
-                <!-- Contact Number Column -->
-                <ng-container matColumnDef="recipientContactNumber">
-                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Contact Number </th>
-                    <td mat-cell *matCellDef="let recipient"> {{ recipient.recipientContactNumber }} </td>
-                </ng-container>
-
-                <!-- Gender Column -->
-                <ng-container matColumnDef="recipientGender">
-                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Gender </th>
-                    <td mat-cell *matCellDef="let recipient"> {{ recipient.recipientGender }} </td>
+                <!-- bloodbank Name Column -->
+                <ng-container matColumnDef="bloodBankName">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> BloodBank Name </th>
+                    <td mat-cell *matCellDef="let bloodbank"> {{ bloodbank.bloodbankName }} </td>
                 </ng-container>
 
                 <!-- Address Column -->
-                <ng-container matColumnDef="recipientAddress">
+                <ng-container matColumnDef="address">
                     <th mat-sort-header mat-header-cell *matHeaderCellDef> Address </th>
-                    <td mat-cell *matCellDef="let recipient"> {{ recipient.recipientAddress }} </td>
+                    <td mat-cell *matCellDef="let bloodbank"> {{ bloodbank.address }} </td>
                 </ng-container>
 
-                <ng-container matColumnDef="paymentStatus">
-                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Payment Status </th>
-                    <td mat-cell *matCellDef="let recipient"> {{ recipient.paymentStatus }} </td>
+                <ng-container matColumnDef="latitude">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Latitude </th>
+                    <td mat-cell *matCellDef="let bloodbank"> {{ bloodbank.latitude }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="longitude">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Longitude </th>
+                    <td mat-cell *matCellDef="let bloodbank"> {{ bloodbank.longitude }} </td>
                 </ng-container>
 
                 <!-- Transfer Button Column -->
-                <ng-container matColumnDef="pay">
+                <ng-container matColumnDef="approve">
                     <th mat-sort-header mat-header-cell *matHeaderCellDef> Action </th>
-                    <td mat-cell *matCellDef="let recipient">
-                        <button mat-raised-button color="primary" (click)="onPay(recipient)">Pay Now</button>
+                    <td mat-cell *matCellDef="let bloodbank">
+                        <button mat-raised-button color="primary" (click)="approveRequest(bloodbank)">Make BloodBank
+                            Admin</button>
                     </td>
                 </ng-container>
 
@@ -64,5 +46,5 @@
 </mat-card>
 
 <div *ngIf="!available">
-    <h2>No Blood Request Found</h2>
+    <h2>No BloodBank Request Found</h2>
 </div>

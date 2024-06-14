@@ -1,10 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import {
   addBloodBankSuccess,
+  approveBloodBankRequestSuccess,
   deleteBloodBankSuccess,
   loadBloodBankByIdSuccess,
   loadBloodBankFail,
   loadBloodBankSuccess,
+  loadPendingBloodBank,
+  loadPendingBloodBankSuccess,
   updateBloodBankSuccess,
 } from './bloodbank.actions';
 import { bloodbankState } from './bloodbank.state';
@@ -17,6 +20,13 @@ const _BloodBankReducer = createReducer(
       ...state,
       list: action.list,
       pages: action.pages,
+      errormessage: '',
+    };
+  }),
+  on(loadPendingBloodBankSuccess, (state, action) => {
+    return {
+      ...state,
+      pendingbloodbank: action.list,
       errormessage: '',
     };
   }),
@@ -71,6 +81,17 @@ const _BloodBankReducer = createReducer(
       };
     }
     return state;
+  }),
+  on(approveBloodBankRequestSuccess, (state, action) => {
+    let _newdata = state.pendingbloodbank.filter(
+      (o) => o.bloodBankId != action.bloodbankId
+    );
+    return {
+      ...state,
+      pendingbloodbank: _newdata,
+      errormessage: '',
+      isLoaded: false,
+    };
   })
 );
 

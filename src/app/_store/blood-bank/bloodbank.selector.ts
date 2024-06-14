@@ -7,6 +7,13 @@ export const getBloodBankList = createSelector(getBloodBankState, (state) => {
   return state.list;
 });
 
+export const getPendingBloodBankList = createSelector(
+  getBloodBankState,
+  (state) => {
+    return state.pendingbloodbank;
+  }
+);
+
 export const getBloodBank = createSelector(getBloodBankState, (state) => {
   return state.bloodbank;
 });

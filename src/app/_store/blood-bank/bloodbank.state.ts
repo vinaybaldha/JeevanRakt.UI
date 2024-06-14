@@ -4,5 +4,6 @@ export const bloodbankState: BloodBankModel = {
   list: [],
   errormessage: '',
   bloodbank: new BloodBank(),
-  pages:1
+  pages: 1,
+  pendingbloodbank: [],
 };

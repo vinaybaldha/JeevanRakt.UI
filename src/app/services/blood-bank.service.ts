@@ -58,4 +58,10 @@ export class BloodBankService {
       `${NAV_URL}/BloodBanks/getpendingbloodbanks`
     );
   }
+
+  approveBloodBankRequest(bloodbankId: string) {
+    return this._http.get(
+      `${NAV_URL}/BloodBanks/approve?bloodBankId=${bloodbankId}`
+    );
+  }
 }

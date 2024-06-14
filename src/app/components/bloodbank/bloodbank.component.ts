@@ -22,7 +22,7 @@ Chart.register(...registerables);
 export class BloodbankComponent implements OnInit {
   bloodbank!: BloodBank;
   totalDonors: number = 0;
-  totalRecipients: number = 0;
+  totalRecipients!: number;
   chartData: Blood[] = [];
   labeldata: string[] = [];
   realdata: number[] = [];
@@ -37,17 +37,41 @@ export class BloodbankComponent implements OnInit {
   ngOnInit(): void {
     this.bankService.bloodbank.subscribe((item: BloodBank) => {
       this.bloodbank = item;
-      this.totalDonors = item.donors.length;
-      this.totalRecipients = item.recipients.length;
+      this.totalDonors = item.donors ? item.donors.length : 0;
+      this.totalRecipients = item.recipients ? item.recipients.length : 0;
       this.chartData = [
-        { bloodGroup: 'A+', bloodStock: item.bloodInventory.a1 },
-        { bloodGroup: 'A-', bloodStock: item.bloodInventory.a2 },
-        { bloodGroup: 'B+', bloodStock: item.bloodInventory.b1 },
-        { bloodGroup: 'B-', bloodStock: item.bloodInventory.b2 },
-        { bloodGroup: 'AB+', bloodStock: item.bloodInventory.aB1 },
-        { bloodGroup: 'AB-', bloodStock: item.bloodInventory.aB2 },
-        { bloodGroup: 'O+', bloodStock: item.bloodInventory.o1 },
-        { bloodGroup: 'O-', bloodStock: item.bloodInventory.o2 },
+        {
+          bloodGroup: 'A+',
+          bloodStock: item.bloodInventory ? item.bloodInventory.a1 : 0,
+        },
+        {
+          bloodGroup: 'A-',
+          bloodStock: item.bloodInventory ? item.bloodInventory.a2 : 0,
+        },
+        {
+          bloodGroup: 'B+',
+          bloodStock: item.bloodInventory ? item.bloodInventory.b1 : 0,
+        },
+        {
+          bloodGroup: 'B-',
+          bloodStock: item.bloodInventory ? item.bloodInventory.b2 : 0,
+        },
+        {
+          bloodGroup: 'AB+',
+          bloodStock: item.bloodInventory ? item.bloodInventory.aB1 : 0,
+        },
+        {
+          bloodGroup: 'AB-',
+          bloodStock: item.bloodInventory ? item.bloodInventory.aB2 : 0,
+        },
+        {
+          bloodGroup: 'O+',
+          bloodStock: item.bloodInventory ? item.bloodInventory.o1 : 0,
+        },
+        {
+          bloodGroup: 'O-',
+          bloodStock: item.bloodInventory ? item.bloodInventory.o2 : 0,
+        },
       ];
       if (this.chartData != null) {
         this.chartData.map((o) => {

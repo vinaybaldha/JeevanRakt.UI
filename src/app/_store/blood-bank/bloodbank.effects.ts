@@ -5,6 +5,8 @@ import { BloodBankService } from '../../services/blood-bank.service';
 import {
   addBloodBank,
   addBloodBankSuccess,
+  approveBloodBankRequest,
+  approveBloodBankRequestSuccess,
   deleteBloodBank,
   deleteBloodBankSuccess,
   emptyAction,
@@ -13,6 +15,9 @@ import {
   loadBloodBankByIdSuccess,
   loadBloodBankFail,
   loadBloodBankSuccess,
+  loadPendingBloodBank,
+  loadPendingBloodBankFail,
+  loadPendingBloodBankSuccess,
   showAlert,
   updateBloodBank,
   updateBloodBankSuccess,
@@ -20,6 +25,7 @@ import {
 import { loadInventory } from '../bloodInventory/bloodInventory.actions';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { loadSpinner } from '../Globel/globel.actions';
+import { BloodBank } from '../../models/BloodBank';
 
 @Injectable()
 export class BloodBankEffects {
@@ -46,6 +52,30 @@ export class BloodBankEffects {
           catchError((_err) =>
             of(
               loadBloodBankFail({ errormessage: _err.message }),
+              loadSpinner({ isLoaded: false })
+            )
+          )
+        );
+      })
+    )
+  );
+
+  _loadPendingBloodBank = createEffect(() =>
+    this.action$.pipe(
+      ofType(loadPendingBloodBank),
+      switchMap((action) => {
+        return this.bloodbankService.getPendingBloodBanks().pipe(
+          switchMap((data) => {
+            return of(
+              loadPendingBloodBankSuccess({
+                list: data,
+              }),
+              loadSpinner({ isLoaded: false })
+            );
+          }),
+          catchError((_err) =>
+            of(
+              loadPendingBloodBankFail({ errormessage: _err.message }),
               loadSpinner({ isLoaded: false })
             )
           )
@@ -147,6 +177,39 @@ export class BloodBankEffects {
             )
           )
         );
+      })
+    )
+  );
+
+  _approveBloodRequest = createEffect(() =>
+    this.action$.pipe(
+      ofType(approveBloodBankRequest),
+      switchMap((action) => {
+        return this.bloodbankService
+          .approveBloodBankRequest(action.bloodbankId)
+          .pipe(
+            switchMap((data) => {
+              return of(
+                approveBloodBankRequestSuccess({
+                  bloodbankId: action.bloodbankId,
+                }),
+                showAlert({
+                  message: 'bloodbank request approved successfully.',
+                  resptype: 'pass',
+                }),
+                loadSpinner({ isLoaded: false })
+              );
+            }),
+            catchError((_err) =>
+              of(
+                showAlert({
+                  message: `approve request fail.`,
+                  resptype: 'fail',
+                }),
+                loadSpinner({ isLoaded: false })
+              )
+            )
+          );
       })
     )
   );

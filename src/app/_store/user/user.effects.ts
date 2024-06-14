@@ -122,7 +122,10 @@ export class UserEffects {
                 loadSpinner({ isLoaded: false })
               );
             } else {
-              return of(duplicateUserSuccess({ isDuplicate: false }));
+              return of(
+                duplicateUserSuccess({ isDuplicate: false }),
+                loadSpinner({ isLoaded: false })
+              );
             }
           }),
           catchError((_err) =>

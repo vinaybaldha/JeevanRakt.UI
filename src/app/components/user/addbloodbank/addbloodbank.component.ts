@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loadSpinner } from '../../../_store/Globel/globel.actions';
 import { addBloodBank } from '../../../_store/blood-bank/bloodbank.actions';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-addbloodbank',
@@ -26,6 +27,8 @@ export class AddbloodbankComponent {
   bloodbank: BloodBank = new BloodBank();
 
   submit() {
+    var guid = uuidv4();
+    this.bloodbank.bloodBankId = guid;
     this.store.dispatch(loadSpinner({ isLoaded: true }));
     this.store.dispatch(addBloodBank({ inputData: this.bloodbank }));
   }

@@ -10,6 +10,12 @@ export const LOAD_BLOODBANK_BY_ID = '[bloodbank] load bloodbank by id';
 export const LOAD_BLOODBANK_BY_ID_SUCC =
   '[bloodbank] load bloodbank by id success';
 
+export const LOAD_PENDING_BLOODBANK = '[bloodbank] load pendingbloodbank';
+export const LOAD_PENDING_BLOODBANK_SUCCESS =
+  '[bloodbank] load pendingbloodbank success';
+export const LOAD_PENDING_BLOODBANK_FAIL =
+  '[bloodbank] load pendingbloodbank fail';
+
 export const ADD_BLOODBANK = '[bloodbank] add bloodbank';
 export const ADD_BLOODBANK_SUCCESS = '[bloodbank] add bloodbank success';
 
@@ -18,6 +24,11 @@ export const UPDATE_BLOODBANK_SUCCESS = '[bloodbank] update bloodbank success';
 
 export const DELETE_BLOODBANK = '[bloodbank] delete bloodbank';
 export const DELETE_BLOODBANK_SUCCESS = '[bloodbank] delete bloodbank success';
+
+export const APPROVE_BLOODBANK_REQUEST =
+  '[bloodbank] approve bloodbank request';
+export const APPROVE_BLOODBANK_REQUEST_SUCCESS =
+  '[bloodbank] approve bloodbank request success';
 
 export const SHOW_ALERT = '[bloodbank] show alert';
 
@@ -34,10 +45,21 @@ export const loadBloodBankFail = createAction(
   props<{ errormessage: string }>()
 );
 
+export const loadPendingBloodBank = createAction(LOAD_PENDING_BLOODBANK);
+export const loadPendingBloodBankSuccess = createAction(
+  LOAD_PENDING_BLOODBANK_SUCCESS,
+  props<{ list: BloodBank[] }>()
+);
+export const loadPendingBloodBankFail = createAction(
+  LOAD_PENDING_BLOODBANK_FAIL,
+  props<{ errormessage: string }>()
+);
+
 export const loadBloodBankById = createAction(
   LOAD_BLOODBANK_BY_ID,
   props<{ id: string }>()
 );
+
 export const loadBloodBankByIdSuccess = createAction(
   LOAD_BLOODBANK_BY_ID_SUCC,
   props<{ bloodbank: BloodBank }>()
@@ -67,6 +89,15 @@ export const deleteBloodBank = createAction(
 );
 export const deleteBloodBankSuccess = createAction(
   DELETE_BLOODBANK_SUCCESS,
+  props<{ bloodbankId: string }>()
+);
+
+export const approveBloodBankRequest = createAction(
+  APPROVE_BLOODBANK_REQUEST,
+  props<{ bloodbankId: string }>()
+);
+export const approveBloodBankRequestSuccess = createAction(
+  APPROVE_BLOODBANK_REQUEST_SUCCESS,
   props<{ bloodbankId: string }>()
 );
 
